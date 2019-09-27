@@ -1,4 +1,5 @@
 const env = process.env.NODE_ENV;
+const env_user = process.env.USER;
 const express = require('express');
 const path = require('path');
 
@@ -24,7 +25,7 @@ if(env == "heroku"){
   client.end() //just closing connection
 } else{
   const { Client } = require('pg');
-  const connectionString = "postgres://postgres:postgres@localhost:5432/capstone";
+  const connectionString = `postgres://${env_user}:postgres@localhost:5432/capstone`;
   const client = new Client({
     connectionString: connectionString
   });
