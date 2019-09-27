@@ -1,3 +1,4 @@
+const env = process.env.NODE_ENV;
 const express = require('express');
 const path = require('path');
 
@@ -11,7 +12,28 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
+const { Client } = require('pg');
+
+if(env == "heroku"){
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
+  console.log("Heroku db connected") 
+  client.end() //just closing connection
+} else{
+  const { Client } = require('pg');
+  const connectionString = "postgres://postgres:postgres@localhost:5432/capstone";
+  const client = new Client({
+    connectionString: connectionString
+  });
+  client.connect();
+  console.log("connect to local")
+  client.end();
+}
+
+
+
 const port = process.env.PORT || 5000;
 app.listen(port);
-
-console.log(`Heroku is working`);
