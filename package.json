@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "version": "0.1.0",
+  "name": "sociallearningplatform",
+  "version": "1.0.0",
   "engines": {
     "node":"11.8.0"
   },
