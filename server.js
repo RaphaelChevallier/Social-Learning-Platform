@@ -23,7 +23,14 @@ if(env == "heroku"){
   console.log("Heroku db connected") 
   client.end() //just closing connection
 } else{
+  const { Client } = require('pg');
+  const connectionString = "postgres://postgres:postgres@localhost:5432/capstone";
+  const client = new Client({
+    connectionString: connectionString
+  });
+  client.connect();
   console.log("connect to local")
+  client.end();
 }
 
 
