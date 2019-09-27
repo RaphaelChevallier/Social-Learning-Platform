@@ -12,12 +12,16 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
-const Pool = require('pg').Pool
+const { Client } = require('pg');
+
 if(env == "heroku"){
-  var db = new pg.Client(DATABASE_URL);
-  db.connect();
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+  client.connect();
   console.log("Heroku db connected") 
-  db.end() //just closing connection
+  client.end() //just closing connection
 } else{
   console.log("connect to local")
 }
