@@ -29,9 +29,10 @@ if(env == "heroku"){
   const client = new Client({
     connectionString: connectionString
   });
-  client.connect();
-  console.log("connect to local")
-  client.end();
+  client.connect()
+  .then(() => console.log("Connected Successfully to local"))
+  .catch(e => console.log)
+  .finally(() => client.end())
 }
 
 
