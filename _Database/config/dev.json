@@ -1,0 +1,11 @@
+{ 
+    "dev": {
+        "host": "ec2-107-21-126-201.compute-1.amazonaws.com",
+        "user": "nyxazyirdeiqjh",
+        "password": "2b136b2e3a70408a9afa6a5cbb89e4870c230042a553f3d7da32679729169df0",
+        "database": "dfhccvuf3pjv6n",
+        "driver": "pg",
+        "multipleStatements": true,
+        "ssl": true
+    }, "sql-file": true 
+} 

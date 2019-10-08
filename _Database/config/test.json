@@ -1,0 +1,10 @@
+{ 
+    "dev": {
+        "host": "localhost",
+        "user": "root",
+        "password": "password",
+        "database": "capstone",
+        "driver": "pg",
+        "multipleStatements": true
+    }, "sql-file": true 
+} 
