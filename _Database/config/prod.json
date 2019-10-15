@@ -5,6 +5,7 @@
         "password": "2d2f0ea0c66b39b8526e225b0004252bad1655467ec88daa52227f6956bf711a",
         "database": "d2r9ua3bsrc210",
         "driver": "pg",
-        "multipleStatements": true
+        "multipleStatements": true,
+        "ssl": true
     }, "sql-file": true 
 } 
