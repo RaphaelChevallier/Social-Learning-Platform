@@ -1,2 +1,5 @@
 /* Replace with your SQL commands */
-drop table "User";
+DROP TABLE "MENTOR";
+DROP TABLE "AMBASSADOR";
+DROP TABLE "DEPARTMENT";
+DROP TABLE "USER";
