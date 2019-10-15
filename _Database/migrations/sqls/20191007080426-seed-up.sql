@@ -1,13 +1,13 @@
 /* Replace with your SQL commands */
 CREATE TABLE "DEPARTMENT"(
     dept_id      SERIAL PRIMARY KEY,
-    dept_name    VARCHAR
+    dept_name    VARCHAR(50)
 );
 
 CREATE TABLE "AMBASSADOR"(
-    ambass_id   SERIAL PRIMARY KEY NOT NULL,
+    ambass_id       SERIAL PRIMARY KEY NOT NULL,
     specialization  VARCHAR NOT NULL,
-    dept_id  SERIAL NOT NULL,
+    dept_id         SERIAL NOT NULL,
     FOREIGN KEY (dept_id) REFERENCES "DEPARTMENT"(dept_id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
@@ -17,13 +17,13 @@ CREATE TABLE "USER" (
     firstname   VARCHAR(50) NOT NULL,
     lastname    VARCHAR(50) NOT NULL,
     bdate       DATE,
-    Gender      VARCHAR,
-    country     VARCHAR,
-    province    VARCHAR,
-    city        VARCHAR,
+    gender      VARCHAR(10),
+    country     VARCHAR(20),
+    province    VARCHAR(50),
+    city        VARCHAR(30),
     email       VARCHAR,
     subscribed  BOOLEAN,
-    dept_id      SERIAL,
+    dept_id     SERIAL,
     mentor_id   SERIAL,
     -- FOREIGN KEY(mentor_id) REFERENCES "MENTOR"(mentor_id)ON DELETE NO ACTION ON UPDATE CASCADE,
     FOREIGN KEY (dept_id) REFERENCES "DEPARTMENT"(dept_id) ON DELETE NO ACTION ON UPDATE CASCADE     
