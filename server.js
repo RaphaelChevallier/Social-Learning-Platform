@@ -1,10 +1,23 @@
 const env = process.env.NODE_ENV;
 const env_user = process.env.USER;
 const express = require('express');
+var cors = require('cors');
 const path = require('path');
+var bodyParser = require('body-parser')
+
+var Users = require('./routes/Users')
 
 const app = express();
 
+app.use(cors());
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+)
+
+app.use("/Users", Users);
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 // The "catchall" handler: for any request that doesn't
@@ -12,6 +25,9 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
+
+//app.use('/users', Users)
+
 
 const { Client } = require('pg');
 
@@ -30,7 +46,6 @@ if(env == "heroku"){
     connectionString: connectionString
   });
   client.connect()
-  .then(() => console.log("Connected Successfully to local"))
   .catch(e => console.log)
   .finally(() => client.end())
 }
