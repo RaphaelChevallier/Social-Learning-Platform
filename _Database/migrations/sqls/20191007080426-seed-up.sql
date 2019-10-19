@@ -8,6 +8,7 @@ CREATE TABLE "AMBASSADOR"(
     ambass_id       SERIAL PRIMARY KEY NOT NULL,
     specialization  VARCHAR NOT NULL,
     dept_id         SERIAL NOT NULL,
+    user_id         SERIAL,
     FOREIGN KEY (dept_id) REFERENCES "DEPARTMENT"(dept_id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
@@ -19,7 +20,6 @@ CREATE TABLE "MENTOR" (
     ambass_id   SERIAL,
     dept_id     SERIAL,
     PRIMARY KEY (mentor_id),
-    FOREIGN KEY (ambass_id) REFERENCES "AMBASSADOR"(ambass_id) ON DELETE NO ACTION ON UPDATE CASCADE,
     FOREIGN KEY (dept_id) REFERENCES "DEPARTMENT"(dept_id) ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
@@ -35,12 +35,16 @@ CREATE TABLE "USER" (
     email       VARCHAR,
     subscribed  BOOLEAN,
     dept_id     SERIAL,
-    mentor_id   SERIAL,
-    FOREIGN KEY(mentor_id) REFERENCES "MENTOR"(mentor_id)ON DELETE NO ACTION ON UPDATE CASCADE,
-    FOREIGN KEY (dept_id) REFERENCES "DEPARTMENT"(dept_id) ON DELETE NO ACTION ON UPDATE CASCADE     
+    mentor_id   SERIAL
 );
 
 ALTER TABLE "MENTOR"
+ADD CONSTRAINT constraint_fk
+FOREIGN KEY (user_id)
+REFERENCES "USER" (user_id)
+ON DELETE CASCADE;
+
+ALTER TABLE "AMBASSADOR"
 ADD CONSTRAINT constraint_fk
 FOREIGN KEY (user_id)
 REFERENCES "USER" (user_id)
