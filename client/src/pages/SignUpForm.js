@@ -31,7 +31,7 @@ class SignUpForm extends Component{
         console.log('The form was submitted with the following data:');
         console.log(this.state);
         axios
-          .post('http://localhost:5000/Users/register', this.state)
+          .post('/Users/register', this.state)
           .then(() => console.log('User Info sent to Backend for validation'))
           .catch(err => {
             console.error(err);

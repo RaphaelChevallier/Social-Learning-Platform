@@ -29,7 +29,7 @@ class SignInForm extends Component {
     console.log("The form was submitted with the following data:");
     console.log(this.state);
     axios
-      .post('http://localhost:5000/Users/signIn', this.state)
+      .post('/Users/signIn', this.state)
       .then(() => console.log('User Info sent to Backend for validation'))
       .catch(err => {
         console.error(err);
