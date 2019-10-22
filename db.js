@@ -1,11 +1,11 @@
-const env = process.env.NODE_ENV;
+const env = process.env.HEROKU_ENV;
 const env_user = process.env.USER || "root";
 var db;
 const { Client } = require('pg');
 
 function connectDatabase() {
     if (!db) {
-        if(env == heroku){
+        if(env == "heroku"){
             db = new Client({
               connectionString: process.env.DATABASE_URL,
               ssl: true,
