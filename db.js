@@ -1,4 +1,4 @@
-const env = process.env.HEROKU_ENV;
+const env = process.env.USE_HEROKU_DB;
 const env_user = process.env.USER || "root";
 var db;
 const { Client } = require('pg');
