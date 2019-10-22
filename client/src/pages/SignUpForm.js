@@ -11,14 +11,15 @@ class SignUpForm extends Component{
             hasAgreed: false
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleSumbit = this.handleSubmit.bind(this);
-
-    this.setState({
-      [name]: value
-    });
+        this.handleSubmit = this.handleSubmit.bind(this);
+      
+    
   }
-  handleSubmit(e) {
-    e.preventDefault();
+  handleChange(e) {
+   
+    let target = e.target;
+    let value = target.type === "checkbox" ? target.checked : target.value;
+    let name = target.name;
 
         this.setState({
             [name]: value
