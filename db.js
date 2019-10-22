@@ -1,5 +1,5 @@
 const env = process.env.NODE_ENV;
-const env_user = process.env.USER || process.env.USERNAME;
+const env_user = process.env.USER || "root";
 var db;
 const { Client } = require('pg');
 
