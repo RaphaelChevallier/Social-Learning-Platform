@@ -37,5 +37,5 @@ if(env == "heroku"){
 
 
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5432;
 app.listen(port);

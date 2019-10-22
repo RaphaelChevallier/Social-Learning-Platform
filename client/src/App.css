@@ -7,14 +7,17 @@
   }
   
   .App_Aside {
-    width: 50%;
+    width: 10%;
     background-color: rgb(134, 174, 211);
     
    
   }
+  App_Aside:active {
+    color: yellow;
+  }
   
   .App_Form {
-    width: 50%;
+    width: 90%;
      background-color: #e9bd6d;
     padding: 25px 40px;
     overflow: auto;
@@ -23,6 +26,9 @@
     
     
   }
+  App_Form:active {
+    color: yellow;
+  }
   
   .PageSwitcher {
     display: flex;
@@ -30,19 +36,17 @@
     margin-bottom: 10%;
   }
   
-  
+
   
   .FormCenter {
     margin: 0 auto;
     margin-bottom: 100px;
     
   }
+ 
   
   .FormTitle {
-   position: absolute;
-    left: 50%;
-     top: 5%;
-     transform: translate(-45%, -50%);
+  
     color: #707C8B;
     font-weight: 300;
     margin-bottom: 50px;
@@ -106,7 +110,7 @@
     
   }
   .FormField_Button2 {
-    background-color: rgb(223, 203, 95);
+    background-color: rgb(216, 157, 46);
     color: white;
     border: none;
     outline: none;

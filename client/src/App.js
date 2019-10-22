@@ -37,14 +37,7 @@ class App extends Component {
                 Sign Up
               </NavLink>
             </div>
-            {/* <div className="PageSwitcher">
-            <NavLink to="/sign-in" activeClassName="PageSwitcher_Item--Active" className="PageSwitcher_Item">
-              Sign In
-            </NavLink>
-            <NavLink exact to="/" activeClassName="PageSwitcher_Item--Active" className="PageSwitcher_Item">
-              Sign Up
-            </NavLink>
-          </div> */}
+            
          
 
             <Route exact path="/" component={SignUpForm}></Route>
