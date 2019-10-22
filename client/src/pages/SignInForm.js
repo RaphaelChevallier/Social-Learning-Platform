@@ -14,13 +14,6 @@ class SignInForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-//   callAPI() {
-//     fetch("http://localhost:5000/Users")
-//         .then(res => res.text())
-//         .then(res => this.setState({ apiResponse: res }))
-//         .catch(err => err);
-// }
-
   handleChange(e) {
     let target = e.target;
     let value = target.type === "checkbox" ? target.checked : target.value;

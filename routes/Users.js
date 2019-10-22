@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/signIn', function(req, res, next) {  
   var email = req.body.email;
-  var signInPassword = req.body.password;
+  var signInPassword = JSON.stringify(req.body.password);
   console.log(loginValidate(req.body))
   if(loginValidate(req.body)){
     db.query('SELECT * FROM "USER" WHERE email = $1', [email], (error, results) => {
@@ -20,7 +20,7 @@ router.post('/signIn', function(req, res, next) {
       if(isEmpty(results.rows)){
         console.log("No email like " + email);
       } else{
-        var passwordDB= JSON.stringify(results.rows[0].password);
+        var passwordDB= results.rows[0].password;
         bcrypt.compare(signInPassword, passwordDB, function(err, res) {
           if(res) {
             console.log("Successful login!");
@@ -37,20 +37,18 @@ router.post('/signIn', function(req, res, next) {
 
 
 router.post('/register', function(req, res, next) {
-    var password = req.body.password;
-    var fullname = req.body.name.replace(/\s+/g, '')
-    var firstname = fullname.split(' ').slice(0, -1).join(' ');
-    var lastname = fullname.split(' ').slice(-1).join(' ');
+    var password = JSON.stringify(req.body.password);
+    var firstname = req.body.name.split(' ').slice(0, -1).join(' ');
+    var lastname = req.body.name.split(' ').slice(-1).join(' ');
     if(registerValidate(req.body)){
       bcrypt.hash(password, saltRounds, function(err, hash) {
-        db.query('IF NOT EXISTS(SELECT email FROM "USER" WHERE email = $1) INSERT INTO "USER"(firstname, lastname, email, password) VALUES ($2, $3, $4, $5)', [req.body.email, firstname, lastname, req.body.email, hash], (error, results) => {
-          if (error) {
+        db.query('INSERT INTO "USER"(firstname, lastname, email, password) VALUES ($1, $2, $3, $4) ', [firstname, lastname, req.body.email, hash], (error, results) => {
+          if(error) {
             console.log("Something went wrong with the db");
             console.log(results);
-            throw error;
+            console.log(error.message || error);
           }
           console.log("Added the user " + firstname + " " + lastname + "!")
-          console.log(results);
         });
       });
     } else{
