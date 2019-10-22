@@ -1,6 +1,6 @@
 const env = process.env.USE_HEROKU_DB;
 const env_user = process.env.USER || "root";
-var db;
+const db;
 const { Client } = require('pg');
 
 function connectDatabase() {
