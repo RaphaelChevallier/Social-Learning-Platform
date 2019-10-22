@@ -1,16 +1,16 @@
 const env = process.env.USE_HEROKU_DB;
 const env_user = process.env.USER || "root";
-const db;
 const { Client } = require('pg');
+var db;
 
 function connectDatabase() {
     if (!db) {
         if(process.env.USE_HEROKU_DB == 'heroku'){
-            db = new Client({
+            const database = new Client({
               connectionString: process.env.DATABASE_URL,
               ssl: true,
             });
-            db.connect(function(err){
+            database.connect(function(err){
                 if(!err) {
                     console.log('Heroku Database is connected!');
                 } else {
@@ -18,12 +18,14 @@ function connectDatabase() {
                     console.log(err);
                 }
             });
+            db = database
+            return database
           } else{
             const connectionString = `postgres://${env_user}:postgres@localhost:5432/capstone`;
-            db = new Client({
+            const database = new Client({
               connectionString: connectionString
             });
-            db.connect(function(err){
+            database.connect(function(err){
                 if(!err) {
                     console.log('Local Database is connected!');
                 } else {
@@ -31,9 +33,10 @@ function connectDatabase() {
                     console.log(err);
                 }
             });
+            db = database
+            return database
           }
     }
-    return db;
 }
 
 module.exports = connectDatabase();
