@@ -32,7 +32,7 @@ CREATE TABLE "USER" (
     country     VARCHAR(20),
     province    VARCHAR(50),
     city        VARCHAR(30),
-    email       VARCHAR,
+    email       VARCHAR UNIQUE,
     subscribed  BOOLEAN,
     dept_id     SERIAL,
     mentor_id   SERIAL
