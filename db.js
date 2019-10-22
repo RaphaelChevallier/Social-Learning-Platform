@@ -5,7 +5,7 @@ const { Client } = require('pg');
 
 function connectDatabase() {
     if (!db) {
-        if(process.env.USE_HEROKU_DB){
+        if(process.env.USE_HEROKU_DB == 'heroku'){
             db = new Client({
               connectionString: process.env.DATABASE_URL,
               ssl: true,
