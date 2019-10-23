@@ -42,7 +42,7 @@ router.post('/register', function(req, res, next) {
     var firstname = req.body.name.split(' ').slice(0, -1).join(' ');
     var lastname = req.body.name.split(' ').slice(-1).join(' ');
     var canRegister = false;
-    if(registerValidate(req.body) && req.body.hasAgreed == true){
+    if(registerValidate(req.body).isValid == true && req.body.hasAgreed == true){
       bcrypt.hash(password, saltRounds, function(err, hash) {
         db.query('INSERT INTO "USER"(firstname, lastname, email, password) VALUES ($1, $2, $3, $4) ', [firstname, lastname, req.body.email, hash], (error, results) => {
           if(error) {
@@ -59,10 +59,8 @@ router.post('/register', function(req, res, next) {
         });
       });
     } else{
-      res.send("The validation for the fields didn't pass")
-      console.log('validation didn\'t pass');
-      res.send(canRegister)
-      res.end(loginValidate(req.body).errors);
+      res.json(registerValidate(req.body).errors);
+      res.end();
     }
 });
 

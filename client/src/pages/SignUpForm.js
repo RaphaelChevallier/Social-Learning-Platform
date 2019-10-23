@@ -31,19 +31,30 @@ class SignUpForm extends Component{
       e.preventDefault();
       axios
         .post('/Users/register', this.state)
-        .then(res => { if(res.data == true && res.status == 200){
-          console.log(res)
-          console.log("Congrats you have just registered!")
-          //Put here the routing to the next react page for the extra questions or rerender current page to show new component
-        }else {
+        .then(res => { 
+          if(res.data == true && res.status == 200){
+            console.log(res)
+            console.log("Congrats you have just registered!")
+            //This is where the registration was a success
+            //Put here the routing to the next react page for the extra questions or rerender current page to show new component
+          }else {
           if(res.data == "Duplicate entries of email"){
             window.alert("This email is already taken. Please provide another email"); //Probably prettify these of some kind or have a way to make the boxes pop red or something
+          } else if (res.data.name) {
+            window.alert(res.data.name);
+          }else if (res.data.email) {
+            window.alert(res.data.email);
+          }else if(res.data.password){
+            window.alert(res.data.password);
+          } else if (res.data.hasAgreed) {
+            window.alert(res.data.hasAgreed);
           } else{
             window.alert("Please reenter your registration information");
           }
           //This is where they failed to do the registration here. Probably under here have code that empties all the fields
-          //Also no terms of service button validation on front end part. Make sure all front end form validation is taken care of
-        }})
+          //Also no terms of service button validation on front end part. Make sure all front end form validation is taken care of so we have both backend and frontend validation
+          }
+        })
         .catch(err => {
           console.error(err);
         });
@@ -67,19 +78,6 @@ class SignUpForm extends Component{
                 />
               </div>
               <div className="FormField">
-                <label className="FormField_Label" htmlFor="password">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  className="FormField_Input"
-                  placeholder="Enter your password"
-                  name="password"
-                  value={this.state.password} onChange={this.handleChange}
-                />
-              </div>
-              <div className="FormField">
                 <label className="FormField_Label" htmlFor="email">
                   Email Address
                 </label>
@@ -90,6 +88,19 @@ class SignUpForm extends Component{
                   placeholder="Enter your email"
                   name="email"
                   value={this.state.email} onChange={this.handleChange}
+                />
+              </div>
+              <div className="FormField">
+                <label className="FormField_Label" htmlFor="password">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  className="FormField_Input"
+                  placeholder="Enter your password"
+                  name="password"
+                  value={this.state.password} onChange={this.handleChange}
                 />
               </div>
               <div className="FormField">
