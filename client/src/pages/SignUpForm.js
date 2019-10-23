@@ -15,6 +15,7 @@ class SignUpForm extends Component{
       
     
   }
+
   handleChange(e) {
    
     let target = e.target;
@@ -25,18 +26,29 @@ class SignUpForm extends Component{
             [name]: value
         });
     }
-    handleSubmit(e){
-        e.preventDefault();
 
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
-        axios
-          .post('/Users/register', this.state)
-          .then(() => console.log('User Info sent to Backend for validation'))
-          .catch(err => {
-            console.error(err);
-          });
+    handleSubmit(e){
+      e.preventDefault();
+      axios
+        .post('/Users/register', this.state)
+        .then(res => { if(res.data == true && res.status == 200){
+          console.log(res)
+          console.log("Congrats you have just registered!")
+          //Put here the routing to the next react page for the extra questions or rerender current page to show new component
+        }else {
+          if(res.data == "Duplicate entries of email"){
+            window.alert("This email is already taken. Please provide another email"); //Probably prettify these of some kind or have a way to make the boxes pop red or something
+          } else{
+            window.alert("Please reenter your registration information");
+          }
+          //This is where they failed to do the registration here. Probably under here have code that empties all the fields
+          //Also no terms of service button validation on front end part. Make sure all front end form validation is taken care of
+        }})
+        .catch(err => {
+          console.error(err);
+        });
     }
+
     render(){
         return(
             <div className="FormCenter">

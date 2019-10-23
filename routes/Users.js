@@ -21,9 +21,10 @@ router.post('/signIn', function(req, res, next) {
         console.log("No email like " + email);
       } else{
         var passwordDB= results.rows[0].password;
-        bcrypt.compare(signInPassword, passwordDB, function(err, res) {
-          if(res) {
+        bcrypt.compare(signInPassword, passwordDB, function(err, result) {
+          if(result) {
             console.log("Successful login!");
+            var string = "Successful Login";
           } else {
             console.log("Wrong Password");
           } 
@@ -40,20 +41,28 @@ router.post('/register', function(req, res, next) {
     var password = JSON.stringify(req.body.password);
     var firstname = req.body.name.split(' ').slice(0, -1).join(' ');
     var lastname = req.body.name.split(' ').slice(-1).join(' ');
-    if(registerValidate(req.body)){
+    var canRegister = false;
+    if(registerValidate(req.body) && req.body.hasAgreed == true){
       bcrypt.hash(password, saltRounds, function(err, hash) {
         db.query('INSERT INTO "USER"(firstname, lastname, email, password) VALUES ($1, $2, $3, $4) ', [firstname, lastname, req.body.email, hash], (error, results) => {
           if(error) {
             console.log("Something went wrong with the db");
-            console.log(results);
             console.log(error.message || error);
+            res.send("Duplicate entries of email")
+            res.end()
+          } else {
+            canRegister = true;
+            console.log("Added the user " + firstname + " " + lastname + "!")
+            res.send(canRegister)
+            res.end()
           }
-          console.log("Added the user " + firstname + " " + lastname + "!")
         });
       });
     } else{
+      res.send("The validation for the fields didn't pass")
       console.log('validation didn\'t pass');
-      res.send(loginValidate(req.body).errors);
+      res.send(canRegister)
+      res.end(loginValidate(req.body).errors);
     }
 });
 
