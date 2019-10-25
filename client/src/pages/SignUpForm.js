@@ -27,8 +27,7 @@ class SignUpForm extends Component{
         });
     }
 
-    handleSubmit(e){
-      e.preventDefault();
+    lastSubmit(e){
       axios
         .post('/Users/register', this.state)
         .then(res => { 
@@ -58,6 +57,11 @@ class SignUpForm extends Component{
         .catch(err => {
           console.error(err);
         });
+    }
+
+
+    handleSubmit(e){
+      e.preventDefault();
     }
 
     render(){
