@@ -7,6 +7,7 @@ class SignUpForm extends Component{
         this.state={
             email: '',
             password: '',
+            verify: '',
             name: '',
             hasAgreed: false
         };
@@ -24,10 +25,14 @@ class SignUpForm extends Component{
         this.setState({
             [name]: value
         });
+    
     }
     handleSubmit(e){
         e.preventDefault();
+        let pass = e.target.password
+        let ver = e.target.verify
 
+        if(pass === ver){
         console.log('The form was submitted with the following data:');
         console.log(this.state);
         axios
@@ -36,6 +41,9 @@ class SignUpForm extends Component{
           .catch(err => {
             console.error(err);
           });
+        }else{
+          console.log('your two passwords must match to properly sign up.');
+        }
     }
     render(){
         return(
@@ -55,6 +63,19 @@ class SignUpForm extends Component{
                 />
               </div>
               <div className="FormField">
+                <label className="FormField_Label" htmlFor="email">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="FormField_Input"
+                  placeholder="Enter your email"
+                  name="email"
+                  value={this.state.email} onChange={this.handleChange}
+                />
+              </div>
+              <div className="FormField">
                 <label className="FormField_Label" htmlFor="password">
                   Password
                 </label>
@@ -68,16 +89,16 @@ class SignUpForm extends Component{
                 />
               </div>
               <div className="FormField">
-                <label className="FormField_Label" htmlFor="email">
-                  Email Address
+                <label className="FormField_Label" htmlFor="verify">
+                  Verify Password
                 </label>
                 <input
-                  type="email"
-                  id="email"
+                  type="password"
+                  id="verify"
                   className="FormField_Input"
-                  placeholder="Enter your email"
-                  name="email"
-                  value={this.state.email} onChange={this.handleChange}
+                  placeholder="Re-enter your password"
+                  name="verify"
+                  value={this.state.verify} onChange={this.handleChange}
                 />
               </div>
               <div className="FormField">
