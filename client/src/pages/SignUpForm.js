@@ -1,39 +1,59 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import SignUpFirst from './SignUpFirst';
+import SignUpMentor from './SignUpMentor';
+import SignUpPersonal from './SignUpPersonal';
+import Confirm from './Confirm';
+import Success from './Success';
+
 class SignUpForm extends Component{
-    constructor(){
-        super();
-        this.state={
+    
+  
+  state={
+            step: 1,
+            firstName: '',
+            lastName: '',
             email: '',
             password: '',
-            verify: '',
-            name: '',
+            passVerify: '',
+            city: '',
+            summary: '',
+            bio: '',
             hasAgreed: false
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      
+  
     
-  }
+  nextStep=() =>{
+    const {step} = this.state;
+    this.setState({
+      step: step + 1
+    });
+  };
 
-  handleChange(e) {
-   
-    let target = e.target;
-    let value = target.type === "checkbox" ? target.checked : target.value;
-    let name = target.name;
+  prevStep =() =>{
+    const {step} = this.state;
+    this.setState({
+      step: step - 1
+    });
+  };
+  handleChange = input => e => {
+ 
+    //let target = e.target;
+   //let value = target.type === "checkbox" ? target.checked : target.value;
+    //let name = target.name;
 
         this.setState({
-            [name]: value
+            [input]: e.target.value
         });
     
-    }
+    };
 
     lastSubmit(e){
    
       e.preventDefault();
       let pass = e.target.password
-      let ver = e.target.verify
+      let ver = e.target.passVerify
 
        
         
@@ -67,7 +87,7 @@ class SignUpForm extends Component{
           this.setState({
             email: '',
             password: '',
-            verify: '',
+            passVerify: '',
             name: '',
             hasAgreed: false
         });
@@ -81,93 +101,53 @@ class SignUpForm extends Component{
     }
 
 
-    handleSubmit(e){
-      e.preventDefault();
-    }
 
     render(){
-        return(
-            <div className="FormCenter">
-            <form onSubmit={this.handleSubmit} className="FormFields">
-              <div className="FormField">
-                <label className="FormField_Label" htmlFor="name">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  className="FormField_Input"
-                  placeholder="Enter your full name"
-                  name="name"
-                  value={this.state.name} onChange={this.handleChange}
-                />
-              </div>
-              <div className="FormField">
-                <label className="FormField_Label" htmlFor="email">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  className="FormField_Input"
-                  placeholder="Enter your email"
-                  name="email"
-                  value={this.state.email} onChange={this.handleChange}
-                />
-              </div>
-              <div className="FormField">
-                <label className="FormField_Label" htmlFor="password">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  className="FormField_Input"
-                  placeholder="Enter your password"
-                  name="password"
-                  value={this.state.password} onChange={this.handleChange}
-                />
-              </div>
-              <div className="FormField">
-                <label className="FormField_Label" htmlFor="verify">
-                  Verify Password
-                </label>
-                <input
-                  type="password"
-                  id="verify"
-                  className="FormField_Input"
-                  placeholder="Re-enter your password"
-                  name="verify"
-                  value={this.state.verify} onChange={this.handleChange}
-                />
-              </div>
-              <div className="FormField">
-               
-              </div>
-              <div className="FormField">
-              <label className="FormField_CheckboxLabel">
-                <input
-                  className="FormField_Checkbox"
-                  type="checkbox"
-                  name="hasAgreed"
-                  value={this.state.hasAgreed} onChange={this.handleChange}
-                />
-                I agree all to all statements in
-                <a href="" className="FormField_TermsLink">
-                  terms of service
-                </a>
-              </label>
-              </div>
-              <div className="FormField">
-                <button className="FormField_Button mr-20">Sign Up</button>
-                <Link to="/sign-in" className="FormField_Link">
-                   I'm already a member
-                </Link>
-              </div>
-            
-            </form>
-            </div>
+      const { step } = this.state;
+      const { firstName, lastName, email, passVerify, city, bio} = this.state;
+      const values = {firstName, lastName, email, passVerify, city, bio};
+      
+      switch (step) {
+        case 1: 
+        return (
+          <SignUpFirst
+            nextStep = {this.nextStep}
+            handleChange={this.handleChange.bind(this)}
+            values = {values}/>
         );
+        case 2: 
+        return (
+          <SignUpMentor
+            nextStep = {this.nextStep}
+            prevStep = {this.prevStep}
+            handleChange={this.handleChange.bind(this)}
+            values = {values}/>
+        );
+        case 3: 
+        return (
+          <SignUpPersonal
+            nextStep = {this.nextStep}
+            prevStep = {this.prevStep}
+            handleChange={this.handleChange.bind(this)}
+            values = {values}/>
+        );
+        case 4: 
+        return (
+          <Confirm
+            nextStep = {this.nextStep}
+            prevStep = {this.prevStep}
+            handleChange={this.handleChange.bind(this)}
+            values = {values}/>
+        );
+
+        case 5: 
+        return (
+          <Success/>
+        );
+      }
+      
+      
+      
     }
 }
 export default SignUpForm;

@@ -11,78 +11,73 @@ import SignUpForm from "./pages/SignUpForm";
 import SignInForm from "./pages/SignInForm";
 
 class App extends Component {
- 
   constructor() {
-
     super();
-   this.state ={bgColor: 'rgb(233, 189, 109)', bgColor2: 'rgb(134, 174, 211)'}
-    
+    this.state = {
+      bgColor: "rgb(233, 189, 109)",
+      bgColor2: "rgb(134, 174, 211)"
+    };
+
     this.clickChange = this.clickChange.bind(this);
-    
   }
 
- 
-  clickChange(e){
+  clickChange(e) {
+    if (e.target.id == "first") {
+      this.setState({ bgColor: "rgb(255, 255, 255)" });
+      this.setState({ bgColor2: "rgb(255, 255, 255)" });
+    }
+    if (e.target.id == "second") {
+      this.setState({ bgColor: "rgb(255, 255, 255)" });
+      this.setState({ bgColor2: "rgb(255, 255, 255)" });
+    }
+  }
 
-    if(e.target.id == "first"){
-      this.setState({bgColor:'rgb(134, 174, 211)' })
-      this.setState({bgColor2: 'rgb(233, 189, 109)' })
-    }
-      if(e.target.id == "second"){
-        this.setState({bgColor:'rgb(233, 189, 109)' })
-        this.setState({bgColor2: 'rgb(134, 174, 211)' })
-    }
-  
- 
-}
-  
   render() {
     return (
       <Router>
-        
         <div className="App">
-       
-        <div style = {{
-          width: '100%',
-          height: '10%',
-          backgroundColor: this.state.bgColor}}
+          <div
+            style={{
+              width: "100%",
+              height: "10%",
+              backgroundColor: this.state.bgColor
+            }}
           />
-          <div style = {{
-            backgroundColor: this.state.bgColor2,
-            width: '100%',
-             height: '90%',
-             paddingBottom: '25px', 
-             paddingRight:'40px',
-             paddingLeft:'40px',
+          <div
+            style={{
+              backgroundColor: this.state.bgColor2,
+              width: "100%",
+              height: "90%",
+              paddingBottom: "25px",
+              paddingRight: "40px",
+              paddingLeft: "40px",
 
-            overflow: 'auto',
-           paddingTop: '100px'
-          }}
-        >
-          <div className="FormTitle">
+              overflow: "auto",
+              paddingTop: "100px"
+            }}
+          >
+            <div className="PageSwitcher">
               <NavLink
                 to="/sign-in"
-                id = "first"
+                id="first"
                 onClick={this.clickChange}
-                activeClassName="FormTitle_Link--Active"
-                className="FormTitle_Link"
+                activeClassName="PageSwitcher__Item--Active"
+                className="PageSwitcher__Item"
               >
                 Sign In
               </NavLink>
-             
+
               <NavLink
                 exact
                 to="/"
-                id = "second"
+                id="second"
                 onClick={this.clickChange}
-                activeClassName="FormTitle_Link--Active"
-                className="FormTitle_Link"
+                activeClassName="PageSwitcher__Item--Active"
+                className="PageSwitcher__Item"
               >
                 Sign Up
               </NavLink>
             </div>
-            
-         
 
             <Route exact path="/" component={SignUpForm}></Route>
             <Route path="/sign-in" component={SignInForm}></Route>
