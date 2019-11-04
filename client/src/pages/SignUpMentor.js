@@ -1,11 +1,11 @@
+import React, { Component } from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import AppBar from '@material-ui/core/AppBar';
+import {MuiThemeProvider} from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-import React, { Component } from 'react'
-import Dialog from 'material-ui/Dialog';
-import AppBar from 'material-ui/AppBar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import Select from '@material-ui/core/Select';
 
 
 export class SignUpMentor extends Component {
@@ -21,7 +21,7 @@ export class SignUpMentor extends Component {
         return (
             <MuiThemeProvider>
                 <React.Fragment>
-                    <AppBar title ="Enter Your Mentor Details"/>
+                   
                     <TextField
                     hintText="Enter Your First Name"
                     floatingLabelText="First Name"
@@ -43,7 +43,7 @@ export class SignUpMentor extends Component {
                     defaultValue={values.email}
                     />
                     <br/>
-                    <RaisedButton
+                    <Button
                     label = "Continue"
                     primary = {true}
                     style = {styles.button}

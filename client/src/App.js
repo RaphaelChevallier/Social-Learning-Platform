@@ -7,55 +7,40 @@
 import React, { Component } from "react";
 import { HashRouter as Router, Route, NavLink, Link } from "react-router-dom";
 import "./App.css";
+import Dialog from '@material-ui/core/Dialog';
 import SignUpForm from "./pages/SignUpForm";
 import SignInForm from "./pages/SignInForm";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import {MuiThemeProvider} from '@material-ui/core/styles';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      bgColor: "rgb(233, 189, 109)",
-      bgColor2: "rgb(134, 174, 211)"
+      bgColor: "rgb(255, 255, 255)",
+    
     };
 
-    this.clickChange = this.clickChange.bind(this);
   }
 
-  clickChange(e) {
-    if (e.target.id == "first") {
-      this.setState({ bgColor: "rgb(255, 255, 255)" });
-      this.setState({ bgColor2: "rgb(255, 255, 255)" });
-    }
-    if (e.target.id == "second") {
-      this.setState({ bgColor: "rgb(255, 255, 255)" });
-      this.setState({ bgColor2: "rgb(255, 255, 255)" });
-    }
-  }
+ 
 
   render() {
     return (
       <Router>
-        <div className="App">
-          <div
-            style={{
-              width: "100%",
-              height: "10%",
-              backgroundColor: this.state.bgColor
-            }}
-          />
-          <div
-            style={{
-              backgroundColor: this.state.bgColor2,
-              width: "100%",
-              height: "90%",
-              paddingBottom: "25px",
-              paddingRight: "40px",
-              paddingLeft: "40px",
-
-              overflow: "auto",
-              paddingTop: "100px"
-            }}
+        <MuiThemeProvider>
+          <React.Fragment>
+          <Dialog 
+            open="true"
+            fullWidth="true"
+            maxWidth='sm'
           >
+        
+           <AppBar title ="Enter User Details">
+           <div>Home Page</div>
+           </AppBar>
+     
             <div className="PageSwitcher">
               <NavLink
                 to="/sign-in"
@@ -70,8 +55,8 @@ class App extends Component {
               <NavLink
                 exact
                 to="/"
-                id="second"
-                onClick={this.clickChange}
+              
+               
                 activeClassName="PageSwitcher__Item--Active"
                 className="PageSwitcher__Item"
               >
@@ -81,8 +66,9 @@ class App extends Component {
 
             <Route exact path="/" component={SignUpForm}></Route>
             <Route path="/sign-in" component={SignInForm}></Route>
-          </div>
-        </div>
+            </Dialog>
+          </React.Fragment>
+          </MuiThemeProvider>
       </Router>
     );
   }

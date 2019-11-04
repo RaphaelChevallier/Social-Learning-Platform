@@ -48,7 +48,7 @@
   .PageSwitcher {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 10%;
+   
   }
 
   .PageSwitcher__Item:first-child {

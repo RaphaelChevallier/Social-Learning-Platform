@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
-import Dialog from 'material-ui/Dialog';
-import AppBar from 'material-ui/AppBar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import React, { Component } from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import AppBar from '@material-ui/core/AppBar';
+import {MuiThemeProvider} from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
+import Select from '@material-ui/core/Select';
 
 
 export class SignUpFirst extends Component {
@@ -20,10 +21,12 @@ export class SignUpFirst extends Component {
         return (
             <MuiThemeProvider>
                 <React.Fragment>
-                    <AppBar title ="Enter User Details"/>
+                   
+                   
                     <TextField
                     hintText="Enter Your First Name"
                     floatingLabelText="First Name"
+                   
                     onChange={handleChange('firstName')}
                     defaultValue={values.firstName}
                     />
@@ -42,7 +45,7 @@ export class SignUpFirst extends Component {
                     defaultValue={values.email}
                     />
                     <br/>
-                    <RaisedButton
+                    <Button
                     label = "Continue"
                     primary = {true}
                     style = {styles.button}
@@ -52,86 +55,7 @@ export class SignUpFirst extends Component {
 
 
             </MuiThemeProvider>
-            // <div className="FormCenter">
-            // <form onSubmit={this.handleSubmit} className="FormFields">
-            //   <div className="FormField">
-            //     <label className="FormField_Label" htmlFor="name">
-            //       Full Name
-            //     </label>
-            //     <input
-            //       type="text"
-            //       id="name"
-            //       className="FormField_Input"
-            //       placeholder="Enter your full name"
-            //       name="name"
-            //       value={this.state.name} onChange={this.handleChange}
-            //     />
-            //   </div>
-            //   <div className="FormField">
-            //     <label className="FormField_Label" htmlFor="email">
-            //       Email Address
-            //     </label>
-            //     <input
-            //       type="email"
-            //       id="email"
-            //       className="FormField_Input"
-            //       placeholder="Enter your email"
-            //       name="email"
-            //       value={this.state.email} onChange={this.handleChange}
-            //     />
-            //   </div>
-            //   <div className="FormField">
-            //     <label className="FormField_Label" htmlFor="password">
-            //       Password
-            //     </label>
-            //     <input
-            //       type="password"
-            //       id="password"
-            //       className="FormField_Input"
-            //       placeholder="Enter your password"
-            //       name="password"
-            //       value={this.state.password} onChange={this.handleChange}
-            //     />
-            //   </div>
-            //   <div className="FormField">
-            //     <label className="FormField_Label" htmlFor="passVerify">
-            //       Verify Password
-            //     </label>
-            //     <input
-            //       type="password"
-            //       id="passVerify"
-            //       className="FormField_Input"
-            //       placeholder="Re-enter your password"
-            //       name="passVerify"
-            //       value={this.state.passVerify} onChange={this.handleChange}
-            //     />
-            //   </div>
-            //   <div className="FormField">
-               
-            //   </div>
-            //   <div className="FormField">
-            //   <label className="FormField_CheckboxLabel">
-            //     <input
-            //       className="FormField_Checkbox"
-            //       type="checkbox"
-            //       name="hasAgreed"
-            //       value={this.state.hasAgreed} onChange={this.handleChange}
-            //     />
-            //     I agree all to all statements in
-            //     <a href="" className="FormField_TermsLink">
-            //       terms of service
-            //     </a>
-            //   </label>
-            //   </div>
-            //   <div className="FormField">
-            //     <button className="FormField_Button mr-20">Continue</button>
-            //     <Link to="/sign-in" className="FormField_Link">
-            //        I'm already a member
-            //     </Link>
-            //   </div>
             
-            // </form>
-            // </div>
         );
         
     }
@@ -140,6 +64,20 @@ export class SignUpFirst extends Component {
 const styles = {
     button:{
         margin: 15
-    }}
+    },
+    bar:{
+        position: 'isAbsolute',
+        top: '0%',
+        paddingRight:'20%',
+        float: 'top',
+      
+
+    },
+    field:{
+        display: 'flex',
+        justifyContent: 'center'
+    }
+
+}
 
 export default SignUpFirst;
