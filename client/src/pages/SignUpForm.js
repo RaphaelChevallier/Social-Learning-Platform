@@ -112,7 +112,7 @@ class SignUpForm extends Component{
         return (
           <SignUpFirst
             nextStep = {this.nextStep}
-            handleChange={this.handleChange.bind(this)}
+            handleChange={this.handleChange}
             values = {values}/>
         );
         case 2: 

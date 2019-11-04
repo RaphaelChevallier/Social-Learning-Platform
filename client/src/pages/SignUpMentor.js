@@ -21,7 +21,7 @@ export class SignUpMentor extends Component {
         return (
             <MuiThemeProvider>
                 <React.Fragment>
-                    <AppBar title ="Enter User Details"/>
+                    <AppBar title ="Enter Your Mentor Details"/>
                     <TextField
                     hintText="Enter Your First Name"
                     floatingLabelText="First Name"
@@ -46,8 +46,9 @@ export class SignUpMentor extends Component {
                     <RaisedButton
                     label = "Continue"
                     primary = {true}
-                    style = {styles.button}/>
+                    style = {styles.button}
                     onClick = {this.continue}
+                    />
                 </React.Fragment>
 
 

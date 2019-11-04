@@ -45,8 +45,9 @@ export class SignUpPersonal extends Component {
                     <RaisedButton
                     label = "Continue"
                     primary = {true}
-                    style = {styles.button}/>
+                    style = {styles.button}
                     onClick = {this.continue}
+                    />
                 </React.Fragment>
 
 
