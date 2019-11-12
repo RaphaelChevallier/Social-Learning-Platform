@@ -30,7 +30,23 @@ class SignInForm extends Component {
     console.log(this.state);
     axios
       .post('/Users/signIn', this.state)
-      .then(() => console.log('User Info sent to Backend for validation'))
+      .then(res => {
+        if (Array.isArray(res.data) && res.status===200){
+          var isLoggedIn= res.data[0];
+          var isMentor= res.data[1];
+          console.log(isLoggedIn);
+          if (isLoggedIn===true){
+            sessionStorage.setItem(isLoggedIn,true);
+          }
+          if (isMentor===true){
+            sessionStorage.setItem(isMentor,true);
+          }
+        }
+        else{
+          window.alert(res.data);
+        }
+      } 
+        )
       .catch(err => {
         console.error(err);
       });
