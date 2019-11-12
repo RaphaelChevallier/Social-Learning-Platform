@@ -122,7 +122,7 @@ class SignUpForm extends Component{
           <SignUpMentor
             nextStep = {this.nextStep}
             prevStep = {this.prevStep}
-            handleChange={this.handleChange.bind(this)}
+            handleChange={this.handleChange}
             values = {values}/>
         );
         case 3: 
@@ -130,7 +130,7 @@ class SignUpForm extends Component{
           <SignUpPersonal
             nextStep = {this.nextStep}
             prevStep = {this.prevStep}
-            handleChange={this.handleChange.bind(this)}
+            handleChange={this.handleChange}
             values = {values}/>
         );
         case 4: 
@@ -138,7 +138,7 @@ class SignUpForm extends Component{
           <Confirm
             nextStep = {this.nextStep}
             prevStep = {this.prevStep}
-            handleChange={this.handleChange.bind(this)}
+            handleChange={this.handleChange}
             values = {values}/>
         );
 
