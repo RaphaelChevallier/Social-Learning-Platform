@@ -16,9 +16,8 @@ router.post('/signIn', function(req, res, next) {
       if (error) {
         throw error;
       }
-      console.log("This is the database info grabbing users. You can see it comes after because it's asynchronous");
       if(isEmpty(results.rows)){
-        res.send("No email like " + email);
+        res.end("No email like " + email);
       } else{
         var passwordDB= results.rows[0].password;
         var mentorCheck= false;
@@ -27,14 +26,13 @@ router.post('/signIn', function(req, res, next) {
           if(result) {
             isLoggedin=true;
             var signInArray = [isLoggedin];
-            var string = "Successful Login";
             if (results.rows[0].mentor_id != null){
               mentorCheck = true;
               signInArray.push(mentorCheck);
-              res.send(signInArray);
+              res.end(signInArray);
             }            
           } else {
-            res.send("Wrong Password");
+            res.end("Wrong Password");
           } 
         });} 
     })
