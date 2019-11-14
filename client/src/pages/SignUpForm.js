@@ -57,8 +57,6 @@ class SignUpForm extends Component{
       let pass = e.target.password
       let ver = e.target.passVerify
 
-       
-        
       axios
         .post('/Users/register', this.state)
         .then(res => { 

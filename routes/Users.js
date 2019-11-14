@@ -1,5 +1,5 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const isEmpty = require("is-empty");
 var loginValidate = require('../validation/login');
 var registerValidate = require('../validation/register');
@@ -16,17 +16,23 @@ router.post('/signIn', function(req, res, next) {
       if (error) {
         throw error;
       }
-      console.log("This is the database info grabbing users. You can see it comes after because it's asynchronous");
       if(isEmpty(results.rows)){
-        console.log("No email like " + email);
+        res.end("No email like " + email);
       } else{
         var passwordDB= results.rows[0].password;
+        var mentorCheck= false;
+        var isLoggedin=false;
         bcrypt.compare(signInPassword, passwordDB, function(err, result) {
           if(result) {
-            console.log("Successful login!");
-            var string = "Successful Login";
+            isLoggedin=true;
+            var signInArray = [isLoggedin];
+            if (results.rows[0].mentor_id != null){
+              mentorCheck = true;
+              signInArray.push(mentorCheck);
+              res.end(signInArray);
+            }            
           } else {
-            console.log("Wrong Password");
+            res.end("Wrong Password");
           } 
         });} 
     })
@@ -44,7 +50,7 @@ router.post('/register', function(req, res, next) {
     var canRegister = false;
     if(registerValidate(req.body).isValid == true && req.body.hasAgreed == true){
       bcrypt.hash(password, saltRounds, function(err, hash) {
-        db.query('INSERT INTO "USER"(firstname, lastname, email, password) VALUES ($1, $2, $3, $4) ', [firstname, lastname, req.body.email, hash], (error, results) => {
+        db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [firstname, lastname, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
           if(error) {
             console.log("Something went wrong with the db");
             console.log(error.message || error);
