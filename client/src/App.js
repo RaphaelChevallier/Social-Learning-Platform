@@ -80,7 +80,7 @@ export default function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Photos
+            Giddy-Up
           </Typography>
           <Button color="inherit" onClick = {handleLogout}> {text} </Button>
             
