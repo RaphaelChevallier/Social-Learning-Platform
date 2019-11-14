@@ -20,8 +20,9 @@ class SignUpForm extends Component{
             password: '',
             passVerify: '',
             city: '',
+            birthdate: '',
             summary: '',
-            bio: '',
+            interests: [{}],
             hasAgreed: false
         };
   
@@ -52,7 +53,7 @@ class SignUpForm extends Component{
     };
 
     lastSubmit(e){
-   
+      
       e.preventDefault();
       let pass = e.target.password
       let ver = e.target.passVerify
@@ -67,19 +68,40 @@ class SignUpForm extends Component{
             //Put here the routing to the next react page for the extra questions or rerender current page to show new component
           }else {
           if(res.data == "Duplicate entries of email"){
+            this.setState({
+              step: 1
+            });
             window.alert("This email is already taken. Please provide another email"); //Probably prettify these of some kind or have a way to make the boxes pop red or something
           } else if (res.data.name) {
+            this.setState({
+              step: 1
+            });
             window.alert(res.data.name);
           }else if (res.data.email) {
+            this.setState({
+              step: 1
+            });
             window.alert(res.data.email);
           }else if(res.data.password){
+            this.setState({
+              step: 1
+            });
             window.alert(res.data.password);
           } else if (res.data.hasAgreed) {
+            this.setState({
+              step: 4
+            });
             window.alert(res.data.hasAgreed);
           } else if(pass !== ver){
+            this.setState({
+              step: 1
+            });
             window.alert("Please ensure the passwords match")
           }
           else{
+            this.setState({
+              step: 1
+            });
             window.alert("Please reenter your registration information");
           }
           //This is where they failed to do the registration here. Probably under here have code that empties all the fields
@@ -89,6 +111,10 @@ class SignUpForm extends Component{
             password: '',
             passVerify: '',
             name: '',
+            city: '',
+            birthdate: '',
+            summary: '',
+            interests: [{}],
             hasAgreed: false
         });
           
@@ -105,7 +131,7 @@ class SignUpForm extends Component{
     render(){
       const { step } = this.state;
       const { firstName, lastName, email, passVerify, city, bio} = this.state;
-      const values = {firstName, lastName, email, passVerify, city, bio};
+      const values = {firstName, lastName, email, passVerify, city, birthdate, summary, interests};
       
       switch (step) {
         case 1: 
