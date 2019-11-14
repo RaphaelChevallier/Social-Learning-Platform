@@ -6,6 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 import Select from '@material-ui/core/Select';
 

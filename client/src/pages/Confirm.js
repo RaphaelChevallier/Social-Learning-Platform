@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import ProgressBar from 'react-bootstrap/ProgressBar'
 export class Confirm extends Component {
     render() {
         return (

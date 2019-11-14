@@ -6,6 +6,7 @@ import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
  import Select from '@material-ui/core/Select';
+ import ProgressBar from 'react-bootstrap/ProgressBar'
 
  export class SignUpPersonal extends Component {
     continue = e =>{
