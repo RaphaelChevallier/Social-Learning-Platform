@@ -42,13 +42,13 @@ const useStyles = makeStyles(theme => ({
 export default function App() {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
-  const {text, setText} = React.useState("Log OUT")
+  const [text, setText] = React.useState("Log OUT")
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
   const handleChange = event => {
     setAuth(event.target.checked);
-   
+    setText(auth ? "login": "logout");
     
   };
 
