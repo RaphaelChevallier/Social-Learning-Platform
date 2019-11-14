@@ -45,12 +45,10 @@ router.post('/signIn', function(req, res, next) {
 
 router.post('/register', function(req, res, next) {
     var password = JSON.stringify(req.body.password);
-    var firstname = req.body.name.split(' ').slice(0, -1).join(' ');
-    var lastname = req.body.name.split(' ').slice(-1).join(' ');
     var canRegister = false;
     if(registerValidate(req.body).isValid == true && req.body.hasAgreed == true){
       bcrypt.hash(password, saltRounds, function(err, hash) {
-        db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [firstname, lastname, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+        db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
           if(error) {
             console.log("Something went wrong with the db");
             console.log(error.message || error);
