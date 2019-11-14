@@ -59,6 +59,11 @@ export default function App() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleLogout = () => {
+     if(auth == true){
+   setAuth(false);}
+   setText(auth ? "login": "logout");
+  }
 
   return (
     <Router>
@@ -77,7 +82,7 @@ export default function App() {
           <Typography variant="h6" className={classes.title}>
             Photos
           </Typography>
-          <Button color="inherit" > {text} </Button>
+          <Button color="inherit" onClick = {handleLogout}> {text} </Button>
             
           {auth && (
             <div>
@@ -114,6 +119,34 @@ export default function App() {
         </Toolbar>
       </AppBar>
     </div>
+    <div className="PageSwitcher">
+          <NavLink
+            to="/sign-in"
+            id="first"
+           
+            activeClassName="PageSwitcher__Item--Active"
+            className="PageSwitcher__Item"
+          >
+            Sign In
+          </NavLink>
+
+          <NavLink
+            exact
+            to="/"
+            activeClassName="PageSwitcher__Item--Active"
+            className="PageSwitcher__Item"
+          >
+            Sign Up
+          </NavLink>
+        </div>
+
+        <Route exact path="/" component={SignUpForm}></Route>
+        <Route path="/sign-in" component={SignInForm}></Route>
+     
+    ;
+  }
+}
+
     </Router>
   );
 }
@@ -132,32 +165,6 @@ export default function App() {
 
 //   render() {
 //    <Router>
-//         <div className="PageSwitcher">
-//           <NavLink
-//             to="/sign-in"
-//             id="first"
-//             onClick={this.clickChange}
-//             activeClassName="PageSwitcher__Item--Active"
-//             className="PageSwitcher__Item"
-//           >
-//             Sign In
-//           </NavLink>
 
-//           <NavLink
-//             exact
-//             to="/"
-//             activeClassName="PageSwitcher__Item--Active"
-//             className="PageSwitcher__Item"
-//           >
-//             Sign Up
-//           </NavLink>
-//         </div>
-
-//         <Route exact path="/" component={SignUpForm}></Route>
-//         <Route path="/sign-in" component={SignInForm}></Route>
-//       </Router>
-//     ;
-//   }
-// }
 
 // export default withStyles(useStyles)(App);
