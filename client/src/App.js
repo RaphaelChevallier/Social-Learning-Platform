@@ -8,7 +8,7 @@ import React, { Component } from "react";
 import { HashRouter as Router, Route, NavLink, Link } from "react-router-dom";
 import "./App.css";
 import Dialog from '@material-ui/core/Dialog';
-import SignUpForm from "./pages/SignUpForm";
+import SignUpForm from "./pages/signUp/SignUpForm";
 import SignInForm from "./pages/SignInForm";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
