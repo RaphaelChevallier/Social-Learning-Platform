@@ -19,6 +19,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 const Confirm = ({
+    values,
   firstName,
   lastName,
   email,
@@ -36,19 +37,19 @@ const Confirm = ({
       <React.Fragment>
         <div style={container}>
           <FormLabel>
-            <label>FirstName: {firstName} </label>
+            <label>FirstName: {values.firstName} </label>
             <br />
-            <label>LastName: {lastName} </label>
+            <label>LastName: {values.lastName} </label>
             <br />
-            <label>Email: {email} </label> <br />
-            <label>Password: {passVerify} </label> <br />
-            <label>City: {city} </label> <br />
-            <label>Birthdate: {birthdate} </label> <br />
-            <label>Summary: {summary} </label> <br />
-            <label>Interests: {interests} </label> <br />
-            <label>Mentor Subject: {mentorSubject} </label> <br />
-            <label>Years Experience: {yearsExp} </label> <br />
-            <label>Experience Level: {expLevel} </label> <br />
+            <label>Email: {values.email} </label> <br />
+            <label>Password: {values.passVerify} </label> <br />
+            <label>City: {values.city} </label> <br />
+            <label>Birthdate: {values.birthdate} </label> <br />
+            <label>Summary: {values.summary} </label> <br />
+            <label>Interests: {values.interests} </label> <br />
+            <label>Mentor Subject: {values.mentorSubject} </label> <br />
+            <label>Years Experience: {values.yearsExp} </label> <br />
+            <label>Experience Level: {values.expLevel} </label> <br />
           </FormLabel>
         </div>
       </React.Fragment>
