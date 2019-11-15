@@ -12,7 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
-import ProgressBar from "react-bootstrap/ProgressBar";
+//import ProgressBar from "react-bootstrap/ProgressBar";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { withStyles } from '@material-ui/styles';
 import clsx from 'clsx';
@@ -72,12 +72,16 @@ export class SignUpPersonal extends Component {
             />
             <br />
             <TextField
-              placeholder="Enter Your Birthdate"
+              id="date"
               label="Birthdate"
+              type="date"
               onChange={handleChange("birthdate")}
               defaultValue={values.birthdate}
               margin="normal"
               fullWidth="true"
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
             <br />
             <TextField

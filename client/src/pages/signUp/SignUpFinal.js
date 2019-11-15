@@ -26,36 +26,35 @@ import Select from '@material-ui/core/Select';
         <MuiThemeProvider >
           <React.Fragment>
             <div style = {container}>
-          
-            <Autocomplete
-              multiple
-              id="tags-outlined"
-              options={expLevel}
-              getOptionLabel={option => option.title}
-              defaultValue={[expLevel[0]]}
-              filterSelectedOptions
-              
-              renderInput={params => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Primary Interest Experience"
-                  placeholder="Choose the experience level that best reflects you"
-                  margin="normal"
-                  fullWidth
-                />
-              )}
-            />
+              <Autocomplete
+                multiple
+                id="tags-outlined"
+                options={expLevel}
+                getOptionLabel={option => option.title}
+                defaultValue={[expLevel[0]]}
+                filterSelectedOptions
+                
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Primary Interest Experience"
+                    placeholder="Choose the experience level that best reflects you"
+                    margin="normal"
+                    fullWidth
+                  />
+                )}
+              />
               <br />
-        
+          
               <TextField
-          id="standard-textarea"
-          label="Personal Summary"
-          placeholder="Tell others a litte about yourself"
-          multiline
-         
-          margin="normal"
-        />
+                id="standard-textarea"
+                label="Personal Summary"
+                placeholder="Tell others a litte about yourself"
+                multiline
+              
+                margin="normal"
+              />
               <br />
               <Button color="primary" style = {buttonStyle} variant="contained" onClick={this.previous}>
                 Previous</Button>
@@ -65,8 +64,7 @@ import Select from '@material-ui/core/Select';
                 style = {buttonStyle}
                 onClick={this.continue}
               >Continue</Button>
-              </div>
-          
+            </div>
           </React.Fragment>
         </MuiThemeProvider>
       );
