@@ -24,6 +24,7 @@ class SignUpForm extends Component{
             interests: [{}],
             mentorSubject: '',
             yearsExp: '',
+            expLevel: '',
             hasAgreed: false
         };
   
@@ -131,8 +132,8 @@ class SignUpForm extends Component{
 
     render(){
       const { step } = this.state;
-      const { firstName, lastName, email, passVerify, city, birthdate, summary, interests, mentorSubject, yearsExp} = this.state;
-      const values = {firstName, lastName, email, passVerify, city, birthdate, summary, interests, mentorSubject, yearsExp};
+      const { firstName, lastName, email, passVerify, city, birthdate, summary, interests, mentorSubject, yearsExp, expLevel} = this.state;
+      const values = {firstName, lastName, email, passVerify, city, birthdate, summary, interests, mentorSubject, yearsExp, expLevel};
       
       switch (step) {
         case 1: 
