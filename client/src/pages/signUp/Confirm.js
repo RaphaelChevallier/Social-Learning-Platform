@@ -45,7 +45,6 @@ const Confirm = ({
 
 
 
-
         </div>
       </React.Fragment>
     </MuiThemeProvider>

@@ -1,5 +1,3 @@
-
-
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -26,10 +24,17 @@ class SignUpForm extends Component{
             interests: [{}],
             mentorSubject: '',
             yearsExp: '',
+            isMentor: 'no',
             expLevel: '',
             hasAgreed: false
         };
-  
+
+      skipStep=() =>{
+        const {step} = this.state;
+        this.setState({
+          step: step + 2
+        });
+      };
     
   nextStep=() =>{
     const {step} = this.state;
@@ -44,6 +49,14 @@ class SignUpForm extends Component{
       step: step - 1
     });
   };
+
+  skipPrev =() =>{
+    const {step} = this.state;
+    this.setState({
+      step: step - 2
+    });
+  };
+
   handleChange = input => e => {
  
     //let target = e.target;
@@ -134,8 +147,8 @@ class SignUpForm extends Component{
 
     render(){
       const { step } = this.state;
-      const { firstName, lastName, email, passVerify, city, birthdate, summary, interests, mentorSubject, yearsExp, expLevel} = this.state;
-      const values = {firstName, lastName, email, passVerify, city, birthdate, summary, interests, mentorSubject, yearsExp, expLevel};
+      const { firstName, lastName, email, password, passVerify, city, birthdate, summary, interests, isMentor, mentorSubject, yearsExp, expLevel} = this.state;
+      const values = {firstName, lastName, email, password, passVerify, city, birthdate, summary, interests, isMentor, mentorSubject, yearsExp, expLevel};
       
       switch (step) {
         case 1: 
@@ -150,6 +163,7 @@ class SignUpForm extends Component{
           <SignUpPersonal
             nextStep = {this.nextStep}
             prevStep = {this.prevStep}
+            skipStep = {this.skipStep}
             handleChange={this.handleChange}
             values = {values}/>
         );
@@ -166,6 +180,7 @@ class SignUpForm extends Component{
           <SignUpFinal
             nextStep = {this.nextStep}
             prevStep = {this.prevStep}
+            skipPrev = {this.skipPrev}
             handleChange={this.handleChange}
             values = {values}/>
         );
@@ -180,7 +195,9 @@ class SignUpForm extends Component{
 
         case 6: 
         return (
-          <Success/>
+          <Success
+            lastSubmit = {this.lastSubmit()}
+          />
         );
       }
       
