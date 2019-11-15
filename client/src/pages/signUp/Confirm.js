@@ -17,7 +17,7 @@ import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from '@material-ui/core/FormLabel';
+import FormLabel from "@material-ui/core/FormLabel";
 const Confirm = ({
   firstName,
   lastName,
@@ -35,16 +35,21 @@ const Confirm = ({
     <MuiThemeProvider>
       <React.Fragment>
         <div style={container}>
-        <FormLabel>
-        <label>FirstName: {firstName} </label>
-
-       
-        
-
-        </FormLabel>
-
-
-
+          <FormLabel>
+            <label>FirstName: {firstName} </label>
+            <br />
+            <label>LastName: {lastName} </label>
+            <br />
+            <label>Email: {email} </label> <br />
+            <label>Password: {passVerify} </label> <br />
+            <label>City: {city} </label> <br />
+            <label>Birthdate: {birthdate} </label> <br />
+            <label>Summary: {summary} </label> <br />
+            <label>Interests: {interests} </label> <br />
+            <label>Mentor Subject: {mentorSubject} </label> <br />
+            <label>Years Experience: {yearsExp} </label> <br />
+            <label>Experience Level: {expLevel} </label> <br />
+          </FormLabel>
         </div>
       </React.Fragment>
     </MuiThemeProvider>
