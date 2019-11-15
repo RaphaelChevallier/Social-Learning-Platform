@@ -143,7 +143,7 @@ export default function App() {
         <Route exact path="/" component={SignUpForm}></Route>
         <Route path="/sign-in" component={SignInForm}></Route>
      
-    ;
+    
   
 
 

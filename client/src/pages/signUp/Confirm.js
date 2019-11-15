@@ -42,14 +42,14 @@ const Confirm = ({
             <label>LastName: {values.lastName} </label>
             <br />
             <label>Email: {values.email} </label> <br />
-            <label>Password: {values.passVerify} </label> <br />
+            <label>Password: {values.password} </label> <br />
             <label>City: {values.city} </label> <br />
             <label>Birthdate: {values.birthdate} </label> <br />
             <label>Summary: {values.summary} </label> <br />
-            <label>Interests: {values.interests} </label> <br />
+            {/* <label>Interests: {values.interests} </label> <br />
             <label>Mentor Subject: {values.mentorSubject} </label> <br />
             <label>Years Experience: {values.yearsExp} </label> <br />
-            <label>Experience Level: {values.expLevel} </label> <br />
+            <label>Experience Level: {values.expLevel} </label> <br /> */}
           </FormLabel>
         </div>
       </React.Fragment>
@@ -57,6 +57,8 @@ const Confirm = ({
   );
 };
 const container = {
+
+   
   margin: "150px",
   border: "5px orange"
 };
