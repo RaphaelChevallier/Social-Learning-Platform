@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import ProgressBar from 'react-bootstrap/ProgressBar'
 
-import Select from '@material-ui/core/Select';
 
 
  export class SignUpMentor extends Component {
@@ -45,15 +41,6 @@ import Select from '@material-ui/core/Select';
                 margin="normal"
                               fullWidth="true"
               />
-              <br />
-              <TextField
-          id="standard-textarea"
-          label="Multiline Placeholder"
-          placeholder="Placeholder"
-          multiline
-         
-          margin="normal"
-        />
               <br />
               <Button color="primary" style = {buttonStyle} variant="contained" onClick={this.previous}>
                 Previous</Button>

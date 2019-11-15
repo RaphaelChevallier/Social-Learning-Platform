@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import { MDBProgress } from 'mdbreact';
-
 import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 
 export class SignUpFirst extends Component {
     continue = e =>{
@@ -51,6 +44,24 @@ export class SignUpFirst extends Component {
                   defaultValue={values.email}
                   margin="normal"
                                 fullWidth="true"
+                />
+                <br />
+                <TextField
+                  placeholder="Enter Your Password"
+                  label="Password"
+                  onChange={handleChange('password')}
+                  defaultValue={values.password}
+                  margin="normal"
+                  fullWidth="true"
+                />
+                <br />
+                <TextField
+                  placeholder="Re-Enter Your Password"
+                  label="Re-Enter Your Password"
+                  onChange={handleChange('passVerify')}
+                  defaultValue={values.passVerify}
+                  margin="normal"
+                  fullWidth="true"
                 />
                 <br />
                 <Button
