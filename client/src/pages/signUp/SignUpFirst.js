@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import { MDBProgress } from 'mdbreact';
 
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
@@ -11,7 +12,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 export class SignUpFirst extends Component {
     continue = e =>{
-        e.preventDefault();
+        // e.preventDefault();
         this.props.nextStep();
     }
     
@@ -22,7 +23,7 @@ export class SignUpFirst extends Component {
           <MuiThemeProvider >
             <React.Fragment>
               <div style = {container}>
-                <AppBar title="Enter User Details" />
+                
                 <TextField
                   
                   placeholder="Enter Your First Name"
@@ -57,7 +58,11 @@ export class SignUpFirst extends Component {
                   variant="contained"
                   onClick={this.continue}
                 >Continue</Button>
+                
+                
+              
                 </div>
+                
             
             </React.Fragment>
           </MuiThemeProvider>
@@ -70,5 +75,10 @@ const container = {
     border: '5px orange'
 
 };
-
+const footer = {
+  flexShrink: "0",
+  textAlign: "center",
+  backgroundColor: "orange",
+  color: "white"
+}
 export default SignUpFirst;
