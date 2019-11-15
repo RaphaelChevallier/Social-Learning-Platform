@@ -144,27 +144,11 @@ export default function App() {
         <Route path="/sign-in" component={SignInForm}></Route>
      
     ;
-  }
-}
+  
+
 
     </Router>
   );
 }
 
    
-// class App extends React.Component {
-//   constructor(props) {
-   
-//     super(props);
-    
-//     this.state = {
-//       bgColor: "rgb(255, 255, 255)"
-//     };
-//   }
-
-
-//   render() {
-//    <Router>
-
-
-// export default withStyles(useStyles)(App);

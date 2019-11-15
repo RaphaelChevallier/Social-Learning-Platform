@@ -8,6 +8,7 @@ import SignUpMentor from './SignUpMentor';
 import SignUpPersonal from './SignUpPersonal';
 import Confirm from './Confirm';
 import Success from './Success';
+import SignUpFinal from './SignUpFinal';
 
 class SignUpForm extends Component{
     
@@ -23,6 +24,8 @@ class SignUpForm extends Component{
             birthdate: '',
             summary: '',
             interests: [{}],
+            mentorSubject: '',
+            yearsExp: '',
             hasAgreed: false
         };
   
@@ -130,8 +133,8 @@ class SignUpForm extends Component{
 
     render(){
       const { step } = this.state;
-      const { firstName, lastName, email, passVerify, city, bio} = this.state;
-      const values = {firstName, lastName, email, passVerify, city, birthdate, summary, interests};
+      const { firstName, lastName, email, passVerify, city, birthdate, summary, interests, mentorSubject, yearsExp} = this.state;
+      const values = {firstName, lastName, email, passVerify, city, birthdate, summary, interests, mentorSubject, yearsExp};
       
       switch (step) {
         case 1: 
@@ -143,7 +146,7 @@ class SignUpForm extends Component{
         );
         case 2: 
         return (
-          <SignUpMentor
+          <SignUpPersonal
             nextStep = {this.nextStep}
             prevStep = {this.prevStep}
             handleChange={this.handleChange}
@@ -151,13 +154,21 @@ class SignUpForm extends Component{
         );
         case 3: 
         return (
-          <SignUpPersonal
+          <SignUpMentor
             nextStep = {this.nextStep}
             prevStep = {this.prevStep}
             handleChange={this.handleChange}
             values = {values}/>
         );
         case 4: 
+        return (
+          <SignUpFinal
+            nextStep = {this.nextStep}
+            prevStep = {this.prevStep}
+            handleChange={this.handleChange}
+            values = {values}/>
+        );
+        case 5: 
         return (
           <Confirm
             nextStep = {this.nextStep}
@@ -166,7 +177,7 @@ class SignUpForm extends Component{
             values = {values}/>
         );
 
-        case 5: 
+        case 6: 
         return (
           <Success/>
         );

@@ -5,11 +5,11 @@ import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar'
-
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import Select from '@material-ui/core/Select';
 
 
- export class SignUpMentor extends Component {
+ export class SignUpFinal extends Component {
     continue = e =>{
         e.preventDefault();
         this.props.nextStep();
@@ -27,29 +27,31 @@ import Select from '@material-ui/core/Select';
           <React.Fragment>
             <div style = {container}>
           
-              <TextField
-                
-                placeholder="Enter your Mentor Subject"
-                label="Mentor Subject"
-                onChange={handleChange('mentorSubject')}
-                defaultValue={values.mentorSubject}
-                margin="normal"
-                              fullWidth="true"
-              />
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={expLevel}
+              getOptionLabel={option => option.title}
+              defaultValue={[expLevel[0]]}
+              filterSelectedOptions
+              
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Primary Interest Experience"
+                  placeholder="Choose the experience level that best reflects you"
+                  margin="normal"
+                  fullWidth
+                />
+              )}
+            />
               <br />
-              <TextField
-                placeholder="Enter your years of experience"
-                label="Subject experience"
-                onChange={handleChange('yearsExp')}
-                defaultValue={values.yearsExp}
-                margin="normal"
-                              fullWidth="true"
-              />
-              <br />
+        
               <TextField
           id="standard-textarea"
-          label="Multiline Placeholder"
-          placeholder="Placeholder"
+          label="Personal Summary"
+          placeholder="Tell others a litte about yourself"
           multiline
          
           margin="normal"
@@ -85,4 +87,15 @@ import Select from '@material-ui/core/Select';
 
 };
 
- export default SignUpMentor
+const expLevel= [
+    { title: "Novice"},
+    { title: "Intermediate"},
+    { title: "Proficient" },
+    { title: "Professional"},
+    { title: "Master" }
+    
+   
+  ];
+  
+
+ export default SignUpFinal
