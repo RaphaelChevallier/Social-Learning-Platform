@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
       name: 'hai',
     });
 
-    if(values.isMentor == "yes"){
+    if(values.isMentor === true){
       button = <Button color="primary" style = {buttonStyle} variant="contained" onClick={prevStep}>
         Previous
     </Button>

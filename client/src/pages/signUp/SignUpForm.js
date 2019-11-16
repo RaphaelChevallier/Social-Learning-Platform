@@ -60,13 +60,16 @@ class SignUpForm extends Component{
   handleChange = input => e => {
  
     //let target = e.target;
-   //let value = target.type === "checkbox" ? target.checked : target.value;
     //let name = target.name;
-
+      if(e.target.type === "checkbox"){
+        this.setState({
+          [input]: e.target.checked
+        });
+      }else{
         this.setState({
             [input]: e.target.value
         });
-    
+      }
     };
 
     lastSubmit(e){

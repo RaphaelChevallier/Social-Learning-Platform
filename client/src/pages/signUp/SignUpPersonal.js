@@ -39,7 +39,7 @@ export class SignUpPersonal extends Component {
     const { values, handleChange } = this.props;
     let button;
 
-    if(values.isMentor == "yes"){
+    if(values.isMentor === true){
       button = <Button color="primary" style = {buttonStyle} variant="contained" onClick={this.continue}>
         Continue
     </Button>
@@ -98,7 +98,7 @@ export class SignUpPersonal extends Component {
               control={
                 <Checkbox
                   onChange={handleChange('isMentor')}
-                  value="yes"
+                  value="true"
                   color="primary"
                 />
               }
