@@ -59,9 +59,6 @@ import Button from '@material-ui/core/Button';
   }
   
   const buttonStyle = {
-
-  
- 
     padding: "0 32 px",
     margin: "0 64px",
     border: "5px orange"

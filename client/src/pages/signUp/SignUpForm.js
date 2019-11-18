@@ -29,12 +29,12 @@ class SignUpForm extends Component{
             hasAgreed: false
         };
 
-      skipStep=() =>{
-        const {step} = this.state;
-        this.setState({
-          step: step + 2
-        });
-      };
+    skipStep=() =>{
+      const {step} = this.state;
+      this.setState({
+        step: step + 2
+      });
+    };
     
   nextStep=() =>{
     const {step} = this.state;
