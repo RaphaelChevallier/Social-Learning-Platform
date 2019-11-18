@@ -1,7 +1,6 @@
 //Reference: https://stackoverflow.com/questions/51605481/how-to-make-a-select-component-as-required-in-material-ui-react-js
 
 import React, { Component } from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -28,13 +27,14 @@ const useStyles = makeStyles(theme => ({
   
   const SignUpFinal = ({nextStep, prevStep, skipPrev, values}) => {
     let button;
+
     const classes = useStyles();
     const [state, setState] = React.useState({
       experience: '',
       name: 'hai',
     });
 
-    if(values.isMentor == "yes"){
+    if(values.isMentor === true){
       button = <Button color="primary" style = {buttonStyle} variant="contained" onClick={prevStep}>
         Previous
     </Button>
@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
         <React.Fragment>
       <div style = {container}>
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="exp">Experience of primary interest</InputLabel>
+          <InputLabel htmlFor="exp">Experience</InputLabel>
           <Select
             native
             value={state.age}
@@ -86,7 +86,7 @@ const useStyles = makeStyles(theme => ({
 
           
               <br />
-          
+        
               <TextField
           id="standard-textarea"
           label="Personal Summary"

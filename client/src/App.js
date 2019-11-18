@@ -10,6 +10,7 @@ import "./App.css";
 import Dialog from '@material-ui/core/Dialog';
 import SignUpForm from "./pages/signUp/SignUpForm";
 import SignInForm from "./pages/SignInForm";
+import LearnerProfile from "./pages/profilePage/LearnerProfile"
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -149,11 +150,7 @@ export default function App() {
 
         <Route exact path="/" component={SignUpForm}></Route>
         <Route path="/sign-in" component={SignInForm}></Route>
-     
-    ;
-  
-
-
+        <Route path ="/profile-page" component={LearnerProfile}></Route>
     </Router>
   );
 }

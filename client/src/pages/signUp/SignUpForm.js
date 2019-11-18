@@ -29,12 +29,12 @@ class SignUpForm extends Component{
             hasAgreed: false
         };
 
-      skipStep=() =>{
-        const {step} = this.state;
-        this.setState({
-          step: step + 2
-        });
-      };
+    skipStep=() =>{
+      const {step} = this.state;
+      this.setState({
+        step: step + 2
+      });
+    };
     
   nextStep=() =>{
     const {step} = this.state;
@@ -60,13 +60,16 @@ class SignUpForm extends Component{
   handleChange = input => e => {
  
     //let target = e.target;
-   //let value = target.type === "checkbox" ? target.checked : target.value;
     //let name = target.name;
-
+      if(e.target.type === "checkbox"){
+        this.setState({
+          [input]: e.target.checked
+        });
+      }else{
         this.setState({
             [input]: e.target.value
         });
-    
+      }
     };
 
     lastSubmit(e){

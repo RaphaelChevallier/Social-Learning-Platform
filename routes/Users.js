@@ -5,32 +5,37 @@ var loginValidate = require('../validation/login');
 var registerValidate = require('../validation/register');
 var db = require('../db');
 const saltRounds = 10;
-const router = express.Router();
+const jwt = require("jsonwebtoken")
+const { JWT_SECRET } = require('../config');
+const users = express.Router();
 
-router.post('/signIn', function(req, res, next) {  
+users.post('/signIn', function(req, res, next) {  
   var email = req.body.email;
   var signInPassword = JSON.stringify(req.body.password);
   console.log(loginValidate(req.body))
-  if(loginValidate(req.body)){
-    db.query('SELECT * FROM "USER" WHERE email = $1', [email], (error, results) => {
+  if(loginValidate(req.body).isValid ==true){
+    db.query('select array_to_json(array_agg(row_to_json(t)))from (SELECT * FROM "USER" WHERE email = $1) t', [email], (error, results) => {
       if (error) {
         throw error;
       }
-      if(isEmpty(results.rows)){
+      if(isEmpty(results)){
+        res.status(400).json({error: 'User does not exist'})
         res.end("No email like " + email);
       } else{
-        var passwordDB= results.rows[0].password;
+        var passwordDB= results.rows[0].array_to_json[0].password;
         var mentorCheck= false;
-        var isLoggedin=false;
+        var signinArray = [];
         bcrypt.compare(signInPassword, passwordDB, function(err, result) {
-          if(result) {
-            isLoggedin=true;
-            var signInArray = [isLoggedin];
-            if (results.rows[0].mentor_id != null){
+          if(result == true) {
+            let token = jwt.sign(results.rows[0].array_to_json[0], process.env.JWT_SECRET, {expiresIn: "1d"})
+            signinArray.push(token)
+            if (results.rows[0].array_to_json[0].mentor_id != null){
               mentorCheck = true;
-              signInArray.push(mentorCheck);
-              res.end(signInArray);
-            }            
+              signinArray.push(mentorCheck)
+              res.send(signinArray);
+            }else{
+              res.send(signinArray) 
+            }           
           } else {
             res.end("Wrong Password");
           } 
@@ -43,10 +48,10 @@ router.post('/signIn', function(req, res, next) {
 });
 
 
-router.post('/register', function(req, res, next) {
+users.post('/register', function(req, res, next) {
     var password = JSON.stringify(req.body.password);
     var canRegister = false;
-    if(registerValidate(req.body).isValid == true && req.body.hasAgreed == true){
+    if(registerValidate(req.body).isValid == true){
       bcrypt.hash(password, saltRounds, function(err, hash) {
         db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
           if(error) {
@@ -56,7 +61,6 @@ router.post('/register', function(req, res, next) {
             res.end()
           } else {
             canRegister = true;
-            console.log("Added the user " + firstname + " " + lastname + "!")
             res.send(canRegister)
             res.end()
           }
@@ -68,4 +72,4 @@ router.post('/register', function(req, res, next) {
     }
 });
 
-module.exports = router;
+module.exports = users;
