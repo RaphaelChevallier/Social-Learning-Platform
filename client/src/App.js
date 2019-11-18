@@ -25,6 +25,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Logo from './logo/logoIcon.png'; 
+
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -37,20 +40,15 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
+  
 }));
 
 export default function App() {
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
-  const [text, setText] = React.useState("Log OUT")
+  const [text, setText] = React.useState("Log OUT");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const handleChange = event => {
-    setAuth(event.target.checked);
-    setText(auth ? "login": "logout");
-    
-  };
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -59,31 +57,41 @@ export default function App() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  //const handleLogin=()=>{
+    //if(sessionStorage.getItem('isloggedIn')===true && auth===false){
+
+      //setText(auth? "login" :"logout");
+    //}
+  //}
   const handleLogout = () => {
-     if(auth == true){
-   setAuth(false);}
-   setText(auth ? "login": "logout");
-  }
+      if(sessionStorage.getItem('isLoggedIn')===true && auth===true){
+          setText(auth ? "login": "logout");
+          sessionStorage.setItem('isLoggedIn',false);
+      }
+        else{
+          setAuth(false);
+          setText(auth ? "login": "login"); 
+        }
+    }
+  
 
   return (
     <Router>
     <div className={classes.root}>
-      <FormGroup>
-        <FormControlLabel
-          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-          label={auth ? 'Logout' : 'Login'}
-        />
-      </FormGroup>
+      
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Giddy-Up
+          <img src={Logo} alt="websitelogo"/>
+          <Typography variant="h4" className={classes.title}>
+            GIDDY-UP
+            <Button color="inherit" onClick = "null">Home </Button>
+            <Button color="inherit" onClick = "null"> Explore </Button>
+            <Button color="inherit" onClick = "null"> Contact Us </Button>
           </Typography>
+          
           <Button color="inherit" onClick = {handleLogout}> {text} </Button>
-            
+          
           {auth && (
             <div>
               <IconButton
