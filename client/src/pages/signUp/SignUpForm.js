@@ -81,9 +81,20 @@ class SignUpForm extends Component{
       axios
         .post('/Users/register', this.state)
         .then(res => { 
-          if(res.data == true && res.status == 200 && pass === ver){
-            console.log(res)
-            console.log("Congrats you have just registered!")
+          if(res.data && res.status == 200 && pass === ver){
+            axios.post('Users/signin', [this.state.email, this.state.password])
+            .then(res => {
+              if (Array.isArray(res.data) && res.status===200){
+                var token= res.data[0];
+                var isMentor = res.data[1];
+                localStorage.setItem('usertoken', token);
+                this.props.history.push('/profile-page')
+                if (isMentor===true){
+                  localStorage.setItem('isMentor', true);
+                }
+                return token
+              }
+            })
             //This is where the registration was a success
             //Put here the routing to the next react page for the extra questions or rerender current page to show new component
           }else {

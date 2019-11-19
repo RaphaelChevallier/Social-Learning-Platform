@@ -35,6 +35,7 @@ class SignInForm extends Component {
           var token= res.data[0];
           var isMentor = res.data[1];
           localStorage.setItem('usertoken', token);
+          this.props.history.push('/profile-page')
           if (isMentor===true){
             localStorage.setItem('isMentor', true);
           }
