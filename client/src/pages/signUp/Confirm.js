@@ -30,7 +30,7 @@ const Confirm = ({
             <label>City: {values.city} </label> <br />
             <label>Birthdate: {values.birthdate} </label> <br />
             <label>Summary: {values.summary} </label> <br />
-            <label>Interests: {values.interests} </label> <br />
+            {/* <label>Interests: {values.interests} </label> <br /> */}
             <label>Mentor Subject: {values.mentorSubject} </label> <br />
             <label>Years Experience: {values.yearsExp} </label> <br />
             <label>Experience Level: {values.expLevel} </label> <br />
