@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     },
   }));
   
-  const SignUpFinal = ({nextStep, prevStep, skipPrev, values}) => {
+  const SignUpFinal = ({nextStep, prevStep, skipPrev, values, handleChange}) => {
     let button;
 
     const classes = useStyles();
@@ -44,18 +44,7 @@ const useStyles = makeStyles(theme => ({
       </Button>
     }
   
-    // const inputLabel = React.useRef(null);
-    // const [labelWidth, setLabelWidth] = React.useState(0);
-    // React.useEffect(() => {
-    //   setLabelWidth(inputLabel.current.offsetWidth);
-    // }, []);
   
-    const handleChange = name => event => {
-      setState({
-        ...state,
-        [name]: event.target.value,
-      });
-    };
     
   
     return (
@@ -96,7 +85,7 @@ const useStyles = makeStyles(theme => ({
           margin="normal"
         />
               <br />
-              {button}
+              
               <Button
                 color="primary"
                 variant="contained"

@@ -38,10 +38,12 @@ class SignUpForm extends Component{
     
   nextStep=() =>{
     const {step} = this.state;
+    
     this.setState({
       step: step + 1
     });
   };
+
 
   prevStep =() =>{
     const {step} = this.state;
@@ -204,6 +206,7 @@ class SignUpForm extends Component{
             nextStep = {this.nextStep}
             prevStep = {this.prevStep}
             handleChange={this.handleChange}
+            handleSubmit={this.lastSubmit}
             values = {values}/>
         );
 
