@@ -4,25 +4,17 @@
 //https://scotch.io/tutorials/build-a-blog-using-expressjs-and-react-in-30-minutes
 //https://serverless-stack.com/chapters/create-a-login-page.html
 
-import React, { Component } from "react";
+import React from "react";
 import { HashRouter as Router, Route, NavLink, Link } from "react-router-dom";
 import "./App.css";
-import Dialog from '@material-ui/core/Dialog';
+import Navbar from "./pages/Navbar";
 import SignUpForm from "./pages/signUp/SignUpForm";
 import SignInForm from "./pages/SignInForm";
+import LearnerProfile from "./pages/profilePage/LearnerProfile"
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import { withStyles } from "@material-ui/core/styles";
-import { MuiThemeProvider } from "@material-ui/core/styles";
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
@@ -40,31 +32,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function App() {
-  const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
-  const [text, setText] = React.useState("Log OUT")
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
-  const handleChange = event => {
-    setAuth(event.target.checked);
-    setText(auth ? "login": "logout");
-    
-  };
-
-  const handleMenu = event => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleLogout = () => {
-     if(auth == true){
-   setAuth(false);}
-   setText(auth ? "login": "logout");
-  }
-
   return (
     <Router>
     <div className={classes.root}>
@@ -147,6 +114,10 @@ export default function App() {
   
 
 
+      <Navbar/>
+      <Route path="/sign-in" component={SignInForm}></Route>
+      <Route exact path="/" component={SignUpForm}></Route>
+      <Route path ="/profile-page" component={LearnerProfile}></Route>
     </Router>
   );
 }

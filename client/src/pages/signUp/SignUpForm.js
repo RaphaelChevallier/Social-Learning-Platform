@@ -29,12 +29,12 @@ class SignUpForm extends Component{
             hasAgreed: false
         };
 
-      skipStep=() =>{
-        const {step} = this.state;
-        this.setState({
-          step: step + 2
-        });
-      };
+    skipStep=() =>{
+      const {step} = this.state;
+      this.setState({
+        step: step + 2
+      });
+    };
     
   nextStep=() =>{
     const {step} = this.state;
@@ -60,13 +60,16 @@ class SignUpForm extends Component{
   handleChange = input => e => {
  
     //let target = e.target;
-   //let value = target.type === "checkbox" ? target.checked : target.value;
     //let name = target.name;
-
+      if(e.target.type === "checkbox"){
+        this.setState({
+          [input]: e.target.checked
+        });
+      }else{
         this.setState({
             [input]: e.target.value
         });
-    
+      }
     };
 
     lastSubmit(e){
@@ -78,9 +81,20 @@ class SignUpForm extends Component{
       axios
         .post('/Users/register', this.state)
         .then(res => { 
-          if(res.data == true && res.status == 200 && pass === ver){
-            console.log(res)
-            console.log("Congrats you have just registered!")
+          if(res.data && res.status == 200 && pass === ver){
+            axios.post('Users/signin', [this.state.email, this.state.password])
+            .then(res => {
+              if (Array.isArray(res.data) && res.status===200){
+                var token= res.data[0];
+                var isMentor = res.data[1];
+                localStorage.setItem('usertoken', token);
+                this.props.history.push('/profile-page')
+                if (isMentor===true){
+                  localStorage.setItem('isMentor', true);
+                }
+                return token
+              }
+            })
             //This is where the registration was a success
             //Put here the routing to the next react page for the extra questions or rerender current page to show new component
           }else {

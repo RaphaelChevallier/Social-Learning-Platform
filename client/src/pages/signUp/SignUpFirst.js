@@ -51,6 +51,7 @@ export class SignUpFirst extends Component {
                   label="Password"
                   onChange={handleChange('password')}
                   defaultValue={values.password}
+                  type="password"
                   margin="normal"
                   fullWidth="true"
                 />
@@ -60,6 +61,7 @@ export class SignUpFirst extends Component {
                   label="Re-Enter Your Password"
                   onChange={handleChange('passVerify')}
                   defaultValue={values.passVerify}
+                  type="password"
                   margin="normal"
                   fullWidth="true"
                 />

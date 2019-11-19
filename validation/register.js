@@ -4,15 +4,11 @@ const isEmpty = require("is-empty");
 module.exports = function validateRegisterInput(data) {
   let errors = {};
 // Convert empty fields to an empty string so we can use validator functions
-  data.name = !isEmpty(data.name) ? data.name : "";
+  data.firstName = !isEmpty(data.firstName) ? data.firstName : "";
+  data.lastName = !isEmpty(data.lastName) ? data.lastName : "";
   data.email = !isEmpty(data.email) ? data.email : "";
   data.password = !isEmpty(data.password) ? data.password : "";
-  if(data.hasAgreed == true){
-    hasAgreed = "true";
-  } else{
-    hasAgreed = ""
-  }
-  hasAgreed = !isEmpty(hasAgreed) ? hasAgreed : "";
+
   //data.password2 = !isEmpty(data.password2) ? data.password2 : "";
   
 // Password checks
@@ -24,13 +20,13 @@ module.exports = function validateRegisterInput(data) {
     errors.password = "Password field is required";
   }
 
-  if (Validator.isEmpty(hasAgreed)) {
-    errors.hasAgreed = "You need to check the TOS";
+  // Name checks
+  if (Validator.isEmpty(data.firstName)) {
+    errors.name = "First name field is required";
   }
 
-  // Name checks
-  if (Validator.isEmpty(data.name)) {
-    errors.name = "Name field is required";
+  if (Validator.isEmpty(data.lastName)) {
+    errors.name = "Last name field is required";
   }
 // Email checks
   if (Validator.isEmpty(data.email)) {

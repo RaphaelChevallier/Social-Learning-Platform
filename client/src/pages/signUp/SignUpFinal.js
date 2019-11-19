@@ -1,22 +1,12 @@
 //Reference: https://stackoverflow.com/questions/51605481/how-to-make-a-select-component-as-required-in-material-ui-react-js
 
 import React, { Component } from 'react';
-import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 
 
@@ -35,12 +25,24 @@ const useStyles = makeStyles(theme => ({
     },
   }));
   
-  const SignUpFinal = ({nextStep, prevStep}) => {
+  const SignUpFinal = ({nextStep, prevStep, skipPrev, values}) => {
+    let button;
+
     const classes = useStyles();
     const [state, setState] = React.useState({
       experience: '',
       name: 'hai',
     });
+
+    if(values.isMentor === true){
+      button = <Button color="primary" style = {buttonStyle} variant="contained" onClick={prevStep}>
+        Previous
+    </Button>
+    }else {
+      button = <Button color="primary" style = {buttonStyle} variant="contained" onClick={skipPrev}>
+        Previous
+      </Button>
+    }
   
     // const inputLabel = React.useRef(null);
     // const [labelWidth, setLabelWidth] = React.useState(0);
@@ -94,8 +96,7 @@ const useStyles = makeStyles(theme => ({
           margin="normal"
         />
               <br />
-              <Button color="primary" style = {buttonStyle} variant="contained" onClick={prevStep}>
-                Previous</Button>
+              {button}
               <Button
                 color="primary"
                 variant="contained"
