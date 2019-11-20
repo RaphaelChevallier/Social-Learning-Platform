@@ -41,13 +41,14 @@ const useStyles = makeStyles(theme => ({
 
     
 const LoginRegSwitch = (
-  <div className="PageSwitcher">
+  <div className="PageSwitcher" >
         <NavLink
           to="/sign-in"
           id="first"
           
           activeClassName="PageSwitcher__Item--Active"
           className="PageSwitcher__Item"
+          
         >
           Sign In
         </NavLink>
@@ -60,6 +61,7 @@ const LoginRegSwitch = (
         >
           Sign Up
         </NavLink>
+
       </div>
     )
 
@@ -97,14 +99,15 @@ const LoginRegSwitch = (
             <AppBar position="static">
                 <Toolbar>
                 <img src={Logo} alt="websitelogo"/>
-                <Typography variant="h4" className={classes.title}>
+                <Typography variant="h4" className={classes.title} style={{  width: '80%', position: 'relative' }}>
                     GIDDY-UP
                     <Button color="inherit" onClick = "null">Home </Button>
                     <Button color="inherit" onClick = "null"> Explore </Button>
                     <Button color="inherit" onClick = "null"> Contact Us </Button>
+                    
                 </Typography>
 
-                {localStorage.usertoken ? LogoutProfile : LoginRegSwitch}
+                {localStorage.usertoken ? LogoutProfile : LoginRegSwitch }
                 </Toolbar>
             </AppBar>
         </div>
