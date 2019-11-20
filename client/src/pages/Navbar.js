@@ -87,7 +87,6 @@ const LoginRegSwitch = (
                 vertical: 'top',
                 horizontal: 'right',
               }}
-            //   open={open}
             >
             </Menu>
           </div>
