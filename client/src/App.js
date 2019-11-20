@@ -4,7 +4,7 @@
 //https://scotch.io/tutorials/build-a-blog-using-expressjs-and-react-in-30-minutes
 //https://serverless-stack.com/chapters/create-a-login-page.html
 
-import {React, Component} from "react";
+import React from "react";
 import { HashRouter as Router, Route, Redirect,  NavLink, Link } from "react-router-dom";
 import "./App.css";
 import Navbar from "./pages/Navbar";
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function App() {
-  return (
+  return(
     <Router>
       <Navbar />
       <Route path="/sign-in" component={SignInForm}></Route>

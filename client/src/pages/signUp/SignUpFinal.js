@@ -1,5 +1,4 @@
 //Reference: https://stackoverflow.com/questions/51605481/how-to-make-a-select-component-as-required-in-material-ui-react-js
-
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {MuiThemeProvider} from '@material-ui/core/styles';
@@ -85,7 +84,7 @@ const useStyles = makeStyles(theme => ({
           margin="normal"
         />
               <br />
-              
+              {button}
               <Button
                 color="primary"
                 variant="contained"

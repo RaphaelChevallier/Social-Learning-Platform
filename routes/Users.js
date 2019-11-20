@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken")
 const { JWT_SECRET } = require('../config');
 const users = express.Router();
 
-users.post('/signIn', function(req, res, next) {  
+users.post('/signIn', function(req, res, next) { 
   var email = req.body.email;
   var signInPassword = JSON.stringify(req.body.password);
   console.log(loginValidate(req.body))

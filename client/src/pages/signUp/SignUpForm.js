@@ -9,32 +9,37 @@ import Success from './Success';
 import SignUpFinal from './SignUpFinal';
 
 class SignUpForm extends Component{
-    
+    constructor(){
+      super();
   
-  state={
-            step: 1,
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            passVerify: '',
-            city: '',
-            birthdate: '',
-            summary: '',
-            interests: [{}],
-            mentorSubject: '',
-            yearsExp: '',
-            isMentor: 'no',
-            expLevel: '',
-            hasAgreed: false
-        };
+      this.state={
+              step: 1,
+              firstName: '',
+              lastName: '',
+              email: '',
+              password: '',
+              passVerify: '',
+              city: '',
+              birthdate: null,
+              summary: '',
+              interests: [],
+              mentorSubject: '',
+              yearsExp: '',
+              isMentor: 'no',
+              expLevel: '',
+              hasAgreed: false
+          };
 
-    skipStep=() =>{
-      const {step} = this.state;
-      this.setState({
-        step: step + 2
-      });
-    };
+          this.lastSubmit = this.lastSubmit.bind(this);
+          this.handleChange = this.handleChange.bind(this);
+
+      }
+  skipStep=() =>{
+    const {step} = this.state;
+    this.setState({
+      step: step + 2
+    });
+  };
     
   nextStep=() =>{
     const {step} = this.state;
@@ -74,29 +79,31 @@ class SignUpForm extends Component{
       }
     };
 
-    lastSubmit(e){
-      
-      e.preventDefault();
-      let pass = e.target.password
-      let ver = e.target.passVerify
+    lastSubmit(e) {
+      if(e){
+        e.preventDefault();
+      }
+      let pass = this.state.password
+      let ver = this.state.passVerify
 
       axios
         .post('/Users/register', this.state)
         .then(res => { 
-          if(res.data && res.status == 200 && pass === ver){
-            axios.post('Users/signin', [this.state.email, this.state.password])
-            .then(res => {
-              if (Array.isArray(res.data) && res.status===200){
-                var token= res.data[0];
-                var isMentor = res.data[1];
-                localStorage.setItem('usertoken', token);
-                this.props.history.push('/profile-page')
-                if (isMentor===true){
-                  localStorage.setItem('isMentor', true);
-                }
-                return token
-              }
-            })
+          if(res.data === true && res.status == 200 && pass === ver){
+            this.nextStep();
+            // axios.post('Users/signin', [this.state.email, this.state.password])
+            // .then(res => {
+            //   if (Array.isArray(res.data) && res.status===200){
+            //     var token= res.data[0];
+            //     var isMentor = res.data[1];
+            //     localStorage.setItem('usertoken', token);
+            //     this.props.history.push('/profile-page')
+            //     if (isMentor===true){
+            //       localStorage.setItem('isMentor', true);
+            //     }
+            //     return token
+            //   }
+            // })
             //This is where the registration was a success
             //Put here the routing to the next react page for the extra questions or rerender current page to show new component
           }else {
@@ -213,7 +220,6 @@ class SignUpForm extends Component{
         case 6: 
         return (
           <Success
-            lastSubmit = {this.lastSubmit()}
           />
         );
       }

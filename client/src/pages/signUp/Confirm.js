@@ -33,9 +33,9 @@ const Confirm = ({
             color="primary"
             variant="contained"
             style={buttonStyle}
-            onClick={(event) => { handleSubmit(event); nextStep()}}
+            onClick={handleSubmit}
           >
-            Continue
+            Confirm
           </Button>
         </div>
       </React.Fragment>
