@@ -16,27 +16,24 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   title: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 }));
 
 
 export default function App() {
   return (
     <Router>
-
-      <Navbar/>
+      <Navbar />
       <Route path="/sign-in" component={SignInForm}></Route>
       <Route exact path="/" component={SignUpForm}></Route>
-      <Route path ="/profile-page" component={LearnerProfile}/>
+      <Route path="/profile-page" component={LearnerProfile}></Route>
     </Router>
   );
 }
-
-   
