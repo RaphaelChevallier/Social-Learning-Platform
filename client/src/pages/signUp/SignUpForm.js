@@ -90,7 +90,7 @@ class SignUpForm extends Component{
         .post('/Users/register', this.state)
         .then(res => { 
           if(res.data === true && res.status == 200 && pass === ver){
-            this.nextStep();
+            console.log("Registered")
             // axios.post('Users/signin', [this.state.email, this.state.password])
             // .then(res => {
             //   if (Array.isArray(res.data) && res.status===200){

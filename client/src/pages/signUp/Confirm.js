@@ -33,7 +33,7 @@ const Confirm = ({
             color="primary"
             variant="contained"
             style={buttonStyle}
-            onClick={handleSubmit}
+            onClick={function(event){ handleSubmit(); nextStep()}}
           >
             Confirm
           </Button>
