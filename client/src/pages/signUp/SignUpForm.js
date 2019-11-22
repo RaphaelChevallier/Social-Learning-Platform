@@ -32,8 +32,17 @@ class SignUpForm extends Component{
 
           this.lastSubmit = this.lastSubmit.bind(this);
           this.handleChange = this.handleChange.bind(this);
-
+          this.onTagsChange = this.onTagsChange.bind(this);
       }
+
+onTagsChange = (event, values) => {
+    console.log("got to the tags method")
+      this.setState({
+        interests: values
+      }, () => {
+        console.log(this.state.interests);
+      });
+    }
   skipStep=() =>{
     const {step} = this.state;
     this.setState({
@@ -65,18 +74,21 @@ class SignUpForm extends Component{
   };
 
   handleChange = input => e => {
- 
+    console.log(e.target.type)
     //let target = e.target;
     //let name = target.name;
       if(e.target.type === "checkbox"){
         this.setState({
           [input]: e.target.checked
         });
+    
       }else{
+        console.log("else reached")
         this.setState({
             [input]: e.target.value
         });
       }
+      
     };
 
     lastSubmit(e) {
@@ -188,6 +200,7 @@ class SignUpForm extends Component{
             prevStep = {this.prevStep}
             skipStep = {this.skipStep}
             handleChange={this.handleChange}
+            onTagsChange={this.onTagsChange}
             values = {values}/>
         );
         case 3: 

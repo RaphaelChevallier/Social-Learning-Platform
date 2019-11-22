@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { withStyles, makeStyles } from '@material-ui/styles';
 import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +37,7 @@ export class SignUpPersonal extends Component {
   };
 
     render() {
-    const { values, handleChange } = this.props;
+    const { values, handleChange, onTagsChange } = this.props;
     let button;
 
     if(values.isMentor === true){
@@ -60,10 +61,11 @@ export class SignUpPersonal extends Component {
               getOptionLabel={option => option.title}
               defaultValue={[interests[4]]}
               filterSelectedOptions
-              
+              onChange={onTagsChange}
               renderInput={params => (
                 <TextField
                   {...params}
+                  
                   variant="outlined"
                   label="interests"
                   placeholder="Your first interest will be your primary"

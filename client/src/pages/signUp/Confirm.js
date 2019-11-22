@@ -9,11 +9,13 @@ const Confirm = ({
   nextStep,
   handleSubmit
 }) => {
+  console.log(JSON.stringify(values.interests));
   return (
     <MuiThemeProvider>
       <React.Fragment>
         <div style={container}>
           <FormLabel>
+           
             <label>FirstName: {values.firstName} </label>
             <br />
             <label>LastName: {values.lastName} </label>
