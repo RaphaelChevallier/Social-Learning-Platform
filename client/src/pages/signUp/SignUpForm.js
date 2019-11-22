@@ -25,7 +25,7 @@ class SignUpForm extends Component{
               interests: [],
               mentorSubject: '',
               yearsExp: '',
-              isMentor: 'no',
+              isMentor: false,
               expLevel: '',
               hasAgreed: false
           };
