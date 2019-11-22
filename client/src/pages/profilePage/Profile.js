@@ -17,7 +17,7 @@ import Divider from '@material-ui/core/Divider';
 
 
 
-class LearnerProfile extends Component {
+class Profile extends Component {
     constructor() {
         super();
         this.state = {
@@ -244,4 +244,4 @@ class LearnerProfile extends Component {
 }
 
 
-export default LearnerProfile;
+export default Profile;

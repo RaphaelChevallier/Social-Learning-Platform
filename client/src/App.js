@@ -5,12 +5,12 @@
 //https://serverless-stack.com/chapters/create-a-login-page.html
 
 import React from "react";
-import { HashRouter as Router, Route, Redirect,  NavLink, Link } from "react-router-dom";
+import { HashRouter as Router, BrowserRouter, Route, Redirect,  NavLink, Link } from "react-router-dom";
 import "./App.css";
 import Navbar from "./pages/Navbar";
 import SignUpForm from "./pages/signUp/SignUpForm";
 import SignInForm from "./pages/SignInForm";
-import LearnerProfile from "./pages/profilePage/LearnerProfile"
+import Profile from "./pages/profilePage/Profile"
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -29,11 +29,71 @@ const useStyles = makeStyles(theme => ({
 
 export default function App() {
   return(
-    <Router>
+    <BrowserRouter>
       <Navbar />
-      <Route path="/sign-in" component={SignInForm}></Route>
-      <Route exact path="/" component={SignUpForm}></Route>
-      <Route path="/profile-page" component={LearnerProfile}></Route>
-    </Router>
+      <PrivateRouteLogIn path="/sign-in"> <SignInForm/> </PrivateRouteLogIn>
+      <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
+      <PrivateRoute path="/profile-page">
+        <Profile />
+      </PrivateRoute>
+    </BrowserRouter>
   );
+
+  function PrivateRoute({ children, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          localStorage.getItem('usertoken') ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/sign-in",
+                state: { from: location }
+              }}
+            />
+          )
+        }
+      />
+    );
+  }
+  function PrivateRouteLogIn({ children, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          localStorage.getItem('usertoken') ? (
+            <Redirect
+              to={{
+                pathname: "/profile-page",
+                state: { from: location }
+              }}
+            />
+          ) : (
+            children
+          )
+        }
+      />    
+    );
+  }
+  function PrivateRouteRegister({ children, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+          localStorage.getItem('usertoken') ? (
+            <Redirect
+              to={{
+                pathname: "/profile-page",
+                state: { from: location }
+              }}
+            />
+          ) : (
+            children
+          )
+        }
+      />
+    );
+  }
 }

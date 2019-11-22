@@ -55,7 +55,7 @@ const LoginRegSwitch = (
 
         <NavLink
           exact
-          to="/"
+          to="/register"
           activeClassName="PageSwitcher__Item--Active"
           className="PageSwitcher__Item"
         >
