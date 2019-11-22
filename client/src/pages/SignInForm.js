@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { HashRouter as Router, Route, NavLink, Link } from "react-router-dom";
+import { HashRouter as Router, withRouter, Route, NavLink, Link } from "react-router-dom";
 import axios from 'axios';
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -101,4 +101,4 @@ textAlign: "center",
 backgroundColor: "orange",
 color: "white"
 }
-export default SignInForm;
+export default withRouter(SignInForm);

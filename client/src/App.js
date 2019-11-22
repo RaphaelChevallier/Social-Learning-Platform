@@ -5,7 +5,7 @@
 //https://serverless-stack.com/chapters/create-a-login-page.html
 
 import React from "react";
-import { HashRouter as Router, Route, Redirect,  NavLink, Link } from "react-router-dom";
+import { HashRouter as Router, BrowserRouter, Route, Redirect,  NavLink, Link } from "react-router-dom";
 import "./App.css";
 import Navbar from "./pages/Navbar";
 import SignUpForm from "./pages/signUp/SignUpForm";
@@ -29,15 +29,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function App() {
   return(
-    <Router>
+    <BrowserRouter>
       <Navbar />
       <PrivateRouteLogIn path="/sign-in"> <SignInForm/> </PrivateRouteLogIn>
       <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
       <PrivateRoute path="/profile-page">
         <Profile />
       </PrivateRoute>
-      {/*<Route path="/profile-page" component={Profile}></Route>*/}
-    </Router>
+    </BrowserRouter>
   );
 
   function PrivateRoute({ children, ...rest }) {
