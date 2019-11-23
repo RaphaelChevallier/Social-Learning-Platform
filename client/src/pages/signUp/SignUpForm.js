@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import { HashRouter as Router, withRouter, Route, NavLink, Link } from "react-router-dom";
 import axios from 'axios';
 import SignUpFirst from './SignUpFirst';
 import SignUpMentor from './SignUpMentor';
@@ -58,6 +58,9 @@ onTagsChange = (event, values) => {
     });
   };
 
+  toProfile =()=>{
+    this.props.history.push('/profile-page');
+  }
 
   prevStep =() =>{
     const {step} = this.state;
@@ -233,6 +236,7 @@ onTagsChange = (event, values) => {
         case 6: 
         return (
           <Success
+          toProfile={this.toProfile}
           />
         );
       }
@@ -241,4 +245,4 @@ onTagsChange = (event, values) => {
       
     }
 }
-export default SignUpForm;
+export default withRouter(SignUpForm);

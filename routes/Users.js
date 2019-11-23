@@ -51,11 +51,12 @@ users.post('/signIn', function(req, res, next) {
 users.post('/register', function(req, res, next) {
     var password = JSON.stringify(req.body.password);
     var isMentor = JSON.stringify(req.body.isMentor);
+    var subject = {subject: req.body.mentorSubject};
     var canRegister = false;
     if(registerValidate(req.body).isValid == true){
-      if(isMentor === false){
+      if(isMentor == "false"){
         bcrypt.hash(password, saltRounds, function(err, hash) {
-          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
             if(error) {
               console.log("Something went wrong with the db");
               console.log(error.message || error);
@@ -68,26 +69,30 @@ users.post('/register', function(req, res, next) {
             }
           });
         });
-      } else{
+      }else{
         bcrypt.hash(password, saltRounds, function(err, hash) {
-          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+          db.query('INSERT INTO \"USER\"(firstname, lastname, email, password, city, bdate, summary, interests , mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(\'serial_mentor_id\'))', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
             if(error) {
               console.log("Something went wrong with the db");
               console.log(error.message || error);
               res.send("Duplicate entries of email")
+              res.end();
+            }
+          });
+          db.query('INSERT INTO "MENTOR"(level_of_experience_primary_mentoring_subject, mentoring_subjects, certified, wage, user_id, mentor_id) VALUES ($1, $2, $3, $4, currval(pg_get_serial_sequence(\'"USER"\', \'user_id\')), currval(\'serial_mentor_id\'))', [req.body.yearsExp, subject, true, 40000], (error, results) => {
+            if(error) {
+              console.log("Something went wrong with the mentor db");
+              console.log(error.message || error);
               res.end()
             } else {
-              canRegister = true;
-              res.send(canRegister)
-              res.end()
+              canRegister = true;  
+              res.send(canRegister) 
+              res.end();
             }
           });
         });
-        // db.query('INSERT INTO "MENTOR"(firstname, lastname, email, password, city, bdate, summary, interests, mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(serial_mentor_id)) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
-          
-        // });
       }
-    } else{
+    }else{
       res.json(registerValidate(req.body).errors);
       res.end();
     }

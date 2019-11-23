@@ -8,11 +8,10 @@ export class Success extends Component {
     super();
   }
 
-  toProfile(){
-    const {history} = this.props.history;
-    console.log(history)
-    history.push('/profile-page');
-  }	
+  toProfile = e =>{
+    e.preventDefault();
+    this.props.toProfile();
+}
 
   render(){
     return (
@@ -24,7 +23,7 @@ export class Success extends Component {
         <Button
           color="primary"
           variant="contained"
-          onClick={this.toProfile()}
+          onClick={this.toProfile}
         >To the Profile page
         </Button>
       </div>
