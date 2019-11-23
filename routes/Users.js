@@ -18,10 +18,10 @@ users.post('/signIn', function(req, res, next) {
       if (error) {
         throw error;
       }
-      if(isEmpty(results)){
-        res.status(400).json({error: 'User does not exist'})
+      if(results.rows[0].array_to_json === null){
         res.end("No email like " + email);
       } else{
+        console.log(results.rows[0].array_to_json === null)
         var passwordDB= results.rows[0].array_to_json[0].password;
         var mentorCheck= false;
         var signinArray = [];
@@ -39,7 +39,7 @@ users.post('/signIn', function(req, res, next) {
           } else {
             res.end("Wrong Password");
           } 
-        });} 
+        });}
     })
   } else{
     console.log('Validation didn\'t pass');
@@ -50,26 +50,46 @@ users.post('/signIn', function(req, res, next) {
 
 users.post('/register', function(req, res, next) {
     var password = JSON.stringify(req.body.password);
+    var isMentor = JSON.stringify(req.body.isMentor);
     var canRegister = false;
     if(registerValidate(req.body).isValid == true){
-      bcrypt.hash(password, saltRounds, function(err, hash) {
-        db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
-          if(error) {
-            console.log("Something went wrong with the db");
-            console.log(error.message || error);
-            res.send("Duplicate entries of email")
-            res.end()
-          } else {
-            canRegister = true;
-            res.send(canRegister)
-            res.end()
-          }
+      if(isMentor === false){
+        bcrypt.hash(password, saltRounds, function(err, hash) {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+            if(error) {
+              console.log("Something went wrong with the db");
+              console.log(error.message || error);
+              res.send("Duplicate entries of email")
+              res.end()
+            } else {
+              canRegister = true;
+              res.send(canRegister)
+              res.end()
+            }
+          });
         });
-      });
+      } else{
+        bcrypt.hash(password, saltRounds, function(err, hash) {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+            if(error) {
+              console.log("Something went wrong with the db");
+              console.log(error.message || error);
+              res.send("Duplicate entries of email")
+              res.end()
+            } else {
+              canRegister = true;
+              res.send(canRegister)
+              res.end()
+            }
+          });
+        });
+        // db.query('INSERT INTO "MENTOR"(firstname, lastname, email, password, city, bdate, summary, interests, mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(serial_mentor_id)) ', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+          
+        // });
+      }
     } else{
       res.json(registerValidate(req.body).errors);
       res.end();
     }
 });
-
 module.exports = users;

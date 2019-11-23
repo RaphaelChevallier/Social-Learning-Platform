@@ -7,12 +7,14 @@ export class Success extends Component {
   constructor() {
     super();
   }
+
   toProfile(){
-    const {history} = this.props;
+    const {history} = this.props.history;
+    console.log(history)
     history.push('/profile-page');
-  }
+  }	
+
   render(){
-    //const onHistory = this.props.history.push('/profile-page');
     return (
       <div>
         <h1>Thank You For Your Submission</h1>
