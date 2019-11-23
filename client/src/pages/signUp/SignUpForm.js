@@ -36,11 +36,8 @@ class SignUpForm extends Component{
       }
 
 onTagsChange = (event, values) => {
-    console.log("got to the tags method")
       this.setState({
-        interests: values
-      }, () => {
-        console.log(this.state.interests);
+        interests: Object.assign({}, values)
       });
     }
   skipStep=() =>{
@@ -168,9 +165,9 @@ onTagsChange = (event, values) => {
             passVerify: '',
             name: '',
             city: '',
-            birthdate: '',
+            birthdate: null,
             summary: '',
-            interests: [{}],
+            interests: {},
             hasAgreed: false
         });
           
