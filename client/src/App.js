@@ -10,8 +10,11 @@ import "./App.css";
 import Navbar from "./pages/Navbar";
 import SignUpForm from "./pages/signUp/SignUpForm";
 import SignInForm from "./pages/SignInForm";
-import Profile from "./pages/profilePage/Profile"
+import Profile from "./pages/profilePage/Profile";
+import MentorCreationPage from "./pages/mentorCreation/mentorCreationPage";
 import { makeStyles } from '@material-ui/core/styles';
+import jwt_decode from 'jwt-decode';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,8 +34,10 @@ export default function App() {
   return(
     <BrowserRouter>
       <Navbar />
+      <Route path='/'/>
       <PrivateRouteLogIn path="/sign-in"> <SignInForm/> </PrivateRouteLogIn>
       <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
+      <PrivateRouteMentorContent path="/post"> <MentorCreationPage /></PrivateRouteMentorContent>
       <PrivateRoute path="/profile-page">
         <Profile />
       </PrivateRoute>
@@ -83,6 +88,27 @@ export default function App() {
         {...rest}
         render={({ location }) =>
           localStorage.getItem('usertoken') ? (
+            <Redirect
+              to={{
+                pathname: "/profile-page",
+                state: { from: location }
+              }}
+            />
+          ) : (
+            children
+          )
+        }
+      />
+    );
+  }
+  function PrivateRouteMentorContent({ children, ...rest }) {
+    var mentor = localStorage.getItem('usertoken')
+    var decoded = jwt_decode(mentor)
+    return (
+      <Route
+        {...rest}
+        render={({ location }) =>
+        decoded.mentor_id === null ? (
             <Redirect
               to={{
                 pathname: "/profile-page",

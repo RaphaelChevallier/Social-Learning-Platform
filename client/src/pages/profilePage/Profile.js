@@ -49,6 +49,7 @@ class Profile extends Component {
       }
 
     render() { 
+      console.log(this.state.interests[0])
       const useStyles = makeStyles(theme => ({
         root: {
           flexGrow: 1,
@@ -79,7 +80,6 @@ class Profile extends Component {
       function ListItemLink(props) {
         return <ListItem button component="a" {...props} />;
       }
-      
 
         return (
           <div className={useStyles.root}>
