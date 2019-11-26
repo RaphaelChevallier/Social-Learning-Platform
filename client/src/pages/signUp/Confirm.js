@@ -13,8 +13,11 @@ const Confirm = ({
   return (
     <MuiThemeProvider>
       <React.Fragment>
+        <div style = {empty}>
+
+        </div>
         <div style={container}>
-          <FormLabel>
+          <FormLabel style = {containForm}>
            
             <label>FirstName: {values.firstName} </label>
             <br />
@@ -30,7 +33,8 @@ const Confirm = ({
             <label>Years Experience: {values.yearsExp} </label> <br />
             <label>Experience Level: {values.expLevel} </label> <br />
           </FormLabel>
-
+          </div>
+          <div style = {endButton}>
           <Button
             color="primary"
             variant="contained"
@@ -39,18 +43,42 @@ const Confirm = ({
           >
             Confirm
           </Button>
-        </div>
+          </div>
       </React.Fragment>
     </MuiThemeProvider>
   );
 };
 const container = {
-  margin: "150px",
+  
+  display: "flex",
+  textAlign: "center",
+  alignItemes: "center",
+  justifyContent: "center" ,
+  color: "yellow",
+  margin: "300px, 200px",
+  backgroundColor: "#fff7e6",
+};
+const endButton = {
+  margin: "100px",
+  display: "flex",
+  alignItemes: "center",
+  justifyContent: "center" 
+
+}
+const containForm = {
+  marginLeft: "auto",
+  marginRight: "auto",
   border: "5px orange"
 };
+const empty = {
+  margin: "200px"
+};
 const buttonStyle = {
-  padding: "0 32 px",
-  margin: "0 64px",
-  border: "5px orange"
+  padding: "0px, 32px",
+  alignItemes: "center",
+  justifyContent: "center",
+  
+  border: "5px orange",
+ 
 };
 export default Confirm;

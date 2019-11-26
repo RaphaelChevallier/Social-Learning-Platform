@@ -14,11 +14,11 @@ class SignUpForm extends Component{
   
       this.state={
               step: 1,
-              firstName: '',
-              lastName: '',
-              email: '',
-              password: '',
-              passVerify: '',
+              firstName: '',//check if = 0
+              lastName: '',// check if = 0
+              email: '', //needs valid
+              password: '',//needs valid
+              passVerify: '',//needs valid
               city: '',
               birthdate: null,
               summary: '',
@@ -27,7 +27,7 @@ class SignUpForm extends Component{
               yearsExp: '',
               isMentor: false,
               expLevel: '',
-              hasAgreed: false
+              hasAgreed: false//needs valid 
           };
 
           this.lastSubmit = this.lastSubmit.bind(this);

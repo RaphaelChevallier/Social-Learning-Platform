@@ -82,6 +82,7 @@ const useStyles = makeStyles(theme => ({
           multiline
          rows = "4"
           margin="normal"
+          onChange={handleChange('summary')}
         />
               <br />
               {button}

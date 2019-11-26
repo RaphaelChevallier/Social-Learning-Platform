@@ -23,6 +23,7 @@ export class SignUpFirst extends Component {
                   label="First Name"
                   onChange={handleChange('firstName')}
                   defaultValue={values.firstName}
+                  
                   margin="normal"
                                 fullWidth="true"
                 />
