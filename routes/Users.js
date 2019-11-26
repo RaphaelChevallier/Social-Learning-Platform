@@ -5,38 +5,41 @@ var loginValidate = require('../validation/login');
 var registerValidate = require('../validation/register');
 var db = require('../db');
 const saltRounds = 10;
-const router = express.Router();
+const jwt = require("jsonwebtoken")
+const { JWT_SECRET } = require('../config');
+const users = express.Router();
 
-router.post('/signIn', function(req, res, next) {  
+users.post('/signIn', function(req, res, next) { 
   var email = req.body.email;
   var signInPassword = JSON.stringify(req.body.password);
   console.log(loginValidate(req.body))
-  if(loginValidate(req.body)){
-    db.query('SELECT * FROM "USER" WHERE email = $1', [email], (error, results) => {
+  if(loginValidate(req.body).isValid ==true){
+    db.query('select array_to_json(array_agg(row_to_json(t)))from (SELECT * FROM "USER" WHERE email = $1) t', [email], (error, results) => {
       if (error) {
         throw error;
       }
-      console.log("This is the database info grabbing users. You can see it comes after because it's asynchronous");
-      if(isEmpty(results.rows)){
-        res.send("No email like " + email);
+      if(results.rows[0].array_to_json === null){
+        res.end("No email like " + email);
       } else{
-        var passwordDB= results.rows[0].password;
+        console.log(results.rows[0].array_to_json === null)
+        var passwordDB= results.rows[0].array_to_json[0].password;
         var mentorCheck= false;
-        var isLoggedin=false;
+        var signinArray = [];
         bcrypt.compare(signInPassword, passwordDB, function(err, result) {
-          if(result) {
-            isLoggedin=true;
-            var signInArray = [isLoggedin];
-            var string = "Successful Login";
-            if (results.rows[0].mentor_id != null){
+          if(result == true) {
+            let token = jwt.sign(results.rows[0].array_to_json[0], process.env.JWT_SECRET, {expiresIn: "1d"})
+            signinArray.push(token)
+            if (results.rows[0].array_to_json[0].mentor_id != null){
               mentorCheck = true;
-              signInArray.push(mentorCheck);
-              res.send(signInArray);
-            }            
+              signinArray.push(mentorCheck)
+              res.send(signinArray);
+            }else{
+              res.send(signinArray) 
+            }           
           } else {
-            res.send("Wrong Password");
+            res.end("Wrong Password");
           } 
-        });} 
+        });}
     })
   } else{
     console.log('Validation didn\'t pass');
@@ -45,31 +48,53 @@ router.post('/signIn', function(req, res, next) {
 });
 
 
-router.post('/register', function(req, res, next) {
+users.post('/register', function(req, res, next) {
     var password = JSON.stringify(req.body.password);
-    var firstname = req.body.name.split(' ').slice(0, -1).join(' ');
-    var lastname = req.body.name.split(' ').slice(-1).join(' ');
+    var isMentor = JSON.stringify(req.body.isMentor);
+    var subject = {subject: req.body.mentorSubject};
     var canRegister = false;
-    if(registerValidate(req.body).isValid == true && req.body.hasAgreed == true){
-      bcrypt.hash(password, saltRounds, function(err, hash) {
-        db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) ', [firstname, lastname, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
-          if(error) {
-            console.log("Something went wrong with the db");
-            console.log(error.message || error);
-            res.send("Duplicate entries of email")
-            res.end()
-          } else {
-            canRegister = true;
-            console.log("Added the user " + firstname + " " + lastname + "!")
-            res.send(canRegister)
-            res.end()
-          }
+    if(registerValidate(req.body).isValid == true){
+      if(isMentor == "false"){
+        bcrypt.hash(password, saltRounds, function(err, hash) {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+            if(error) {
+              console.log("Something went wrong with the db");
+              console.log(error.message || error);
+              res.send("Duplicate entries of email")
+              res.end()
+            } else {
+              canRegister = true;
+              res.send(canRegister)
+              res.end()
+            }
+          });
         });
-      });
-    } else{
+      }else{
+        bcrypt.hash(password, saltRounds, function(err, hash) {
+          db.query('INSERT INTO \"USER\"(firstname, lastname, email, password, city, bdate, summary, interests , mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(\'serial_mentor_id\'))', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+            if(error) {
+              console.log("Something went wrong with the db");
+              console.log(error.message || error);
+              res.send("Duplicate entries of email")
+              res.end();
+            }
+          });
+          db.query('INSERT INTO "MENTOR"(level_of_experience_primary_mentoring_subject, mentoring_subjects, certified, wage, user_id, mentor_id) VALUES ($1, $2, $3, $4, currval(pg_get_serial_sequence(\'"USER"\', \'user_id\')), currval(\'serial_mentor_id\'))', [req.body.yearsExp, subject, true, 40000], (error, results) => {
+            if(error) {
+              console.log("Something went wrong with the mentor db");
+              console.log(error.message || error);
+              res.end()
+            } else {
+              canRegister = true;  
+              res.send(canRegister) 
+              res.end();
+            }
+          });
+        });
+      }
+    }else{
       res.json(registerValidate(req.body).errors);
       res.end();
     }
 });
-
-module.exports = router;
+module.exports = users;

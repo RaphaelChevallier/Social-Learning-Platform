@@ -1,7 +1,9 @@
-
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { HashRouter as Router, withRouter, Route, NavLink, Link } from "react-router-dom";
 import axios from 'axios';
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 class SignInForm extends Component {
   constructor() {
@@ -26,24 +28,21 @@ class SignInForm extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    console.log("The form was submitted with the following data:");
-    console.log(this.state);
     axios
       .post('/Users/signIn', this.state)
       .then(res => {
         if (Array.isArray(res.data) && res.status===200){
-          var isLoggedIn= res.data[0];
-          var isMentor= res.data[1];
-          console.log(isLoggedIn);
-          if (isLoggedIn===true){
-            sessionStorage.setItem(isLoggedIn,true);
-          }
+          var token= res.data[0];
+          var isMentor = res.data[1];
+          localStorage.setItem('usertoken', token);
+          this.props.history.push('/profile-page')
           if (isMentor===true){
-            sessionStorage.setItem(isMentor,true);
+            localStorage.setItem('isMentor', true);
           }
+          return token
         }
         else{
-          window.alert(res.data);
+          window.alert(JSON.stringify(res.data));
         }
       } 
         )
@@ -53,51 +52,53 @@ class SignInForm extends Component {
   }
   render() {
     return (
-      <div className="FormCenter">
-        <form
-          onSubmit={this.handleSubmit}
-          className="FormFields"
-          onSubmit={this.handleSubmit}
-        >
-          <div className="FormField">
-            <label className="FormField_Label" htmlFor="email">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="FormField_Input"
-              placeholder="Enter your email"
-              name="email"
+      <MuiThemeProvider >
+            <React.Fragment>
+              <div style = {container}>
+                <TextField
+                  placeholder="Enter Your Email"
+                  name="email"
+                  label="Email"
+                  margin="normal"
+                  fullWidth="true"
+                  onChange={this.handleChange}
+                />
+                <br />
+                <TextField
+                  placeholder="Enter Your Password"
+                  name="password"
+                  label="Password"
+                  type="password"
+                  margin="normal"
+                  fullWidth="true"
+                  onChange={this.handleChange}
+                />
+                <br />
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={this.handleSubmit}
+                >Sign In</Button>
+                
+                
+              
+                </div>
+                
             
-             
-              value ={this.state.email} onChange={this.handleChange}/>
-           
-          </div>
-
-          <div className="FormField">
-            <label className="FormField_Label" htmlFor="password">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="FormField_Input"
-              placeholder="Enter your password"
-              name="password"
-              value ={this.state.password} onChange={this.handleChange}/>
-           
-          </div>
-
-          <div className="FormField">
-            <button className="FormField_Button2 mr-20">Sign In</button>
-            <Link to="/" className="FormField_Link">
-              Create an Account
-            </Link>
-          </div>
-        </form>
-      </div>
+            </React.Fragment>
+          </MuiThemeProvider>
     );
   }
 }
-export default SignInForm;
+const container = {
+  margin: '150px',
+  border: '5px orange'
+
+};
+const footer = {
+flexShrink: "0",
+textAlign: "center",
+backgroundColor: "orange",
+color: "white"
+}
+export default withRouter(SignInForm);
