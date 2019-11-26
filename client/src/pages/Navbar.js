@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
-import Logo from '../logo/logoIcon.png'; 
+import Logo from '../images/logoIcon.png'; 
 import { classes } from 'istanbul-lib-coverage';
 
 

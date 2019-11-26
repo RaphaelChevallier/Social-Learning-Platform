@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import Button from "@material-ui/core/Button";
 import Box from '@material-ui/core/Box';
-import Thanks from '../../thankYou.jpg';
+import Thanks from '../../images/thankYou.jpg';
 
 
 export class Success extends Component {
