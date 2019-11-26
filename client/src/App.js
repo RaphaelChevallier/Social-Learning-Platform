@@ -34,8 +34,8 @@ export default function App() {
   return(
     <BrowserRouter>
       <Navbar />
-      <Route path='/'/>
-      <PrivateRouteLogIn path="/sign-in"> <SignInForm/> </PrivateRouteLogIn>
+      <Redirect from='/' to="/sign-in" />
+      <PrivateRouteLogIn path= "/sign-in"> <SignInForm/> </PrivateRouteLogIn>
       <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
       <PrivateRouteMentorContent path="/post"> <MentorCreationPage /></PrivateRouteMentorContent>
       <PrivateRoute path="/profile-page">
@@ -102,8 +102,12 @@ export default function App() {
     );
   }
   function PrivateRouteMentorContent({ children, ...rest }) {
-    var mentor = localStorage.getItem('usertoken')
-    var decoded = jwt_decode(mentor)
+    if(localStorage.getItem('usertoken') != null){
+      var mentor = localStorage.getItem('usertoken')
+      var decoded = jwt_decode(mentor)
+    } else{
+      var decoded = null;
+    }
     return (
       <Route
         {...rest}
