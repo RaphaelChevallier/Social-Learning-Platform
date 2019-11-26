@@ -59,7 +59,6 @@ export class SignUpPersonal extends Component {
               id="tags-outlined"
               options={interests}
               getOptionLabel={option => option.title}
-              defaultValue={[interests[4]]}
               filterSelectedOptions
               onChange={onTagsChange}
               renderInput={params => (

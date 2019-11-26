@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import { HashRouter as Router, withRouter, Route, NavLink, Link } from "react-router-dom";
 import axios from 'axios';
 import SignUpFirst from './SignUpFirst';
 import SignUpMentor from './SignUpMentor';
@@ -22,7 +22,7 @@ class SignUpForm extends Component{
               city: '',
               birthdate: null,
               summary: '',
-              interests: [],
+              interests: {},
               mentorSubject: '',
               yearsExp: '',
               isMentor: false,
@@ -36,11 +36,8 @@ class SignUpForm extends Component{
       }
 
 onTagsChange = (event, values) => {
-    console.log("got to the tags method")
       this.setState({
-        interests: values
-      }, () => {
-        console.log(this.state.interests);
+        interests: Object.assign({}, values)
       });
     }
   skipStep=() =>{
@@ -58,6 +55,9 @@ onTagsChange = (event, values) => {
     });
   };
 
+  toProfile =()=>{
+    this.props.history.push('/profile-page');
+  }
 
   prevStep =() =>{
     const {step} = this.state;
@@ -74,7 +74,6 @@ onTagsChange = (event, values) => {
   };
 
   handleChange = input => e => {
-    console.log(e.target.type)
     //let target = e.target;
     //let name = target.name;
       if(e.target.type === "checkbox"){
@@ -83,7 +82,6 @@ onTagsChange = (event, values) => {
         });
     
       }else{
-        console.log("else reached")
         this.setState({
             [input]: e.target.value
         });
@@ -98,24 +96,27 @@ onTagsChange = (event, values) => {
       let pass = this.state.password
       let ver = this.state.passVerify
 
+      this.newState ={
+        email: this.state.email,
+        password: this.state.password
+      }
+      console.log(this.newState);
       axios
         .post('/Users/register', this.state)
         .then(res => { 
           if(res.data === true && res.status == 200 && pass === ver){
             console.log("Registered")
-            // axios.post('Users/signin', [this.state.email, this.state.password])
-            // .then(res => {
-            //   if (Array.isArray(res.data) && res.status===200){
-            //     var token= res.data[0];
-            //     var isMentor = res.data[1];
-            //     localStorage.setItem('usertoken', token);
-            //     this.props.history.push('/profile-page')
-            //     if (isMentor===true){
-            //       localStorage.setItem('isMentor', true);
-            //     }
-            //     return token
-            //   }
-            // })
+            axios.post('Users/signin', this.newState)
+            .then(res => {
+              if (Array.isArray(res.data) && res.status===200){
+                var token= res.data[0];
+                var isMentor = res.data[1];
+                localStorage.setItem('usertoken', token);
+                if (isMentor===true){
+                  localStorage.setItem('isMentor', true);
+                }
+              }
+            })
             //This is where the registration was a success
             //Put here the routing to the next react page for the extra questions or rerender current page to show new component
           }else {
@@ -164,9 +165,9 @@ onTagsChange = (event, values) => {
             passVerify: '',
             name: '',
             city: '',
-            birthdate: '',
+            birthdate: null,
             summary: '',
-            interests: [{}],
+            interests: {},
             hasAgreed: false
         });
           
@@ -229,10 +230,10 @@ onTagsChange = (event, values) => {
             handleSubmit={this.lastSubmit}
             values = {values}/>
         );
-
         case 6: 
         return (
           <Success
+          toProfile={this.toProfile}
           />
         );
       }
@@ -241,4 +242,4 @@ onTagsChange = (event, values) => {
       
     }
 }
-export default SignUpForm;
+export default withRouter(SignUpForm);

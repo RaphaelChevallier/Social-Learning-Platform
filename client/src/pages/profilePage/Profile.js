@@ -24,9 +24,9 @@ class Profile extends Component {
           firstName: '',
           lastName: '',
           email: '',
-          birthdate: '',
+          birthdate: null,
           summary: '',
-          interests: [{}],
+          interests: {},
           city: '',
           expLevel: ''
         }
@@ -79,7 +79,6 @@ class Profile extends Component {
       function ListItemLink(props) {
         return <ListItem button component="a" {...props} />;
       }
-      
 
         return (
           <div className={useStyles.root}>
@@ -216,27 +215,6 @@ class Profile extends Component {
                   </Paper>
                 </Grid>
               </Grid>
-              {/* <Grid container spacing={3} direction="row">
-                <Grid item xs={8} sm={2} >
-                  <Paper className={useStyles.paper}>xs=12 sm=3</Paper>
-                </Grid>
-                <Grid item xs={8} sm container>
-                  <Grid container spacing={3} direction="column" justify="center" alignItems="center">
-                    <Grid item xs={6} sm={4} >
-                    <Typography className={useStyles.paper}>xs=12 sm=6 fdasfda dsfadsfaadsfasfadsfadsfasdfa</Typography>
-                    </Grid>
-                    <Grid item xs={6} sm={4}>
-                      <Paper className={useStyles.paper}>xs=6 sm=6dafdsafdsfasdfasdfasdfasdfadsfasdf</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={4}>
-                      <Paper className={useStyles.paper}>xs=6 sm=6dsfadsfasdfadsfadsfadsfadsfadsfadsf</Paper>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                  <Grid item xs={6} sm={2}>
-                    <Paper className={useStyles.paper}>xs=6 sm=3</Paper>
-                  </Grid>
-                </Grid> */}
                 </Grid>
           </div>
         );
