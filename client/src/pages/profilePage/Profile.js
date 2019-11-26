@@ -49,7 +49,6 @@ class Profile extends Component {
       }
 
     render() { 
-      console.log(this.state.interests[0])
       const useStyles = makeStyles(theme => ({
         root: {
           flexGrow: 1,

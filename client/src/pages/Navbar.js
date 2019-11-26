@@ -19,6 +19,7 @@ class Navbar extends Component{
 handleLogout= (e) => {
     e.preventDefault()
     localStorage.removeItem('usertoken')
+    localStorage.removeItem('isMentor')
     this.props.history.push('/sign-in')
   };
 

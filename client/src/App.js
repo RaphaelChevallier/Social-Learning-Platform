@@ -34,13 +34,11 @@ export default function App() {
   return(
     <BrowserRouter>
       <Navbar />
-      <Redirect from='/' to="/sign-in" />
+      {/*<Route path='/'> <Landing/></Route>*/}
       <PrivateRouteLogIn path= "/sign-in"> <SignInForm/> </PrivateRouteLogIn>
       <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
       <PrivateRouteMentorContent path="/post"> <MentorCreationPage /></PrivateRouteMentorContent>
-      <PrivateRoute path="/profile-page">
-        <Profile />
-      </PrivateRoute>
+      <PrivateRoute path="/profile-page"> <Profile /> </PrivateRoute>
     </BrowserRouter>
   );
 
@@ -102,25 +100,19 @@ export default function App() {
     );
   }
   function PrivateRouteMentorContent({ children, ...rest }) {
-    if(localStorage.getItem('usertoken') != null){
-      var mentor = localStorage.getItem('usertoken')
-      var decoded = jwt_decode(mentor)
-    } else{
-      var decoded = null;
-    }
     return (
       <Route
         {...rest}
         render={({ location }) =>
-        decoded.mentor_id === null ? (
+        localStorage.getItem('isMentor') ? (
+            children
+          ) : (
             <Redirect
               to={{
                 pathname: "/profile-page",
                 state: { from: location }
               }}
             />
-          ) : (
-            children
           )
         }
       />
