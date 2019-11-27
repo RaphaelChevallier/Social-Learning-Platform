@@ -16,8 +16,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 
-
-
 class Navbar extends Component{
   constructor() {
     super();
@@ -27,19 +25,31 @@ class Navbar extends Component{
       isMentor:'',
     }
     }
-    
 
-
+  componentDidMount(){
+    const token = localStorage.usertoken
+    if(token!=null){  
+    const decoded = jwt_decode(token)
+    this.setState({
+      firstName: decoded.firstname,
+      lastName: decoded.lastname, 
+      isMentor: decoded.mentor_id,}
+    )
+  }  
+  };
 handleLogout= (e) => {
     e.preventDefault()
     localStorage.removeItem('usertoken')
-    localStorage.removeItem('isMentor')
     this.props.history.push('/sign-in')
   };
 
 toProfile = (e) => {
     this.props.history.push('/profile-page')
 }
+toContentCreation= (e) => {
+  this.props.history.push('/post')
+}
+
 
 render(){
 const useStyles = makeStyles(theme => ({
@@ -53,7 +63,8 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
     },
     }));
-
+    
+    
     
 const LoginRegSwitch = (
   <div className="PageSwitcher" >
@@ -83,31 +94,33 @@ const LoginRegSwitch = (
     
   
 
+    
   const LogoutProfile = (
-    <div>         
-      <PopupState variant="popover" popupId="popup-menu">
-      {popupState => (
+    <div>
+            
+            <PopupState variant="popover" popupId="demo-popup-menu">
+              {popupState => (
         <React.Fragment>
-            <IconButton
-              {...bindTrigger(popupState)}
+            <IconButton aria-label="account of current user" aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}
               color="inherit"  
             >
-        <Typography variant="h6" component="h6"style={{ position: 'relative' }}>{this.state.firstName} {this.state.lastName}</Typography>
+            <Typography variant="h6" component="h6"style={{ position: 'relative' }}>{this.state.firstName} {this.state.lastName}</Typography>
               <AccountCircle/>
             </IconButton>
             <Menu {...bindMenu(popupState)}>
                 <MenuItem onClick={this.toProfile}>Profile</MenuItem>
                 {(this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
                 <MenuItem onClick={this.toContentCreation.bind(this)}>Content Creation</MenuItem>:""}
-            {(localStorage.usertoken!=null)?<MenuItem onClick={this.handleLogout.bind(this)}>Logout</MenuItem>:""}
+                <MenuItem onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
+            
             </Menu>
-            </React.Fragment>
+          </React.Fragment>
       )}
-    </PopupState>
- 
+        </PopupState>
+  
             
           </div>
-    )
+  )
     return(
         <div className ={classes.root}>   
             <AppBar position="static">
@@ -116,12 +129,10 @@ const LoginRegSwitch = (
                 <Typography variant="h4" className={classes.title} style={{  width: '80%', position: 'relative' }}>
                     GIDDY-UP
                     <Button color="inherit" onClick = "null">Home </Button>
-                    <Button color="inherit" onClick = "null"> Explore </Button>
-                    <Button color="inherit" onClick = "null"> Contact Us </Button>
-                    
+                    {localStorage.usertoken!=null ? <Button color="inherit" onClick="null">Newsfeed</Button>:""}
+                    <Button color="inherit" onClick = "null"> Contact Us </Button> 
                 </Typography>
                 {localStorage.usertoken ? LogoutProfile : LoginRegSwitch }
-                
                 </Toolbar>
             </AppBar>
         </div>
