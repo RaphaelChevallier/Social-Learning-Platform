@@ -11,9 +11,29 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import Logo from '../images/logoIcon.png'; 
 import { classes } from 'istanbul-lib-coverage';
+<<<<<<< Updated upstream
 
 
 class Navbar extends Component{
+=======
+import jwt_decode from 'jwt-decode';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+
+
+
+
+class Navbar extends Component{
+  constructor() {
+    super();
+    this.state = {
+      firstName: '',
+      lastName: '',
+      isMentor:'',
+    }
+    }
+    
+>>>>>>> Stashed changes
 
 
 handleLogout= (e) => {
@@ -65,14 +85,28 @@ const LoginRegSwitch = (
 
       </div>
     )
+<<<<<<< Updated upstream
+=======
+ 
+    
+  
+>>>>>>> Stashed changes
 
   const LogoutProfile = (
+<<<<<<< Updated upstream
     <div>
             <Button color="inherit" onClick = {this.handleLogout.bind(this)}> {"Log Out"} </Button>
+=======
+    <div>         
+      <PopupState variant="popover" popupId="popup-menu">
+      {popupState => (
+        <React.Fragment>
+>>>>>>> Stashed changes
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
+<<<<<<< Updated upstream
               onClick={this.toProfile}
               color="inherit"
             >
@@ -91,7 +125,25 @@ const LoginRegSwitch = (
                 horizontal: 'right',
               }}
             >
+=======
+              {...bindTrigger(popupState)}
+              color="inherit"  
+            >
+        <Typography variant="h6" component="h6"style={{ position: 'relative' }}>{this.state.firstName} {this.state.lastName}</Typography>
+              <AccountCircle/>
+            </IconButton>
+            <Menu {...bindMenu(popupState)}>
+                <MenuItem onClick={this.toProfile}>Profile</MenuItem>
+                {(this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
+                <MenuItem onClick={this.toContentCreation.bind(this)}>Content Creation</MenuItem>:""}
+            {(localStorage.usertoken!=null)?<MenuItem onClick={this.handleLogout.bind(this)}>Logout</MenuItem>:""}
+>>>>>>> Stashed changes
             </Menu>
+            </React.Fragment>
+      )}
+    </PopupState>
+ 
+            
           </div>
     )
     return(
@@ -106,8 +158,12 @@ const LoginRegSwitch = (
                     <Button color="inherit" onClick = "null"> Contact Us </Button>
                     
                 </Typography>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                 {localStorage.usertoken ? LogoutProfile : LoginRegSwitch }
+                
                 </Toolbar>
             </AppBar>
         </div>
