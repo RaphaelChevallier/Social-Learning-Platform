@@ -98,9 +98,9 @@ const LoginRegSwitch = (
   const LogoutProfile = (
     <div>
             
-            <PopupState variant="popover" popupId="demo-popup-menu">
-              {popupState => (
-        <React.Fragment>
+      <PopupState variant="popover" popupId="demo-popup-menu">
+        {popupState => (
+          <React.Fragment>
             <IconButton aria-label="account of current user" aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}
               color="inherit"  
             >
@@ -112,11 +112,10 @@ const LoginRegSwitch = (
                 {(this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
                 <MenuItem onClick={this.toContentCreation.bind(this)}>Content Creation</MenuItem>:""}
                 <MenuItem onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
-            
             </Menu>
           </React.Fragment>
-      )}
-        </PopupState>
+        )}
+      </PopupState>
   
             
           </div>
