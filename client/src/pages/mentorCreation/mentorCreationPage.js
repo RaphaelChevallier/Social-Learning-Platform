@@ -39,7 +39,8 @@ class MentorCreationPage extends Component {
         const token = localStorage.usertoken
         const decoded = jwt_decode(token)
         this.setState({
-          firstLetter: decoded.firstname[0],
+          firstNameLetter: decoded.firstname[0],
+          lastNameLetter: decoded.lastname[0],
           firstName: decoded.firstname,
           lastName: decoded.lastname,
           isMentor: decoded.mentor_id,
@@ -86,7 +87,7 @@ class MentorCreationPage extends Component {
       }
 
       render(){
-          const name = this.state.firstLetter;
+          const name = this.state.firstNameLetter + this.state.lastNameLetter;
           const date = new Date().getDate();
           const month = new Date().getMonth() + 1;
           const year = new Date().getFullYear();
