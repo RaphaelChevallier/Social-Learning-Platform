@@ -14,7 +14,6 @@ function connectDatabase() {
                 if(!err) {
                     console.log('Heroku Database is connected!');
                 } else {
-                    console.log(process.env.DATABASE_URL)
                     console.log('Error connecting database!');
                     console.log(err);
                 }
