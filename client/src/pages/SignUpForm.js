@@ -62,7 +62,7 @@ class SignUpForm extends Component{
           else{
             window.alert("Please reenter your registration information");
           }
-          //This is where they failed to do the registration here. Probably under here have code that empties all the fields
+          //This is where they failed to do the registration. Probably under here have code that empties all the fields
           //Also no terms of service button validation on front end part. Make sure all front end form validation is taken care of so we have both backend and frontend validation
           this.setState({
             email: '',
