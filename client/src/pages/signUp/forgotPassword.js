@@ -121,4 +121,26 @@ render(){
         margin: "0 64px",
         border: "5px orange"
       };
+      const homeButton = {
+ 
+        padding: "0 32 px",
+        margin: "0 64px",
+        border: "5px orange"
+      };
+      const registerButton = {
+
+  
+ 
+        padding: "0 32 px",
+        margin: "0 64px",
+        border: "5px orange"
+      };
+      const forgotButton = {
+
+  
+ 
+        padding: "0 32 px",
+        margin: "0 64px",
+        border: "5px orange"
+      };
 export default forgotPassword;
