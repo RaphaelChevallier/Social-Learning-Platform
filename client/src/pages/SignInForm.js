@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { HashRouter as Router, withRouter, Route, NavLink, Link } from "react-router-dom";
+import {Browserrouter as Router, Switch, Link, Route, NavLink, withRouter} from "react-router-dom";
 import axios from 'axios';
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import forgotPassword from './forgotPassword';
 
 class SignInForm extends Component {
   constructor() {
@@ -52,6 +53,7 @@ class SignInForm extends Component {
   }
   render() {
     return (
+      
       <MuiThemeProvider >
             <React.Fragment>
               <div style = {container}>
@@ -79,14 +81,28 @@ class SignInForm extends Component {
                   variant="contained"
                   onClick={this.handleSubmit}
                 >Sign In</Button>
-                
-                
+              
+            <Link to = "/forgotPassword">forgot password?</Link>
+            <Switch>
+            <Route 
+            path = "/forgotPassword"
+            component = {forgotPassword}
+            />
+             <Route 
+            path = "/"
+            component = {SignInForm}
+            />
+
+</Switch>
+
+            
               
                 </div>
                 
             
             </React.Fragment>
           </MuiThemeProvider>
+      
     );
   }
 }

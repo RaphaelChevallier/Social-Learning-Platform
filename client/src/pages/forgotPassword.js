@@ -1,15 +1,14 @@
 //adapted from this article: https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7
 
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
-import { response } from 'express';
 
-const title = {
-    pageTitle: 'Reset Your Password',
+import Button from '@material-ui/core/Button';
+import {Link, withRouter} from 'react-router-dom';
 
-};
+
 
 class forgotPassword extends Component {
     constructor(){
@@ -73,17 +72,17 @@ render(){
 
     return (
         <div>
-            <HeaderBar title = {title} />
+         
             <form className = "profile-form" onSubmit={this.sendEmail}>
                 <TextField
-                style = {inputStyle}
+                
                 id="email"
                 label="email"
                 value={email}
                 onChange={this.handleChange('email')}
                 placeholder = "Email Address"/>
-                <SubmitButtons 
-                buttonStyle={forgotButton}
+                <Button
+               
                 buttonText={'Send Password Reset Email'}/>
             </form>
             {showNullError && (
@@ -93,54 +92,30 @@ render(){
             {showError && (
                 <div>
                     <p>That email address isn't recognized. Please try again or create a new account</p>
-                    <LinkButtons 
-                    buttonText ={'Register'}
-                    buttonStyle={registerButton}
-                    link={'/SignUpFirst'}/>
+                    <Link  to={'/SignUpFirst'}>
+                    <Button variant="contained" color="primary"
+                  >
+                            Register
+                    </Button>
+                    </Link>
                     </div>
             )}
                 {serverMessage == 'recovery email sent' && (<div>
         <h3>Password Reset Email Sent!</h3>
     </div>)}
-    <LinkButtons 
-     buttonText ={'Go Home'}
-     buttonStyle={homeButton}
-     link={'/'}/>
+    <Link  to={'/'}>
+      <Button variant="contained" color="primary"
+    >
+         Go Home
+     </Button>
 
+
+    </Link>
         </div>
     );
 
 }
     }
 
-    const buttonStyle = {
 
-  
- 
-        padding: "0 32 px",
-        margin: "0 64px",
-        border: "5px orange"
-      };
-      const homeButton = {
- 
-        padding: "0 32 px",
-        margin: "0 64px",
-        border: "5px orange"
-      };
-      const registerButton = {
-
-  
- 
-        padding: "0 32 px",
-        margin: "0 64px",
-        border: "5px orange"
-      };
-      const forgotButton = {
-
-  
- 
-        padding: "0 32 px",
-        margin: "0 64px",
-        border: "5px orange"
-      };
-export default forgotPassword;
+export default withRouter(forgotPassword);
