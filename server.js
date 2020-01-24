@@ -4,6 +4,7 @@ const path = require('path');
 var bodyParser = require('body-parser')
 
 var Users = require('./routes/Users')
+var Search = require("./routes/searchUsers")
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(
   })
 )
 
+app.use("/Search", Search);
 app.use("/Users", Users);
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
