@@ -11,6 +11,7 @@ import Navbar from "./pages/Navbar";
 import SignUpForm from "./pages/signUp/SignUpForm";
 import SignInForm from "./pages/SignInForm";
 import Profile from "./pages/profilePage/Profile";
+import SearchUsers from "./pages/SearchUsers";
 import MentorCreationPage from "./pages/mentorCreation/mentorCreationPage";
 import { makeStyles } from '@material-ui/core/styles';
 import jwt_decode from 'jwt-decode';
@@ -39,6 +40,7 @@ export default function App() {
       <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
       <PrivateRouteMentorContent path="/post"> <MentorCreationPage /></PrivateRouteMentorContent>
       <PrivateRoute path="/profile-page"> <Profile /> </PrivateRoute>
+      <PrivateRoute path="/search-users"> <SearchUsers/>> </PrivateRoute>
     </BrowserRouter>
   );
 
