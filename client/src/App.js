@@ -14,6 +14,7 @@ import Profile from "./pages/profilePage/Profile";
 import MentorCreationPage from "./pages/mentorCreation/mentorCreationPage";
 import { makeStyles } from '@material-ui/core/styles';
 import jwt_decode from 'jwt-decode';
+import ForgotPassword from "./pages/ForgotPassword";
 
 
 
@@ -40,6 +41,10 @@ export default function App() {
       <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
       <PrivateRouteMentorContent path="/post"> <MentorCreationPage /></PrivateRouteMentorContent>
       <PrivateRoute path="/profile-page"> <Profile /> </PrivateRoute>
+      <Route 
+            path = "/ForgotPassword">
+            <ForgotPassword />
+           </Route>
     </BrowserRouter>
   );
 

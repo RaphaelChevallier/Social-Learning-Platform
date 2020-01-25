@@ -4,7 +4,7 @@ import axios from 'axios';
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import forgotPassword from './forgotPassword';
+import forgotPassword from './ForgotPassword';
 
 class SignInForm extends Component {
   constructor() {
@@ -82,19 +82,8 @@ class SignInForm extends Component {
                   onClick={this.handleSubmit}
                 >Sign In</Button>
               
-            <Link to = "/forgotPassword">forgot password?</Link>
-            <Switch>
-            <Route 
-            path = "/forgotPassword"
-            component = {forgotPassword}
-            />
-             <Route 
-            path = "/"
-            component = {SignInForm}
-            />
-
-</Switch>
-
+            <Link to = "/ForgotPassword">forgot password?</Link>
+ 
             
               
                 </div>
