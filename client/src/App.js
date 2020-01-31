@@ -12,6 +12,7 @@ import SignUpForm from "./pages/signUp/SignUpForm";
 import SignInForm from "./pages/SignInForm";
 import Profile from "./pages/profilePage/Profile";
 import MentorCreationPage from "./pages/mentorCreation/mentorCreationPage";
+import EditProfileForm from "./pages/profilePage/EditProfileForm";
 import { makeStyles } from '@material-ui/core/styles';
 import jwt_decode from 'jwt-decode';
 
@@ -39,6 +40,7 @@ export default function App() {
       <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
       <PrivateRouteMentorContent path="/post"> <MentorCreationPage /></PrivateRouteMentorContent>
       <PrivateRoute path="/profile-page"> <Profile /> </PrivateRoute>
+      <PrivateRoute path="/editprofile"> <EditProfileForm/></PrivateRoute>
     </BrowserRouter>
   );
 
@@ -118,4 +120,5 @@ export default function App() {
       />
     );
   }
+  
 }

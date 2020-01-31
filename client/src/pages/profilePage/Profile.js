@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import jwt_decode from 'jwt-decode';
+import { HashRouter as Router, NavLink, withRouter} from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -46,6 +47,9 @@ class Profile extends Component {
           city: decoded.city,
           expLevel: decoded.level_of_experience_primary_interest
         })
+      }
+      toEditprofile= (e)=>{
+        this.props.history.push("/editprofile")
       }
 
     render() { 
@@ -96,7 +100,8 @@ class Profile extends Component {
                     <Typography component="p">Following: 13</Typography>
                   </Grid>
                   <Grid item xs={3} style={{margin:' 1.3em auto'}}>
-                    <Button variant="outlined" color="secondary" className={useStyles.button}>Messages</Button>
+                    <Button  color="secondary" className={useStyles.button}>Messages</Button>
+                    <Button color="secondary" className={useStyles.button} onClick={this.toEditprofile.bind(this)}>Edit Profile</Button>
                   </Grid>
                 </Grid>
               </Paper>
@@ -222,4 +227,4 @@ class Profile extends Component {
 }
 
 
-export default Profile;
+export default withRouter(Profile);
