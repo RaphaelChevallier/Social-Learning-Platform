@@ -4,5 +4,6 @@ CREATE TABLE MENTOR_POSTS (
     title VARCHAR(50),
     post_description VARCHAR,
     type_of_content VARCHAR,
-    link VARCHAR
+    link VARCHAR,
+    dateOfPost TIMESTAMP
 );
