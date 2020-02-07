@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Table from "./Table";
 
 
 class SearchUsers extends Component {
@@ -38,6 +39,14 @@ class SearchUsers extends Component {
     }
   }
 
+  isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
+
   handleSubmit(e) {
     e.preventDefault();
     if(this.state.wantMentor){
@@ -67,6 +76,12 @@ class SearchUsers extends Component {
     }
   }
   render() {
+    var tableOrNot
+    if(this.isEmpty(this.state.data)){
+      tableOrNot =  <h1>Can't find any users!</h1>
+    }else{
+      tableOrNot =  <div><Table data={this.state.data}/> </div>
+    }
     return (
       <MuiThemeProvider >
             <React.Fragment>
@@ -109,8 +124,7 @@ class SearchUsers extends Component {
                 >Search</Button>
                 <br/>
                 
-                
-                {this.state.isSubmitted && <div><pre>{JSON.stringify(this.state.data, null, 2) }</pre></div>}
+                {this.state.isSubmitted && tableOrNot}
                 </div>
                 
             

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -33,11 +34,18 @@ class MentorCreationPage extends Component {
             link:''
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
       }
 
       componentDidMount(){
         const token = localStorage.usertoken
         const decoded = jwt_decode(token)
+        const date = new Date().getDate();
+        const month = new Date().getMonth() + 1;
+        const year = new Date().getFullYear();
+        const hour = new Date().getHours();
+        const minute = new Date().getMinutes();
+        const sec = new Date().getSeconds();
         this.setState({
           firstNameLetter: decoded.firstname[0],
           lastNameLetter: decoded.lastname[0],
@@ -49,7 +57,8 @@ class MentorCreationPage extends Component {
           summary: decoded.summary,
           interests: decoded.interests,
           city: decoded.city,
-          expLevel: decoded.level_of_experience_primary_interest
+          expLevel: decoded.level_of_experience_primary_interest,
+          date: month + '/' + date + '/' + year + " " + hour +":" + minute + ":" + sec
         })
       }
 
@@ -76,15 +85,29 @@ class MentorCreationPage extends Component {
         });
     }
 
-      handleChange(e) {
-        let target = e.target;
-        let value = target.type === "checkbox" ? target.checked : target.value;
-        let name = target.name;
-    
-        this.setState({
-          [name]: value
-        });
-      }
+    handleChange(e) {
+    let target = e.target;
+    let value = target.type === "checkbox" ? target.checked : target.value;
+    let name = target.name;
+
+    this.setState({
+        [name]: value
+    });
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        axios
+            .post('/MentorPosts/createPost', this.state)
+            .then(res => {
+                
+            } 
+            )
+            .catch(err => {
+            console.error(err);
+            });
+    }
 
       render(){
           const name = this.state.firstNameLetter + this.state.lastNameLetter;
@@ -206,6 +229,12 @@ class MentorCreationPage extends Component {
                             </CardActions>
                             </Card>
                         </Grid>
+                        <br />
+                        <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={this.handleSubmit}
+                        >Post Now</Button>
                     </Grid>
                 </Grid>
               </div>
