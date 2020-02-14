@@ -103,12 +103,29 @@ users.post('/edit', function(req, res, next) {
           if(error) {
             console.log("Something went wrong with the db");
             console.log(error.message || error);
-            res.send("Duplicate entries of email")
+            res.send("Please enter a brief summary")
             res.end()
-          } else {
-            res.send()
-            res.end()
-          }
+          } 
         });
+            db.query('select array_to_json(array_agg(row_to_json(t)))from (SELECT * FROM "USER" WHERE email = $1) t', [req.body.email], (error, results) => {
+              if (error) {
+                throw error;
+              }
+              if(results.rows[0].array_to_json === null){
+                res.end("No email like " + req.body.email);
+              } else{
+                var mentorCheck= false;
+                var signinArray = [];  
+                    let token = jwt.sign(results.rows[0].array_to_json[0], process.env.JWT_SECRET, {expiresIn: "1d"})
+                    signinArray.push(token)
+                    if (results.rows[0].array_to_json[0].mentor_id != null){
+                      mentorCheck = true;
+                      signinArray.push(mentorCheck)
+                      res.send(signinArray);
+                    }else{
+                      res.send(signinArray) 
+                    }           
+                }
+            })
       });
 module.exports = users;

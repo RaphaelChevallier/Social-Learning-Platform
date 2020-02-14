@@ -57,12 +57,17 @@ import { Thumbnail } from 'react-bootstrap';
         axios
           .post('/Users/edit', this.state)
           .then(res => {
-            if (res.status===200){
-              
-              // this.props.history.go(0);
-              this.props.history.push('/profile-page')
-
-
+            if (Array.isArray(res.data) && res.status===200){
+              var token= res.data[0];
+              var isMentor = res.data[1];
+              localStorage.removeItem("usertoken")
+              localStorage.setItem("usertoken", token);
+              this.props.history.push("profile-page");
+              if (isMentor===true){
+                localStorage.removeItem("isMentor")
+                localStorage.setItem("isMentor", true);
+              }
+              return token
             }
             else{
               window.alert(JSON.stringify(res.data));
@@ -76,16 +81,12 @@ import { Thumbnail } from 'react-bootstrap';
     
     render() {
       const { values, handleChange, onTagsChange } = this.props;
-        
         return (
           <MuiThemeProvider >
             <React.Fragment>
-
               <div style = {container}>
                 <h1> Edit Profile</h1>
                 <TextField
-                  
-                  
                   label="First Name"
                   onChange={this.handleChange('firstName')}
                   defaultValue={this.state.firstName}
@@ -94,9 +95,7 @@ import { Thumbnail } from 'react-bootstrap';
                   style={{width:300}}
                                 fullWidth="true"
                 />
-        
-                <TextField 
-                  
+                <TextField
                   style={{width:300,marginLeft:20}}
                   label="Last Name"
                   onChange={this.handleChange('lastName')}
@@ -106,14 +105,12 @@ import { Thumbnail } from 'react-bootstrap';
                                 fullWidth="true"
                 />
                 <br />
-
                 <NativeSelect style={{width: 300,marginTop:20}}
                   id="demo-customized-select-native"
                   name='gender'
                   onChange={this.handleChange('gender')}
                   value={this.state.gender}
                 >
-                  
                   <option value="">Choose Your Gender</option> 
                   <option value={"Male"}>Male</option>
                   <option value={"Female"}>Female</option>
@@ -128,9 +125,10 @@ import { Thumbnail } from 'react-bootstrap';
                   type="date"
                   onChange={this.handleChange("birthdate")}
                   margin="normal"
+                  value={this.state.birthdate}
                   fullWidth="true"
                   InputLabelProps={{
-                    shrink: true,
+                  shrink: true,
                   }}
                 />
                 <br />
@@ -141,7 +139,7 @@ import { Thumbnail } from 'react-bootstrap';
                   value={this.state.email}
                   margin="normal"
                   style={{width:620}}
-                                fullWidth="true"
+                  fullWidth="true"
                 />
                 <br />
                 <NativeSelect style={{width: 300,marginTop:20}}
@@ -176,8 +174,6 @@ import { Thumbnail } from 'react-bootstrap';
                   <option value={"YT"}>Yukon</option>
                   <option value={"NU"}>Nunavut</option>
                   <option value={"NT"}>Northwest Territories</option>
-                  
-                  
                 </NativeSelect>
                 <br/>
                 <TextField
@@ -189,7 +185,6 @@ import { Thumbnail } from 'react-bootstrap';
                   fullWidth="true"
                   style={{width:620}}
                 />
-
                 <br />
                 <Autocomplete
                   multiple
@@ -197,28 +192,23 @@ import { Thumbnail } from 'react-bootstrap';
                   options={interests}
                   getOptionLabel={option => option.title}
                   filterSelectedOptions
-                  
                   onChange={onTagsChange}
                   renderInput={params => (
                 <TextField
                   {...params}
-                  
                   variant="outlined"
                   label="Interests"
                   placeholder="Your first interest will be your primary"
                   defaultValue={this.state.interests}
                   margin="normal"
-                  
                   fullWidth
                 />
                 )}
                 />
-                
                 <br/>
-
                 <TextField
                   id="standard-textarea"
-                  label="Personal Summary"
+                  label="Personal Summary(200 characters)"
                   value={this.state.summary}
                   defaultValue={this.state.summary}
                   multiline
@@ -227,7 +217,6 @@ import { Thumbnail } from 'react-bootstrap';
                   margin="normal"
                   onChange={this.handleChange('summary')}
                 />
-                
                 <br />
                 <Button
                   color="primary"
@@ -235,10 +224,7 @@ import { Thumbnail } from 'react-bootstrap';
                   onClick={this.updateProfile}
                 >Update profile
                 </Button>
-                
                 </div>
-                
-            
             </React.Fragment>
           </MuiThemeProvider>
         );

@@ -29,7 +29,10 @@ class Profile extends Component {
           summary: '',
           interests: {},
           city: '',
+          province:'',
+          country:'',
           expLevel: ''
+
         }
       }
 
@@ -45,6 +48,8 @@ class Profile extends Component {
           summary: decoded.summary,
           interests: decoded.interests,
           city: decoded.city,
+          province: decoded.province,
+          country: decoded.country,
           expLevel: decoded.level_of_experience_primary_interest
         })
       }
@@ -90,11 +95,12 @@ class Profile extends Component {
               <Paper className={useStyles.paper} style={{width:'60%'}}>
                 <Grid container spacing={3}  justify='flex-end' wrap="nowrap" direction="row">
                   <Grid item xs={4} justify='flex-start' alignItems="flex-start">
-                    <Avatar style={{margin:' 1.3em auto', backgroundColor:'#ff8c00'}}>R</Avatar>
+                    <Avatar style={{margin:' 1.3em auto', backgroundColor:'#ff8c00'}}>{this.state.firstName.charAt(0)}{this.state.lastName.charAt(0)}</Avatar>
                   </Grid>
                   <Grid item xs={7} style={{margin:' 5px auto'}}>
                     <Typography variant="h2" component="h3">{this.state.firstName} {this.state.lastName}</Typography>
-                    <Typography variant="h6" component="h5">Location: {this.state.city}</Typography>
+                    <Typography variant="h6" component="h5">Email: {this.state.email}</Typography>
+                    <Typography variant="h6" component="h5">Location: {this.state.city},{this.state.province}.</Typography>
                     <Typography component="p">I am a {this.state.isMentor === null ? "Learner" : "Mentor"}</Typography>
                     <br/>
                     <Typography component="p">Following: 13</Typography>
