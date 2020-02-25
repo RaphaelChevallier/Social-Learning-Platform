@@ -36,10 +36,12 @@ class Navbar extends Component{
       isMentor: decoded.mentor_id,}
     )
   }  
+
   };
 handleLogout= (e) => {
     e.preventDefault()
     localStorage.removeItem('usertoken')
+    localStorage.removeItem('isMentor')
     this.props.history.push('/sign-in')
   };
 
@@ -104,11 +106,13 @@ const LoginRegSwitch = (
             <IconButton aria-label="account of current user" aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}
               color="inherit"  
             >
+              
             <Typography variant="h6" component="h6"style={{ position: 'relative' }}>{this.state.firstName} {this.state.lastName}</Typography>
               <AccountCircle/>
             </IconButton>
             <Menu {...bindMenu(popupState)}>
                 <MenuItem onClick={this.toProfile}>Profile</MenuItem>
+                <MenuItem onClick="null">Messages</MenuItem>
                 {(this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
                 <MenuItem onClick={this.toContentCreation.bind(this)}>Content Creation</MenuItem>:""}
                 <MenuItem onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
