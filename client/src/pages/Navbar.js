@@ -11,11 +11,33 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import Logo from '../images/logoIcon.png'; 
 import { classes } from 'istanbul-lib-coverage';
+import jwt_decode from 'jwt-decode';
+import MenuItem from '@material-ui/core/MenuItem';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 
 class Navbar extends Component{
+  constructor() {
+    super();
+    this.state = {
+      firstName: '',
+      lastName: '',
+      isMentor:'',
+    }
+    }
 
+  componentDidMount(){
+    const token = localStorage.usertoken
+    if(token!=null){  
+    const decoded = jwt_decode(token)
+    this.setState({
+      firstName: decoded.firstname,
+      lastName: decoded.lastname, 
+      isMentor: decoded.mentor_id,}
+    )
+  }  
 
+  };
 handleLogout= (e) => {
     e.preventDefault()
     localStorage.removeItem('usertoken')
@@ -26,6 +48,13 @@ handleLogout= (e) => {
 toProfile = (e) => {
     this.props.history.push('/profile-page')
 }
+toContentCreation= (e) => {
+  this.props.history.push('/post')
+}
+toSearch= (e) => {
+  this.props.history.push('/search-users')
+}
+
 
 render(){
 const useStyles = makeStyles(theme => ({
@@ -39,7 +68,8 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
     },
     }));
-
+    
+    
     
 const LoginRegSwitch = (
   <div className="PageSwitcher" >
@@ -65,35 +95,39 @@ const LoginRegSwitch = (
 
       </div>
     )
+ 
+    
+  
 
+    
   const LogoutProfile = (
     <div>
-            <Button color="inherit" onClick = {this.handleLogout.bind(this)}> {"Log Out"} </Button>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={this.toProfile}
-              color="inherit"
+            
+      <PopupState variant="popover" popupId="demo-popup-menu">
+        {popupState => (
+          <React.Fragment>
+            <IconButton aria-label="account of current user" aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}
+              color="inherit"  
             >
-           
-              <AccountCircle />
+              
+            <Typography variant="h6" component="h6"style={{ position: 'relative' }}>{this.state.firstName} {this.state.lastName}</Typography>
+              <AccountCircle/>
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-            >
+            <Menu {...bindMenu(popupState)}>
+                <MenuItem onClick={this.toProfile}>Profile</MenuItem>
+                <MenuItem onClick={this.toSearch}>Search Users</MenuItem>
+                <MenuItem onClick="null">Messages</MenuItem>
+                {(this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
+                <MenuItem onClick={this.toContentCreation.bind(this)}>Content Creation</MenuItem>:""}
+                <MenuItem onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
             </Menu>
+          </React.Fragment>
+        )}
+      </PopupState>
+  
+            
           </div>
-    )
+  )
     return(
         <div className ={classes.root}>   
             <AppBar position="static">
@@ -102,11 +136,9 @@ const LoginRegSwitch = (
                 <Typography variant="h4" className={classes.title} style={{  width: '80%', position: 'relative' }}>
                     GIDDY-UP
                     <Button color="inherit" onClick = "null">Home </Button>
-                    <Button color="inherit" onClick = "null"> Explore </Button>
-                    <Button color="inherit" onClick = "null"> Contact Us </Button>
-                    
+                    {localStorage.usertoken!=null ? <Button color="inherit" onClick="null">Newsfeed</Button>:""}
+                    <Button color="inherit" onClick = "null"> Contact Us </Button> 
                 </Typography>
-
                 {localStorage.usertoken ? LogoutProfile : LoginRegSwitch }
                 </Toolbar>
             </AppBar>

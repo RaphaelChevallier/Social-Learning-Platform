@@ -13,6 +13,7 @@ import SignInForm from "./pages/SignInForm";
 import Profile from "./pages/profilePage/Profile";
 import SearchUsers from "./pages/SearchUsers";
 import MentorCreationPage from "./pages/mentorCreation/mentorCreationPage";
+import EditProfileForm from "./pages/profilePage/EditProfileForm";
 import { makeStyles } from '@material-ui/core/styles';
 import jwt_decode from 'jwt-decode';
 import ForgotPassword from "./pages/ForgotPassword";
@@ -53,6 +54,7 @@ export default function App() {
             <ResetPassword />
            </Route>
 
+      <PrivateRoute path="/editprofile"> <EditProfileForm/></PrivateRoute>
       <PrivateRoute path="/search-users"> <SearchUsers/>> </PrivateRoute>
     </BrowserRouter>
   );
@@ -133,4 +135,5 @@ export default function App() {
       />
     );
   }
+  
 }
