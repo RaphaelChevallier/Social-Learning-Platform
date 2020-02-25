@@ -21,6 +21,7 @@ import ResetPassword from "./pages/ResetPassword";
 
 
 
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -48,7 +49,7 @@ export default function App() {
             <ForgotPassword />
            </Route>
            <Route 
-            path = "/ResetPassword">
+            path = "/ResetPassword/:token">
             <ResetPassword />
            </Route>
 

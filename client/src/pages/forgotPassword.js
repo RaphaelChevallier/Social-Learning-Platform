@@ -71,7 +71,10 @@ class forgotPassword extends Component {
             onChange={this.handleChange("email")}
             placeholder="Email Address"
           />
-          <input type = "submit" value = "Submit"/>
+            <Button variant="contained" color="primary" onClick = {this.sendEmail}>
+                Submit
+              </Button>
+          {/* <input type = "submit" value = "Submit"/> */}
         </form>
         {showNullError && (
           <div>

@@ -19,8 +19,8 @@ const BCRYPT_SALT_ROUNDS = 12;
 
 users.post("/forgot", function(req, res) {
   var email = req.body.email;
-console.log("shows up")
-console.log(email);
+
+
   if (email == "") {
     res.status(400).send("email required");
   } else {
@@ -38,8 +38,8 @@ console.log(email);
         if (error) {
           console.log(error)
         } else {
-          console.log("first query worked")
-          var userID = results.rows[0]; //stores user id
+          
+          var userID = results.rows[0].user_id; //stores user id
           const token = crypto.randomBytes(20).toString("hex");
 
           var resetExpiry = Date.now() + 3600000; // create the integer that will determine the timeout for resetting
@@ -50,7 +50,7 @@ console.log(email);
               if (error) {
                console.log(error);
               } else { 
-                
+                console.log("sending mail");
                 const transporter = nodemailer.createTransport({
                   //create the transporter from nodemailer
                   service: "SendGrid",
@@ -66,10 +66,10 @@ console.log(email);
                   text:
                     "You are receiving this because you (or someone) have requested to reset the password for this account.\n\n" +
                     "Please click on the following link, or paste said link into your browser to complete the process within one hour of receiving it: \n\n" +
-                    "http://localhost:3000/ResetPassword/\n\n" +
+                    "http://localhost:3000/ResetPassword/"+token+"\n\n" +
                     "If you did not request this, please ignore the email and your passworld will remain unchanged.\n"
                 };
-                console.log("sending mail");
+              
                 transporter.sendMail(mailOptions, (err, response) => {
                   if (err) {
                     console.error("there was an error: ", err);
@@ -91,53 +91,66 @@ console.log(email);
 //end of nodemailer code
 
 // The code for the reset page backend
-users.post("/reset", function(req, res, next) {
-  console.log("link worked, starting reset page")
-  tokenTest = req.query.token;
-  expiryTest = req.query.resetExpiry;
+users.get("/reset", function(req, res) {
+  //the goal here is to parse the token part of the url from the email and 
+  //find the user with that token in the database.
+  console.log("reset started: grabbing query tokens");
+  console.log(req.query);
+  tokenTest = req.query.resetPasswordToken;
+  console.log("here's the token taken from the link: " + tokenTest);
+  // expiryTest = req.query.resetExpiry;
   db.query(
-    'SELECT RESETTOKEN, RESETEXPIRE FROM "USER" WHERE RESETTOKEN = $1 AND RESETEXPIRE > $2',
-    [tokenTest, expiryTest],
+    'SELECT USER_ID, RESETTOKEN, RESETEXPIRE FROM "USER" WHERE RESETTOKEN = $1',
+    [tokenTest],
     (error, results) => {
       if (error) {
-        throw error;
+        throw results;
       } else {
-        resettoken = results.rows[0];
+        console.log("query complete");
+        console.log("checking");
+        console.log("row count" + results.rows.length);
+        resettoken = results.rows[0].resettoken;
         console.log(resettoken);
-        resetExpire = results.rows[1];
+        resetExpire = results.rows[0].resetexpire;
+        user_id=results.rows[0].user_id;
         console.log(resetExpire);
 
-        if (resetExpire <= date.now) {//if the expire time is less than the current date time
+        console.log(user_id)
+
+        if (resetExpire <= Date.now()) {//if the expire time is less than the current date time
           console.log("password reset link has expired, or is invalid");
           res.json("password reset link is invalid or has expired");
         } else {
-          res.status(200).send({
-            username: results.rows[0].username,
-            message: "password reset link is a go"
-          });
+          console.log("good to go, sending message to front end")
+         console.log("sending userid which is" + user_id)
+          res.status(200).send({ message: "OKAY",
+          username: user_id
+           });
         }
       }
     }
   );
 });
 //backend for actual update
-users.post("/updatePasswordViaEmail", function(req, res, next) {
-  username = req.body.username;
+users.put("/updatePasswordViaEmail", function(req, res) {
+var username = req.body.username;
+var password = JSON.stringify(req.body.password);
+  console.log(username);
   db.query(
-    'SELECT user_id FROM "USER" WHERE username = $1',
+    'SELECT firstname FROM "USER" WHERE user_id = $1',
     [username],
     (error, results) => {
       if (error) {
         throw error;
       } else {
-        if (results.row[0] != null) {
+    
+        if (results.rows[0] != null) {
           console.log("user exists in db");
-          bcrypt
-            .hash(req.body.password, BCRYPT_SALT_ROUNDS)
-            .then(hashedPassword => {
-              db.query(
-                'UPDATE "USER" SET RESETTOKEN = $1, RESETEXPIRE = $2 PASSWORD = $3',
-                [null, null, hashedPassword],
+          console.log("new password: " + password);
+          bcrypt.hash(password, saltRounds, function(err, hash) {
+            db.query(
+                'UPDATE "USER" SET PASSWORD = $1 WHERE USER_ID = $2',
+                [hash, username],
                 (error, results) => {
                   if (error) {
                     console.log("no user exists in db to update");

@@ -12,7 +12,7 @@ const title = {
   pageTitle: "Password Reset Screen"
 };
 
-export default class ResetPassword extends Component {
+ class ResetPassword extends  Component {
   constructor() {
     super();
 
@@ -27,23 +27,29 @@ export default class ResetPassword extends Component {
   }
 
   async componentDidMount() {
-    console.log("loading");
-    console.log(this.props.match.params.token);
+    console.log("checking params");
+   
+    console.log(this.props.match.params.token);//this code is to check the token part of the url
     await axios
-      .get("Users/reset", {
+      .get("/Users/reset", {
          params: {
           resetPasswordToken: this.props.match.params.token
          }
       })
-      .then(response => {
-        console.log(response);
-        if (response.data.message == "password reset link is ok") {
+      .then((response) => {
+      
+        
+       
+        if (response.data.message === "OKAY") {
+          console.log("reset is a go");
+          console.log("userid is " + response.data.username)
           this.setState({
             username: response.data.username,
             update: false,
             isLoading: false,
             error: false
           });
+        
         } else {
           this.setState({
             update: false,
@@ -65,7 +71,7 @@ export default class ResetPassword extends Component {
 
   updatePassword = e => {
     e.preventDefault();
-   
+    console.log("sending username" + this.state.username)
       axios
         .put("/Users/updatePasswordViaEmail", {
           username: this.state.username,
@@ -73,7 +79,7 @@ export default class ResetPassword extends Component {
         })
         .then(response => {
           console.log(response.data);
-          if (response.data == "password updated") {
+          if (response.data.message == "password updated") {
             this.setState({
               updated: true,
               error: false,
@@ -93,7 +99,7 @@ export default class ResetPassword extends Component {
   render() {
     const { password, error, isLoading, updated } = this.state;
     if (error) {
-      console.log(error);
+      console.log("there was an error:" + error);
       return (
         <div>
        
@@ -127,7 +133,10 @@ export default class ResetPassword extends Component {
               placeholder="New Password"
               type="password"
             />
-            <Button buttonText={"Update Password"} />
+            {/* <input type = "submit" Value = "Submit" style = {submitStyle} /> */}
+            <Button variant="contained" color="primary" onClick = {this.updatePassword}>
+                Update
+              </Button>
           </form>
           {updated && (
             <div>
@@ -135,7 +144,7 @@ export default class ResetPassword extends Component {
                 {" "}
                 Your password has been successfully reset! Go ahead and try logging in again.
               </p>
-              <Link to={"/SignInForm"}>
+              <Link to={"/sign-in"}>
                 <Button variant="contained" color="primary">
                   Login
                 </Button>
@@ -153,5 +162,17 @@ export default class ResetPassword extends Component {
     }
   }
 }
+
+
+var submitStyle = { 
+  backgroundColor: "#1E2DAA",
+  border: "none",
+  color: "white",
+  padding: "20em , 20em",
+  margin: "20em, 20em;",
+  cursor: "pointer",
+  textDecoration: "none",
+   };
+export default withRouter(ResetPassword);
 
 
