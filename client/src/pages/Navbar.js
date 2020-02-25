@@ -51,6 +51,9 @@ toProfile = (e) => {
 toContentCreation= (e) => {
   this.props.history.push('/post')
 }
+toSearch= (e) => {
+  this.props.history.push('/search-users')
+}
 
 
 render(){
@@ -112,6 +115,7 @@ const LoginRegSwitch = (
             </IconButton>
             <Menu {...bindMenu(popupState)}>
                 <MenuItem onClick={this.toProfile}>Profile</MenuItem>
+                <MenuItem onClick={this.toSearch}>Search Users</MenuItem>
                 <MenuItem onClick="null">Messages</MenuItem>
                 {(this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
                 <MenuItem onClick={this.toContentCreation.bind(this)}>Content Creation</MenuItem>:""}
