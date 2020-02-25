@@ -47,7 +47,6 @@ users.post('/signIn', function(req, res, next) {
   }
 });
 
-
 users.post('/register', function(req, res, next) {
     var password = JSON.stringify(req.body.password);
     var isMentor = JSON.stringify(req.body.isMentor);
@@ -71,7 +70,7 @@ users.post('/register', function(req, res, next) {
         });
       }else{
         bcrypt.hash(password, saltRounds, function(err, hash) {
-          db.query('INSERT INTO \"USER\"(firstname, lastname, email, password, city, bdate, summary, interests , mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(\'serial_mentor_id\'))', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests , mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(\'serial_mentor_id\'))', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
             if(error) {
               console.log("Something went wrong with the db");
               console.log(error.message || error);
@@ -97,4 +96,36 @@ users.post('/register', function(req, res, next) {
       res.end();
     }
 });
+
+users.post('/edit', function(req, res, next) { 
+  db.query('UPDATE \"USER\" SET firstname=$1, lastname=$2, email=$3, city=$4, bdate=$5, summary=$6, interests=$7, gender=$8, country=$9, province=$10 WHERE user_id=$11' ,
+         [req.body.firstName, req.body.lastName, req.body.email, req.body.city, req.body.birthdate, req.body.summary, req.body.interests, req.body.gender, req.body.country, req.body.province,req.body.user_id], (error, results) => {
+          if(error) {
+            console.log("Something went wrong with the db");
+            console.log(error.message || error);
+            res.send("Please enter a brief summary")
+            res.end()
+          } 
+        });
+            db.query('select array_to_json(array_agg(row_to_json(t)))from (SELECT * FROM "USER" WHERE email = $1) t', [req.body.email], (error, results) => {
+              if (error) {
+                throw error;
+              }
+              if(results.rows[0].array_to_json === null){
+                res.end("No email like " + req.body.email);
+              } else{
+                var mentorCheck= false;
+                var signinArray = [];  
+                    let token = jwt.sign(results.rows[0].array_to_json[0], process.env.JWT_SECRET, {expiresIn: "1d"})
+                    signinArray.push(token)
+                    if (results.rows[0].array_to_json[0].mentor_id != null){
+                      mentorCheck = true;
+                      signinArray.push(mentorCheck)
+                      res.send(signinArray);
+                    }else{
+                      res.send(signinArray) 
+                    }           
+                }
+            })
+      });
 module.exports = users;
