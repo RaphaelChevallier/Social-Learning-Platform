@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import jwt_decode from 'jwt-decode';
+import { HashRouter as Router, NavLink, withRouter} from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -28,7 +29,10 @@ class Profile extends Component {
           summary: '',
           interests: {},
           city: '',
+          province:'',
+          country:'',
           expLevel: ''
+
         }
       }
 
@@ -44,8 +48,13 @@ class Profile extends Component {
           summary: decoded.summary,
           interests: decoded.interests,
           city: decoded.city,
+          province: decoded.province,
+          country: decoded.country,
           expLevel: decoded.level_of_experience_primary_interest
         })
+      }
+      toEditprofile= (e)=>{
+        this.props.history.push("/editprofile")
       }
 
     render() { 
@@ -86,17 +95,19 @@ class Profile extends Component {
               <Paper className={useStyles.paper} style={{width:'60%'}}>
                 <Grid container spacing={3}  justify='flex-end' wrap="nowrap" direction="row">
                   <Grid item xs={4} justify='flex-start' alignItems="flex-start">
-                    <Avatar style={{margin:' 1.3em auto', backgroundColor:'#ff8c00'}}>R</Avatar>
+                    <Avatar style={{margin:' 1.3em auto', backgroundColor:'#ff8c00'}}>{this.state.firstName.charAt(0).toUpperCase()}{this.state.lastName.charAt(0).toUpperCase()}</Avatar>
                   </Grid>
                   <Grid item xs={7} style={{margin:' 5px auto'}}>
                     <Typography variant="h2" component="h3">{this.state.firstName} {this.state.lastName}</Typography>
-                    <Typography variant="h6" component="h5">Location: {this.state.city}</Typography>
+                    <Typography variant="h6" component="h5">Email: {this.state.email}</Typography>
+                    <Typography variant="h6" component="h5">Location: {this.state.city},{this.state.province}.</Typography>
                     <Typography component="p">I am a {this.state.isMentor === null ? "Learner" : "Mentor"}</Typography>
                     <br/>
                     <Typography component="p">Following: 13</Typography>
                   </Grid>
                   <Grid item xs={3} style={{margin:' 1.3em auto'}}>
-                    <Button variant="outlined" color="secondary" className={useStyles.button}>Messages</Button>
+                    <Button  color="secondary" className={useStyles.button}>Messages</Button>
+                    <Button color="secondary" className={useStyles.button} onClick={this.toEditprofile.bind(this)}>Edit Profile</Button>
                   </Grid>
                 </Grid>
               </Paper>
@@ -222,4 +233,4 @@ class Profile extends Component {
 }
 
 
-export default Profile;
+export default withRouter(Profile);
