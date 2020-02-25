@@ -4,6 +4,8 @@ const path = require('path');
 var bodyParser = require('body-parser')
 
 var Users = require('./routes/Users')
+var Search = require("./routes/searchUsers")
+var MentorPosts = require("./routes/mentorPosts")
 
 const app = express();
 
@@ -15,7 +17,9 @@ app.use(
   })
 )
 
+app.use("/Search", Search);
 app.use("/Users", Users);
+app.use("/MentorPosts", MentorPosts);
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 // The "catchall" handler: for any request that doesn't
