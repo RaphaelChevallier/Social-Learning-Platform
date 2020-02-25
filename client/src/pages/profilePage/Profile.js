@@ -95,7 +95,7 @@ class Profile extends Component {
               <Paper className={useStyles.paper} style={{width:'60%'}}>
                 <Grid container spacing={3}  justify='flex-end' wrap="nowrap" direction="row">
                   <Grid item xs={4} justify='flex-start' alignItems="flex-start">
-                    <Avatar style={{margin:' 1.3em auto', backgroundColor:'#ff8c00'}}>{this.state.firstName.charAt(0)}{this.state.lastName.charAt(0)}</Avatar>
+                    <Avatar style={{margin:' 1.3em auto', backgroundColor:'#ff8c00'}}>{this.state.firstName.charAt(0).toUpperCase()}{this.state.lastName.charAt(0).toUpperCase()}</Avatar>
                   </Grid>
                   <Grid item xs={7} style={{margin:' 5px auto'}}>
                     <Typography variant="h2" component="h3">{this.state.firstName} {this.state.lastName}</Typography>
