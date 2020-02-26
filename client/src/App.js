@@ -16,6 +16,10 @@ import MentorCreationPage from "./pages/mentorCreation/mentorCreationPage";
 import EditProfileForm from "./pages/profilePage/EditProfileForm";
 import { makeStyles } from '@material-ui/core/styles';
 import jwt_decode from 'jwt-decode';
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+
+
 
 
 
@@ -42,6 +46,15 @@ export default function App() {
       <PrivateRouteMentorContent path="/post"> <MentorCreationPage /></PrivateRouteMentorContent>
       <PrivateRoute path="/profile-page"> <Profile /> </PrivateRoute>
       <PrivateRoute path="/editprofile"> <EditProfileForm/></PrivateRoute>
+      <Route 
+            path = "/ForgotPassword">
+            <ForgotPassword />
+           </Route>
+           <Route 
+            path = "/ResetPassword/:token">
+            <ResetPassword />
+           </Route>
+
       <PrivateRoute path="/search-users"> <SearchUsers/>> </PrivateRoute>
     </BrowserRouter>
   );
