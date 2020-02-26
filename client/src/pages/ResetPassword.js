@@ -146,17 +146,12 @@ const title = {
               </p>
               <Link to={"/sign-in"}>
                 <Button variant="contained" color="primary">
-                  Login
+                 Return to Sign in
                 </Button>
               </Link>
             </div>
           )}
 
-          <Link to={"/"}>
-            <Button variant="contained" color="primary">
-              Go Home
-            </Button>
-          </Link>
         </div>
       );
     }

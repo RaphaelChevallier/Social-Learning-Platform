@@ -99,9 +99,9 @@ class forgotPassword extends Component {
             <h3>Password Reset Email Sent!</h3>
           </div>
         )}
-        <Link to={"/"}>
+        <Link to={"/sign-in"}>
           <Button variant="contained" color="primary">
-            Go Home
+            Return to Sign in
           </Button>
         </Link>
       </div>
