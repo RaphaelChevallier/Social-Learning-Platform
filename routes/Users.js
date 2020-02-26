@@ -15,7 +15,7 @@ const crypto = require("crypto");
 
 require("dotenv").config();
 const nodemailer = require("nodemailer");
-const BCRYPT_SALT_ROUNDS = 12;
+const BCRYPT_SALT_ROUNDS = 10;
 
 users.post("/forgot", function(req, res) {
   var email = req.body.email;
@@ -67,7 +67,7 @@ users.post("/forgot", function(req, res) {
                   text:
                     "You are receiving this because you (or someone) have requested to reset the password for this account.\n\n" +
                     "Please click on the following link, or paste said link into your browser to complete the process within one hour of receiving it: \n\n" +
-                    "http://localhost:3000/ResetPassword/"+token+"\n\n" +
+                    (process.env.DEV ? "https://giddy-up-dev.herokuapp.com/ResetPassword" : "http://localhost:3000/ResetPassword/")+token+"\n\n" +
                     "If you did not request this, please ignore the email and your passworld will remain unchanged.\n"
                 };
               
