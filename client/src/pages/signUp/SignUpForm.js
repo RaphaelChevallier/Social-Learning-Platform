@@ -88,46 +88,6 @@ onTagsChange = (event, values) => {
       }
       
     };
-    
-    sendEmail = e =>{
-      e.preventDefault();
-      if(this.state.email == ''){
-          this.setState({
-              showError: false,
-              serverMessage: '',
-          });
-}else {
-  axios
-  .post('http://localhost:3003/forgotPassword',{
-      email: this.state.email,
-
-  })
-  .then(response => {
-      console.log(response.data);
-      if(response.data=='email not in db'){
-          this.setState({
-              showError: true,
-              serverMessage: '',
-              
-          })
-      }else if (response.data == 'recovery email sent'){
-          this.setState({
-              showError: false,
-              serverMessage: 'recovery email sent',
-          });
-      }
-  })
-  .catch(error => {
-      console.log(error.data);
-
-  });
-}
-
-
-
-
-
-};
 
     lastSubmit(e) {
       if(e){
