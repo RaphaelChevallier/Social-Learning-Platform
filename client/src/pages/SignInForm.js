@@ -4,7 +4,6 @@ import axios from 'axios';
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import forgotPassword from './ForgotPassword';
 
 class SignInForm extends Component {
   constructor() {

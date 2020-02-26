@@ -16,7 +16,7 @@ import MentorCreationPage from "./pages/mentorCreation/mentorCreationPage";
 import EditProfileForm from "./pages/profilePage/EditProfileForm";
 import { makeStyles } from '@material-ui/core/styles';
 import jwt_decode from 'jwt-decode';
-import ForgotPassword from "./pages/ForgotPassword";
+import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 
 
