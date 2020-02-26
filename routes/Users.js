@@ -20,6 +20,12 @@ const BCRYPT_SALT_ROUNDS = 10;
 users.post("/forgot", function(req, res) {
   var email = req.body.email;
 
+  if (process.env.DEV){
+    var urlReset = "https://giddy-up-dev.herokuapp.com/ResetPassword/"
+  } else if (process.env.PROD){
+    var urlReset = "https://giddy-up-prod.herokuapp.com/ResetPassword/"
+  }
+
 
   if (email == "") {
     res.status(400).send("email required");
@@ -67,7 +73,7 @@ users.post("/forgot", function(req, res) {
                   text:
                     "You are receiving this because you (or someone) have requested to reset the password for this account.\n\n" +
                     "Please click on the following link, or paste said link into your browser to complete the process within one hour of receiving it: \n\n" +
-                    (process.env.DEV ? "https://giddy-up-dev.herokuapp.com/ResetPassword/" : "http://localhost:3000/ResetPassword/")+token+"\n\n" +
+                    (process.env.DEV || process.env.PROD? urlReset : "http://localhost:3000/ResetPassword/")+token+"\n\n" +
                     "If you did not request this, please ignore the email and your passworld will remain unchanged.\n"
                 };
               
