@@ -73,7 +73,7 @@ users.post("/forgot", function(req, res) {
                   text:
                     "You are receiving this because you (or someone) have requested to reset the password for this account.\n\n" +
                     "Please click on the following link, or paste said link into your browser to complete the process within one hour of receiving it: \n\n" +
-                    (process.env.DEV || process.env.PROD? urlReset : "http://localhost:3000/ResetPassword/")+token+"\n\n" +
+                    (urlReset? urlReset : "http://localhost:3000/ResetPassword/")+token+"\n\n" +
                     "If you did not request this, please ignore the email and your passworld will remain unchanged.\n"
                 };
               
