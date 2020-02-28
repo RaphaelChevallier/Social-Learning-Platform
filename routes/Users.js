@@ -103,7 +103,7 @@ users.get("/reset", function(req, res) {
   //find the user with that token in the database.
   console.log("reset started: grabbing query tokens");
   console.log(req.query);
-  tokenTest = req.query.resetPasswordToken;
+  var tokenTest = req.query.resetPasswordToken;
   console.log("here's the token taken from the link: " + tokenTest);
   // expiryTest = req.query.resetExpiry;
   db.query(
@@ -116,10 +116,10 @@ users.get("/reset", function(req, res) {
         console.log("query complete");
         console.log("checking");
         console.log("row count" + results.rows.length);
-        resettoken = results.rows[0].resettoken;
+        var resettoken = results.rows[0].resettoken;
         console.log(resettoken);
-        resetExpire = results.rows[0].resetexpire;
-        user_id=results.rows[0].user_id;
+        var resetExpire = results.rows[0].resetexpire;
+        var user_id=results.rows[0].user_id;
         console.log(resetExpire);
 
         console.log(user_id)
