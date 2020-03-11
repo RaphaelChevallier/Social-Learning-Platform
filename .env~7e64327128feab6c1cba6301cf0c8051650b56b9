@@ -1,0 +1,4 @@
+NODE_ENV=development
+JWT_SECRET=capstone-project
+EMAIL_ADDRESS=giddyup.reset
+EMAIL_PASSWORD=giddyup123

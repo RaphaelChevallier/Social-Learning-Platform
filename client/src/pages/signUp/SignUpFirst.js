@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { FormLabel } from '@material-ui/core';
 
 export class SignUpFirst extends Component {
     continue = e =>{
