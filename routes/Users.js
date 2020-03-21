@@ -230,7 +230,7 @@ users.post('/register', function(req, res, next) {
     if(registerValidate(req.body).isValid == true){
       if(isMentor == "false"){
         bcrypt.hash(password, saltRounds, function(err, hash) {
-          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, province, country, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.province, req.body.country, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
             if(error) {
               console.log("Something went wrong with the db");
               console.log(error.message || error);
@@ -245,7 +245,7 @@ users.post('/register', function(req, res, next) {
         });
       }else{
         bcrypt.hash(password, saltRounds, function(err, hash) {
-          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests , mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(\'serial_mentor_id\'))', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, province, country, bdate, summary, interests , mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, nextval(\'serial_mentor_id\'))', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.province, req.body.country, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
             if(error) {
               console.log("Something went wrong with the db");
               console.log(error.message || error);
@@ -280,12 +280,12 @@ users.post('/register', function(req, res, next) {
 users.post('/edit', function(req, res, next) { 
   db.query('UPDATE \"USER\" SET firstname=$1, lastname=$2, email=$3, city=$4, bdate=$5, summary=$6, interests=$7, gender=$8, country=$9, province=$10 WHERE user_id=$11' ,
          [req.body.firstName, req.body.lastName, req.body.email, req.body.city, req.body.birthdate, req.body.summary, req.body.interests, req.body.gender, req.body.country, req.body.province,req.body.user_id], (error, results) => {
-          if(error) {
+           if(error) {
             console.log("Something went wrong with the db");
             console.log(error.message || error);
-            res.send("Please enter a brief summary")
+            // res.send(error)
             res.end()
-          } 
+          }
         });
             db.query('select array_to_json(array_agg(row_to_json(t)))from (SELECT * FROM "USER" WHERE email = $1) t', [req.body.email], (error, results) => {
               if (error) {

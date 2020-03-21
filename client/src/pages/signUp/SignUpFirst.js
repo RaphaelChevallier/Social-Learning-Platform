@@ -16,20 +16,20 @@ export class SignUpFirst extends Component {
           <MuiThemeProvider >
             <React.Fragment>
               <div style = {container}>
-                
+              <h1>Sign Up</h1>
                 <TextField
                   
                   placeholder="Enter Your First Name"
                   label="First Name"
                   onChange={handleChange('firstName')}
                   defaultValue={values.firstName}
-                  
+                  style={{width:300}}
                   margin="normal"
                                 fullWidth="true"
                 />
-                <br />
-        
+                
                 <TextField
+                  style={{width:300,marginLeft:20}}
                   placeholder="Enter Your Last Name"
                   label="Last Name"
                   onChange={handleChange('lastName')}
@@ -39,11 +39,26 @@ export class SignUpFirst extends Component {
                 />
                 <br />
                 <TextField
+                  id="date"
+                  label="Birthdate"
+                  type="date"
+                  onChange={handleChange("birthdate")}
+                  defaultValue={values.birthdate}
+                  margin="normal"
+                  fullWidth="true"
+                  style={{width:300}}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <br />
+                <TextField
                   placeholder="Enter Your Email"
                   label="Email"
                   onChange={handleChange('email')}
                   defaultValue={values.email}
                   margin="normal"
+                  style={{width:620}}
                                 fullWidth="true"
                 />
                 <br />
@@ -54,9 +69,10 @@ export class SignUpFirst extends Component {
                   defaultValue={values.password}
                   type="password"
                   margin="normal"
+                  style={{width:300}}
                   fullWidth="true"
                 />
-                <br />
+                
                 <TextField
                   placeholder="Re-Enter Your Password"
                   label="Re-Enter Your Password"
@@ -64,6 +80,7 @@ export class SignUpFirst extends Component {
                   defaultValue={values.passVerify}
                   type="password"
                   margin="normal"
+                  style={{width:300,marginLeft:20}}
                   fullWidth="true"
                 />
                 <br />
@@ -89,10 +106,5 @@ const container = {
     border: '5px orange'
 
 };
-const footer = {
-  flexShrink: "0",
-  textAlign: "center",
-  backgroundColor: "orange",
-  color: "white"
-}
+
 export default SignUpFirst;

@@ -2,7 +2,6 @@ import React from "react";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import FormLabel from "@material-ui/core/FormLabel";
 import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
 
 const Confirm = ({
   values,
@@ -26,6 +25,8 @@ const Confirm = ({
             <label>Email: {values.email} </label> <br />
             <label>Password: {values.password} </label> <br />
             <label>City: {values.city} </label> <br />
+            <label>Province: {values.province} </label> <br />
+            <label>Country: {values.country} </label> <br />
             <label>Birthdate: {values.birthdate} </label> <br />
             <label>Summary: {values.summary} </label> <br />
             <label>Interests: {JSON.stringify(values.interests)} </label> <br />

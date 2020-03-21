@@ -6,9 +6,6 @@ import Thanks from '../../images/thankYou.jpg';
 
 
 export class Success extends Component {
-  constructor() {
-    super();
-  }
 
   toProfile = e =>{
     e.preventDefault();

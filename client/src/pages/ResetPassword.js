@@ -8,9 +8,6 @@ const loading = {
   margin: "1em",
   fontSize: "24px"
 };
-const title = {
-  pageTitle: "Password Reset Screen"
-};
 
  class ResetPassword extends  Component {
   constructor() {
@@ -79,7 +76,7 @@ const title = {
         })
         .then(response => {
           console.log(response.data);
-          if (response.data.message == "password updated") {
+          if (response.data.message === "password updated") {
             this.setState({
               updated: true,
               error: false,
@@ -122,8 +119,8 @@ const title = {
       );
     } else {
       return (
-        <div>
-        
+        <div style={container}>
+          <h1>Reset Password</h1>
           <form className="password-form" onSubmit={this.updatePassword}>
             <TextField
               id="password"
@@ -132,9 +129,10 @@ const title = {
               onChange={this.handleChange("password")}
               placeholder="New Password"
               type="password"
+              style={{width: 300}}
             />
             {/* <input type = "submit" Value = "Submit" style = {submitStyle} /> */}
-            <Button variant="contained" color="primary" onClick = {this.updatePassword}>
+            <Button style={{top:20}} variant="contained" color="primary" onClick = {this.updatePassword}>
                 Update
               </Button>
           </form>
@@ -157,17 +155,11 @@ const title = {
     }
   }
 }
+const container = {
+  margin: '150px',
+  border: '5px orange'
+};
 
-
-var submitStyle = { 
-  backgroundColor: "#1E2DAA",
-  border: "none",
-  color: "white",
-  padding: "20em , 20em",
-  margin: "20em, 20em;",
-  cursor: "pointer",
-  textDecoration: "none",
-   };
 export default withRouter(ResetPassword);
 
 

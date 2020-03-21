@@ -20,6 +20,8 @@ class SignUpForm extends Component{
               password: '',//needs valid
               passVerify: '',//needs valid
               city: '',
+              province:'',
+              country:'',
               birthdate: null,
               summary: '',
               interests: {},
@@ -104,7 +106,7 @@ onTagsChange = (event, values) => {
       axios
         .post('/Users/register', this.state)
         .then(res => { 
-          if(res.data === true && res.status == 200 && pass === ver){
+          if(res.data === true && res.status === 200 && pass === ver){
             console.log("Registered")
             axios.post('Users/signin', this.newState)
             .then(res => {
@@ -120,7 +122,7 @@ onTagsChange = (event, values) => {
             //This is where the registration was a success
             //Put here the routing to the next react page for the extra questions or rerender current page to show new component
           }else {
-          if(res.data == "Duplicate entries of email"){
+          if(res.data === "Duplicate entries of email"){
             this.setState({
               step: 1
             });
@@ -165,6 +167,8 @@ onTagsChange = (event, values) => {
             passVerify: '',
             name: '',
             city: '',
+            province:'',
+            country:'',
             birthdate: null,
             summary: '',
             interests: {},
@@ -183,8 +187,8 @@ onTagsChange = (event, values) => {
 
     render(){
       const { step } = this.state;
-      const { firstName, lastName, email, password, passVerify, city, birthdate, summary, interests, isMentor, mentorSubject, yearsExp, expLevel} = this.state;
-      const values = {firstName, lastName, email, password, passVerify, city, birthdate, summary, interests, isMentor, mentorSubject, yearsExp, expLevel};
+      const { firstName, lastName, email, password, passVerify, city, province, country, birthdate, summary, interests, isMentor, mentorSubject, yearsExp, expLevel} = this.state;
+      const values = {firstName, lastName, email, password, passVerify, city, province, country, birthdate, summary, interests, isMentor, mentorSubject, yearsExp, expLevel};
       
       switch (step) {
         case 1: 
