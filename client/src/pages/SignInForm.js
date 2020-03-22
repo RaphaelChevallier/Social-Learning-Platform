@@ -84,7 +84,7 @@ class SignInForm extends Component {
                   onClick={this.handleSubmit}
                 >Sign In</Button>
               
-            <Link to = "/ForgotPassword">forgot password?</Link>
+            <Link style={{marginLeft:20}}to = "/ForgotPassword">forgot password?</Link>
  
             
               

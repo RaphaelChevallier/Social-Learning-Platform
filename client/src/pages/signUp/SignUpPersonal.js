@@ -55,19 +55,15 @@ export class SignUpPersonal extends Component {
                   id="demo-customized-select-native"
                   name='country'
                   onChange={handleChange("country")}
-                  defaultValue={values.country}
                 >
                   <option value="">Choose Your Country</option> 
-                  <option value={"Canada"}>Canada</option>
-                  {/* <option value={"United States"}>United States</option> */}
-                  
+                  <option value={"Canada"}>Canada</option>  
                 </NativeSelect>
                 
                 <NativeSelect style={{width: 300,marginLeft:20,marginTop:20}}
                   id="demo-customized-select-native"
                   name='province'
                   onChange={handleChange("province")}
-                  defaultValue={values.province}
                 >
                   <option value="">Choose Your Province/Territory</option> 
                   <option value={"BC"}>British Columbia</option>
