@@ -27,16 +27,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
         <MuiThemeProvider >
           <React.Fragment>
             <div style = {container}>
-          
-              {/* <TextField
-                
-                placeholder="Enter your Mentor Subjects"
-                label="Mentor Subject"
-                onChange={handleChange('mentorSubject')}
-                defaultValue={values.mentorSubject}
-                margin="normal"
-                              fullWidth="true"
-              /> */}
               <Autocomplete
               multiple
               id="tags-outlined"
@@ -57,21 +47,11 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
               )}
             />
               <br />
-              {/* <TextField
-                placeholder="Enter your years of experience"
-                label="Subject experience"
-                onChange={handleChange('yearsExp')}
-                defaultValue={values.yearsExp}
-                margin="normal"
-                              fullWidth="true"
-              /> */}
-              {/* <div style = {container}> */}
               <FormControl margin="normal" fullWidth="true">
                 <InputLabel htmlFor="exp">Primary Mentor Subject Experience</InputLabel>
                 <Select
                   style={{width: 300}}
                   native
-                  // value={this.state.age}
                   onChange={handleChange('yearsExp')}
                   inputProps={{
                     name: 'experience',
@@ -86,7 +66,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
                   <option value={"Master"}>Master</option>
                 </Select>
               </FormControl>
-              {/* </div> */}
               <br />
               <Button color="primary" style = {buttonStyle} variant="contained" onClick={this.previous}>
                 Previous</Button>

@@ -42,6 +42,7 @@ onTagsChange = (event, values) => {
         interests: Object.assign({}, values)
       });
     }
+
   skipStep=() =>{
     const {step} = this.state;
     this.setState({
