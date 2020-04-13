@@ -11,6 +11,7 @@ import Navbar from "./pages/Navbar";
 import SignUpForm from "./pages/signUp/SignUpForm";
 import SignInForm from "./pages/SignInForm";
 import Profile from "./pages/profilePage/Profile";
+import Newsfeed from "./pages/newsFeed/newsFeed"
 import SearchUsers from "./pages/SearchUsers";
 import MentorCreationPage from "./pages/mentorCreation/mentorCreationPage";
 import EditProfileForm from "./pages/profilePage/EditProfileForm";
@@ -45,6 +46,7 @@ export default function App() {
       <PrivateRouteRegister path="/register"> <SignUpForm/> </PrivateRouteRegister>
       <PrivateRouteMentorContent path="/post"> <MentorCreationPage /></PrivateRouteMentorContent>
       <PrivateRoute path="/profile-page"> <Profile /> </PrivateRoute>
+      <PrivateRoute path="/newsfeed"> < Newsfeed/> </PrivateRoute>
       <PrivateRoute path="/editprofile"> <EditProfileForm/></PrivateRoute>
       <Route 
             path = "/ForgotPassword">

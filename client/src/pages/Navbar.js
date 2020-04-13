@@ -54,6 +54,9 @@ toContentCreation= (e) => {
 toSearch= (e) => {
   this.props.history.push('/search-users')
 }
+toNewsfeed= (e) => {
+  this.props.history.push('/newsfeed')
+}
 
 
 render(){
@@ -130,13 +133,13 @@ const LoginRegSwitch = (
   )
     return(
         <div className ={classes.root}>   
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar>
                 <img src={Logo} alt="websitelogo"/>
                 <Typography variant="h4" className={classes.title} style={{  width: '80%', position: 'relative' }}>
                     GIDDY-UP
                     <Button color="inherit" onClick = "null">Home </Button>
-                    {localStorage.usertoken!=null ? <Button color="inherit" onClick="null">Newsfeed</Button>:""}
+                    {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toNewsfeed}>Newsfeed</Button>:""}
                     <Button color="inherit" onClick = "null"> Contact Us </Button> 
                 </Typography>
                 {localStorage.usertoken ? LogoutProfile : LoginRegSwitch }

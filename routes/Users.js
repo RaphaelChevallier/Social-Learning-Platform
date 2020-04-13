@@ -230,7 +230,7 @@ users.post('/register', function(req, res, next) {
     if(registerValidate(req.body).isValid == true){
       if(isMentor == "false"){
         bcrypt.hash(password, saltRounds, function(err, hash) {
-          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests, followingmentors) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, \'[]\')', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
             if(error) {
               console.log("Something went wrong with the db");
               console.log(error.message || error);
@@ -245,7 +245,7 @@ users.post('/register', function(req, res, next) {
         });
       }else{
         bcrypt.hash(password, saltRounds, function(err, hash) {
-          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests , mentor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(\'serial_mentor_id\'))', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
+          db.query('INSERT INTO "USER"(firstname, lastname, email, password, city, bdate, summary, interests , mentor_id, followingmentors) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, nextval(\'serial_mentor_id\'),\'[]\')', [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.city, req.body.birthdate, req.body.summary, req.body.interests], (error, results) => {
             if(error) {
               console.log("Something went wrong with the db");
               console.log(error.message || error);
