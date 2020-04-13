@@ -1,6 +1,8 @@
 
 import React, { Component } from 'react'
 import { HashRouter as Router, NavLink, withRouter} from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import { Link} from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -109,7 +111,7 @@ const LoginRegSwitch = (
                 <Typography variant="h4" className={classes.title} style={{  width: '80%', position: 'relative' }}>
                     GIDDY-UP
                     <Button color="inherit" onClick = "null">Home </Button>
-                    <Button color="inherit" onClick = "null"> Contact Us </Button> 
+                    <Link to={"/Contact"}><Button color="white" colorTextPrimary = "white" secondary="white" onClick = "null"> Contact Us </Button> </Link>
                     {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toNewsfeed}>Newsfeed</Button>:""}
                     {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toSearch}>Search Users</Button>:""}
                     {

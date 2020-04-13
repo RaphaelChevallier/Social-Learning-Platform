@@ -3,8 +3,11 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import FormLabel from "@material-ui/core/FormLabel";
 import Button from '@material-ui/core/Button';
 
+
+
 const Confirm = ({
   values,
+  prevStep,
   nextStep,
   handleSubmit
 }) => {
@@ -35,7 +38,17 @@ const Confirm = ({
             <label>Experience Level: {values.expLevel} </label> <br />
           </FormLabel>
           </div>
+          <Button color="primary" style = {buttonStyle} variant="contained" onClick={this.previous}>
+                Go Back</Button>
           <div style = {endButton}>
+          <Button
+            color="primary"
+            variant="contained"
+            style={buttonStyle}
+            onClick={function(event){ prevStep()}}
+          >
+            Go Back
+          </Button>
           <Button
             color="primary"
             variant="contained"

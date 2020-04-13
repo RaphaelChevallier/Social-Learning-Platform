@@ -7,6 +7,7 @@ import SignUpPersonal from './SignUpPersonal';
 import Confirm from './Confirm';
 import Success from './Success';
 import SignUpFinal from './SignUpFinal';
+import SimpleReactValidator from 'simple-react-validator';
 
 class SignUpForm extends Component{
     constructor(){
@@ -35,6 +36,7 @@ class SignUpForm extends Component{
           this.lastSubmit = this.lastSubmit.bind(this);
           this.handleChange = this.handleChange.bind(this);
           this.onTagsChange = this.onTagsChange.bind(this);
+          this.validator = new SimpleReactValidator();
       }
 
 onTagsChange = (event, values) => {

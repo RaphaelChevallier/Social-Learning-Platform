@@ -86,8 +86,6 @@ class SignInForm extends Component {
               
             <Link style={{marginLeft:20}}to = "/ForgotPassword">forgot password?</Link>
  
-            
-              
                 </div>
                 
             
