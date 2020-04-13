@@ -111,7 +111,7 @@ const LoginRegSwitch = (
                     <Button color="inherit" onClick = "null">Home </Button>
                     <Button color="inherit" onClick = "null"> Contact Us </Button> 
                     {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toNewsfeed}>Newsfeed</Button>:""}
-                    <Button color="inherit" onClick={this.toSearch}>Search Users</Button>
+                    {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toSearch}>Search Users</Button>:""}
                     {
                       (this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
                       <Button color="inherit" onClick={this.toContentCreation.bind(this)}>Content Creation</Button>:""
