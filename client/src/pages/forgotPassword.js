@@ -1,22 +1,11 @@
 //feature built from this article: https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7
 
 import React, { Component } from "react";
-// import { MuiThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
-const container = {
-
-  margin: "150px",
-  
- 
-
-  border: "5px orange",
-  
-};
 const formatted= ({
  
   display: 'flex',
