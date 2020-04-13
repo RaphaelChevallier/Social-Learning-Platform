@@ -3,13 +3,28 @@ import {MuiThemeProvider} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { FormLabel } from '@material-ui/core';
+import SimpleReactValidator from 'simple-react-validator';
 
 export class SignUpFirst extends Component {
+  constructor() {
+    super();
+    this.validator = new SimpleReactValidator();
+  }
     continue = e =>{
-        // e.preventDefault();
+      //the validation before moving on
+      if(this.validator.allValid()){
         this.props.nextStep();
-    }
+      }
+      else{
+        this.validator.showMessages();
+
+        this.forceUpdate();
+      }
     
+        // e.preventDefault();
+       
+    }
+
     
     render() {
         const { values, handleChange } = this.props;
@@ -28,7 +43,8 @@ export class SignUpFirst extends Component {
                   margin="normal"
                                 fullWidth="true"
                 />
-                <br />
+                <br/>
+                {this.validator.message('firstName', this.props.values.firstName, 'required|alpha')}
         
                 <TextField
                   placeholder="Enter Your Last Name"
@@ -38,6 +54,7 @@ export class SignUpFirst extends Component {
                   margin="normal"
                                 fullWidth="true"
                 />
+                {this.validator.message('lastName', this.props.values.lastName, 'required|alpha')}
                 <br />
                 <TextField
                   placeholder="Enter Your Email"
@@ -47,6 +64,7 @@ export class SignUpFirst extends Component {
                   margin="normal"
                                 fullWidth="true"
                 />
+                {this.validator.message('email', values.email, 'required|email')}
                 <br />
                 <TextField
                   placeholder="Enter Your Password"
@@ -57,6 +75,7 @@ export class SignUpFirst extends Component {
                   margin="normal"
                   fullWidth="true"
                 />
+                {this.validator.message('password', this.props.values.password, 'required|alpha_num')}
                 <br />
                 <TextField
                   placeholder="Re-Enter Your Password"
@@ -67,6 +86,7 @@ export class SignUpFirst extends Component {
                   margin="normal"
                   fullWidth="true"
                 />
+                {this.validator.message('passVerify', this.props.values.passVerify, 'required|in:'+this.props.values.password)}
                 <br />
                 <Button
                   color="primary"

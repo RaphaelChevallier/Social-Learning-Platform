@@ -18,7 +18,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import jwt_decode from 'jwt-decode';
 import ForgotPassword from "./pages/forgotPassword";
 import ResetPassword from "./pages/ResetPassword";
-
+import Contact from "./pages/contactPage/Contact";
+import Landing from "./pages/Landing";
 
 
 
@@ -49,6 +50,14 @@ export default function App() {
       <Route 
             path = "/ForgotPassword">
             <ForgotPassword />
+           </Route>
+           <Route 
+            path = "/Contact">
+            <Contact />
+           </Route>
+           <Route 
+            path = "/Landing">
+            <Landing />
            </Route>
            <Route 
             path = "/ResetPassword/:token">

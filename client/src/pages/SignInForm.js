@@ -81,10 +81,10 @@ class SignInForm extends Component {
                   onClick={this.handleSubmit}
                 >Sign In</Button>
               
-            <Link to = "/ForgotPassword">forgot password?</Link>
- 
+              <Link to = "/ForgotPassword">  <Button color = "primary" variant = "contained" >forgot password?
+            </Button>
             
-              
+            </Link>
                 </div>
                 
             

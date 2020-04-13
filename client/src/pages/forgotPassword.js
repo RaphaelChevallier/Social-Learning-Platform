@@ -8,6 +8,35 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { Link, withRouter } from "react-router-dom";
 
+const container = {
+
+  margin: "150px",
+  
+ 
+
+  border: "5px orange",
+  
+};
+const formatted= ({
+ 
+  display: 'flex',
+  flexDirection: "column",
+  marginTop: "2rem",
+  alignItems: 'center',
+  marginTop: "2rem",
+  justifyContent: 'center',
+});
+
+const formattedButton= ({
+ 
+  display: 'flex',
+ 
+  marginTop: "2rem",
+  alignItems: 'center',
+ 
+  
+});
+
 class forgotPassword extends Component {
   constructor() {
     super();
@@ -33,6 +62,7 @@ class forgotPassword extends Component {
         serverMessage: ""
       });
     } else {
+      window.alert("The email provided is being sent a reset link! Submit again if you don't receive an email.");
       axios
       
         .post("/Users/forgot", {
@@ -50,28 +80,34 @@ class forgotPassword extends Component {
               showError: false,
               serverMessage: "recovery email sent"
             });
+            
           }
         })
         .catch(error => {
           console.log(error.data);
           console.log("didn't work :(")
+          window.alert("looks like something went wrong! Please try again later.");
         });
+
+        
     }
+    
   };
   render() {
     const { email, serverMessage, showNullError, showError } = this.state;
 
     return (
-      <div>
+      <div style = {container}>
         <form className="profile-form" onSubmit={this.sendEmail}>
           <TextField
+          style = {formatted}
             id="email"
             label="email"
             value={email}
             onChange={this.handleChange("email")}
             placeholder="Email Address"
           />
-            <Button variant="contained" color="primary" onClick = {this.sendEmail}>
+            <Button  style = {formattedButton} variant="contained" color="primary" onClick = {this.sendEmail}>
                 Submit
               </Button>
           {/* <input type = "submit" value = "Submit"/> */}
@@ -88,19 +124,23 @@ class forgotPassword extends Component {
               new account
             </p>
             <Link to={"/SignUpFirst"}>
-              <Button variant="contained" color="primary">
+              <Button 
+              style = {formattedButton}
+              variant="contained" color="primary">
                 Register
               </Button>
             </Link>
           </div>
         )}
-        {serverMessage == "recovery email sent" && (
+        {serverMessage === "recovery email sent" && (
           <div>
             <h3>Password Reset Email Sent!</h3>
           </div>
         )}
         <Link to={"/sign-in"}>
-          <Button variant="contained" color="primary">
+          <Button 
+          style = {formattedButton}
+          variant="contained" color="primary">
             Return to Sign in
           </Button>
         </Link>

@@ -10,6 +10,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 const users = express.Router();
 
+
 // The dependencies and code for the nodemailer email send
 const crypto = require("crypto");
 
@@ -94,6 +95,53 @@ users.post("/forgot", function(req, res) {
     );
   }
 });
+
+users.post("/contact", function(req, res) {
+  var email = req.body.email;
+  var name = req.body.name;
+  var message = req.body.message;
+  if (process.env.DEV){
+    var urlReset = "https://giddy-up-dev.herokuapp.com/ResetPassword/"
+  } else if (process.env.PROD){
+    var urlReset = "https://giddy-up-prod.herokuapp.com/ResetPassword/"
+  }
+
+
+  if (email == "" || name == "" || message == "") {
+    res.status(400).send("all fields required");
+  } else {
+                console.log("sending mail");
+                const transporter = nodemailer.createTransport({
+                  //create the transporter from nodemailer
+                  service: "SendGrid",
+                  auth: {
+                    user: process.env.EMAIL_ADDRESS,
+                    pass: process.env.EMAIL_PASSWORD
+                  }
+                });
+                const mailOptions = {
+                  from: req.body.email,
+                  //"ryanmaarschalk@gmail.com"
+                  to: "tyrelnarciso@hotmail.com",
+                  subject: "Giddy-Up Contact Message",
+                  text:
+                    req.body.message
+                };
+              
+                transporter.sendMail(mailOptions, (err, response) => {
+                  if (err) {
+                    console.error("there was an error: ", err);
+                  } else {
+                    console.log("here is the res: ", response);
+                    res.status(200).json("contact message sent");
+                  }
+                });
+                res.end();
+              }
+            }
+          );
+        
+ 
 
 //end of nodemailer code
 
