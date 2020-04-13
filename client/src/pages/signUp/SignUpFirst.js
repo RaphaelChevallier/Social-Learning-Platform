@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 
 export class SignUpFirst extends Component {
     continue = e =>{
-        // e.preventDefault();
         this.props.nextStep();
     }
     

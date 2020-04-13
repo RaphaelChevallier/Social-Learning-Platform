@@ -14,15 +14,6 @@ const container = {
     border: '5px orange'
 
 };
-// const useStyles = makeStyles(theme => ({
-//     formControl: {
-//       margin: theme.spacing(1),
-//       minWidth: 120,
-//     },
-//     selectEmpty: {
-//       marginTop: theme.spacing(2),
-//     },
-//   }));
   
   const SignUpFinal = ({nextStep, prevStep, skipPrev, values, handleChange}) => {
     let button;
@@ -96,9 +87,6 @@ const container = {
   
   
     const buttonStyle = {
-
-  
- 
         padding: "0 32 px",
         margin: "0 64px",
         border: "5px orange"
