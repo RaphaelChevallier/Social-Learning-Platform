@@ -138,11 +138,11 @@ const container = {
   border: '5px orange'
 
 };
-const footer = {
-flexShrink: "0",
-textAlign: "center",
-backgroundColor: "orange",
-color: "white"
-}
+// const footer = {
+// flexShrink: "0",
+// textAlign: "center",
+// backgroundColor: "orange",
+// color: "white"
+// }
 
 export default withRouter(SearchUsers);

@@ -56,6 +56,7 @@ class SignInForm extends Component {
       <MuiThemeProvider >
             <React.Fragment>
               <div style = {container}>
+              <h1>Sign In</h1>
                 <TextField
                   placeholder="Enter Your Email"
                   name="email"
@@ -63,6 +64,7 @@ class SignInForm extends Component {
                   margin="normal"
                   fullWidth="true"
                   onChange={this.handleChange}
+                  style={{width: 620}}
                 />
                 <br />
                 <TextField
@@ -73,6 +75,7 @@ class SignInForm extends Component {
                   margin="normal"
                   fullWidth="true"
                   onChange={this.handleChange}
+                  style={{width: 620}}
                 />
                 <br />
                 <Button
@@ -81,7 +84,7 @@ class SignInForm extends Component {
                   onClick={this.handleSubmit}
                 >Sign In</Button>
               
-            <Link to = "/ForgotPassword">forgot password?</Link>
+            <Link style={{marginLeft:20}}to = "/ForgotPassword">forgot password?</Link>
  
             
               
@@ -99,10 +102,10 @@ const container = {
   border: '5px orange'
 
 };
-const footer = {
-flexShrink: "0",
-textAlign: "center",
-backgroundColor: "orange",
-color: "white"
-}
+// const footer = {
+// flexShrink: "0",
+// textAlign: "center",
+// backgroundColor: "orange",
+// color: "white"
+// }
 export default withRouter(SignInForm);

@@ -7,8 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import Select from 'react-dropdown-select';
-import { Thumbnail } from 'react-bootstrap';
 
  class EditProfileForm extends Component {
     constructor() {
@@ -70,6 +68,8 @@ import { Thumbnail } from 'react-bootstrap';
               return token
             }
             else{
+              e.preventDefault();
+              alert("Duplicate entries of email");
               window.alert(JSON.stringify(res.data));
             }
           } 
@@ -132,15 +132,7 @@ import { Thumbnail } from 'react-bootstrap';
                   }}
                 />
                 <br />
-                <TextField
-                  label="Email"
-                  onChange={this.handleChange('email')}
-                  defaultValue={this.state.email}
-                  value={this.state.email}
-                  margin="normal"
-                  style={{width:620}}
-                  fullWidth="true"
-                />
+                
                 <br />
                 <NativeSelect style={{width: 300,marginTop:20}}
                   id="demo-customized-select-native"
@@ -236,12 +228,7 @@ const container = {
     border: '5px orange'
 
 };
-const footer = {
-  flexShrink: "0",
-  textAlign: "center",
-  backgroundColor: "orange",
-  color: "white"
-}
+
 const interests = [
   { title: "Computer Science"},
   { title: "Mathematics"},

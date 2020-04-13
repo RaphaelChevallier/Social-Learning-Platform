@@ -1,12 +1,12 @@
 //feature built from this article: https://itnext.io/password-reset-emails-in-your-react-app-made-easy-with-nodemailer-bb27968310d7
 
 import React, { Component } from "react";
-import { MuiThemeProvider } from "@material-ui/core/styles";
+// import { MuiThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 
 import Button from "@material-ui/core/Button";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class forgotPassword extends Component {
   constructor() {
@@ -27,7 +27,7 @@ class forgotPassword extends Component {
 
   sendEmail = e => {
     e.preventDefault();
-    if (this.state.email == "") {
+    if (this.state.email === "") {
       this.setState({
         showError: false,
         serverMessage: ""
@@ -40,12 +40,12 @@ class forgotPassword extends Component {
         })
         .then(response => {
           console.log(response.data);
-          if (response.data == "email not in db") {
+          if (response.data === "email not in db") {
             this.setState({
               showError: true,
               serverMessage: ""
             });
-          } else if (response.data == "recovery email sent") {
+          } else if (response.data === "recovery email sent") {
             this.setState({
               showError: false,
               serverMessage: "recovery email sent"
@@ -62,16 +62,19 @@ class forgotPassword extends Component {
     const { email, serverMessage, showNullError, showError } = this.state;
 
     return (
-      <div>
+      <div style={container}>
+        <h1>Forgot Password</h1>
         <form className="profile-form" onSubmit={this.sendEmail}>
           <TextField
             id="email"
-            label="email"
+            label="Email"
             value={email}
             onChange={this.handleChange("email")}
-            placeholder="Email Address"
+            placeholder="Enter a valid email address"
+            style={{width: 300}}
+            margin="normal"
           />
-            <Button variant="contained" color="primary" onClick = {this.sendEmail}>
+            <Button style={{top:20}} variant="contained" color="primary" onClick = {this.sendEmail}>
                 Submit
               </Button>
           {/* <input type = "submit" value = "Submit"/> */}
@@ -94,7 +97,7 @@ class forgotPassword extends Component {
             </Link>
           </div>
         )}
-        {serverMessage == "recovery email sent" && (
+        {serverMessage === "recovery email sent" && (
           <div>
             <h3>Password Reset Email Sent!</h3>
           </div>
@@ -108,5 +111,9 @@ class forgotPassword extends Component {
     );
   }
 }
+const container = {
+  margin: '150px',
+  border: '5px orange'
+};
 
 export default forgotPassword;
