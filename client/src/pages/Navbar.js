@@ -106,30 +106,18 @@ const LoginRegSwitch = (
   const LogoutProfile = (
     <div>
             
-      <PopupState variant="popover" popupId="demo-popup-menu">
-        {popupState => (
-          <React.Fragment>
-            <IconButton aria-label="account of current user" aria-controls="simple-menu" aria-haspopup="true" {...bindTrigger(popupState)}
-              color="inherit"  
-            >
-              
-            <Typography variant="h6" component="h6"style={{ position: 'relative' }}>{this.state.firstName} {this.state.lastName}</Typography>
-              <AccountCircle/>
-            </IconButton>
-            <Menu {...bindMenu(popupState)}>
-                <MenuItem onClick={this.toProfile}>Profile</MenuItem>
-                <MenuItem onClick={this.toSearch}>Search Users</MenuItem>
-                <MenuItem onClick="null">Messages</MenuItem>
-                {(this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
-                <MenuItem onClick={this.toContentCreation.bind(this)}>Content Creation</MenuItem>:""}
-                <MenuItem onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
-            </Menu>
-          </React.Fragment>
-        )}
-      </PopupState>
-  
+        <IconButton aria-label="account of current user" aria-controls="simple-menu" aria-haspopup="true" onClick={this.toProfile}
+          color="inherit"  
+        >
+          
+          <Typography variant="h6" component="h6"style={{ position: 'relative' }}>{this.state.firstName} {this.state.lastName}</Typography>
+            <AccountCircle/>
+        </IconButton>
+
+      
+      <Button color="inherit" onClick = {this.handleLogout.bind(this)}> Logout </Button>
             
-          </div>
+    </div>
   )
     return(
         <div className ={classes.root}>   
@@ -139,8 +127,13 @@ const LoginRegSwitch = (
                 <Typography variant="h4" className={classes.title} style={{  width: '80%', position: 'relative' }}>
                     GIDDY-UP
                     <Button color="inherit" onClick = "null">Home </Button>
-                    {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toNewsfeed}>Newsfeed</Button>:""}
                     <Button color="inherit" onClick = "null"> Contact Us </Button> 
+                    {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toNewsfeed}>Newsfeed</Button>:""}
+                    <Button color="inherit" onClick={this.toSearch}>Search Users</Button>
+                    {
+                      (this.state.isMentor!=null)&& (localStorage.usertoken!=null)?
+                      <Button color="inherit" onClick={this.toContentCreation.bind(this)}>Content Creation</Button>:""
+                    }
                 </Typography>
                 {localStorage.usertoken ? LogoutProfile : LoginRegSwitch }
                 </Toolbar>
@@ -149,5 +142,5 @@ const LoginRegSwitch = (
     )
     }
 }
-
+// style={{  width: '50%', position: 'relative' }}
 export default withRouter(Navbar);
