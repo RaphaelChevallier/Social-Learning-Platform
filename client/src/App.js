@@ -54,11 +54,11 @@ export default function App() {
             <ForgotPassword />
            </Route>
            <Route 
-            path = "/Contact">
+            path = "/contact">
             <Contact />
            </Route>
            <Route 
-            path = "/Landing">
+            path = "/landing">
             <Landing />
            </Route>
            <Route 

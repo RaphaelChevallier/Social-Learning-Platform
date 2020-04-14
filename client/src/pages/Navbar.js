@@ -58,6 +58,12 @@ toSearch= (e) => {
 toNewsfeed= (e) => {
   this.props.history.push('/newsfeed')
 }
+toContact= (e) => {
+  this.props.history.push('/contact')
+}
+toLanding= (e) => {
+  this.props.history.push('/landing')
+}
 
 
 render(){    
@@ -107,11 +113,11 @@ const LoginRegSwitch = (
         <div className ={classes.root}>   
             <AppBar position="fixed">
                 <Toolbar>
-                <img src={Logo} alt="websitelogo"/>
+                  <img src={Logo} alt="websitelogo"/>
                 <Typography variant="h4" className={classes.title} style={{  width: '80%', position: 'relative' }}>
                     GIDDY-UP
-                    <Button color="inherit" onClick = "null">Home </Button>
-                    <Link to={"/Contact"}><Button color="white" colorTextPrimary = "white" secondary="white" onClick = "null"> Contact Us </Button> </Link>
+                    <Button color="inherit" onClick = {this.toLanding}>Home </Button>
+                    <Button color="inherit" onClick = {this.toContact}> Contact Us </Button>
                     {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toNewsfeed}>Newsfeed</Button>:""}
                     {localStorage.usertoken!=null ? <Button color="inherit" onClick={this.toSearch}>Search Users</Button>:""}
                     {
@@ -126,5 +132,5 @@ const LoginRegSwitch = (
     )
     }
 }
-// style={{  width: '50%', position: 'relative' }}
+
 export default withRouter(Navbar);

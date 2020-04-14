@@ -38,8 +38,6 @@ const Confirm = ({
             <label>Experience Level: {values.expLevel} </label> <br />
           </FormLabel>
           </div>
-          <Button color="primary" style = {buttonStyle} variant="contained" onClick={this.previous}>
-                Go Back</Button>
           <div style = {endButton}>
           <Button
             color="primary"

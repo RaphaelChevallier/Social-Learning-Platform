@@ -47,7 +47,7 @@ export class SignUpFirst extends Component {
                 {this.validator.message('firstName', this.props.values.firstName, 'required|alpha')}
         
                 <TextField
-                  style={{width:300,marginLeft:20}}
+                  style={{width:300}}  
                   placeholder="Enter Your Last Name"
                   label="Last Name"
                   onChange={handleChange('lastName')}
@@ -101,7 +101,7 @@ export class SignUpFirst extends Component {
                   defaultValue={values.passVerify}
                   type="password"
                   margin="normal"
-                  style={{width:300,marginLeft:20}}
+                  style={{width:300}}
                   fullWidth="true"
                 />
                 {this.validator.message('passVerify', this.props.values.passVerify, 'required|in:'+this.props.values.password)}
