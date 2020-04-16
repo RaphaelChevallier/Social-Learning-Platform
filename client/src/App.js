@@ -49,6 +49,7 @@ export default function App() {
       <PrivateRoute path="/profile-page"> <Profile /> </PrivateRoute>
       <PrivateRoute path="/newsfeed"> < Newsfeed/> </PrivateRoute>
       <PrivateRoute path="/editprofile"> <EditProfileForm/></PrivateRoute>
+      <Redirect exact from="/" to="/landing" />
       <Route 
             path = "/ForgotPassword">
             <ForgotPassword />
